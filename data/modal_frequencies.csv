@@ -1,0 +1,22 @@
+elastic_mode,aster_mode_number,frequency_hz,engineering_note
+1,7,49.214,Above 1X rotation at 2000 rpm
+2,8,73.181,Below 3X harmonic
+3,9,131.946,Close to 4X rotational harmonic at 133.333 Hz
+4,10,250.576,Higher flexible response
+5,11,289.925,Higher flexible response
+6,12,339.059,Higher flexible response
+7,13,377.305,Higher flexible response
+8,14,450.782,Higher flexible response
+9,15,492.777,Higher flexible response
+10,16,522.370,Higher flexible response
+11,17,584.026,Higher flexible response
+12,18,622.931,Higher flexible response
+13,19,643.105,Higher flexible response
+14,20,748.567,Higher flexible response
+15,21,925.806,Higher flexible response
+16,22,1042.368,Higher flexible response
+17,23,1137.910,Higher flexible response
+18,24,1217.084,Higher flexible response
+19,25,1277.192,Higher flexible response
+20,26,1393.306,Higher flexible response
+21,27,1459.501,Higher flexible response

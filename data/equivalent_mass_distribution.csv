@@ -1,0 +1,5 @@
+region,elements,volume_mm3,mass_kg
+PETG-CF housing region,278034,499125.546,0.648863
+Motor equivalent mass region,23127,117900.693,0.243271
+Electronics base equivalent mass region,11616,87162.950,0.188312
+Total,312777,704189.190,1.080446

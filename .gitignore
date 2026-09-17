@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# LaTeX auxiliary files
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.synctex.gz
+
+# Code_Aster and solver scratch
+base-stage*/
+*.mess
+*.resu
+*.rmed
+*.med
+*.hdf
+*.vtu
+*.vtm
+*.pvd
+*.pvsm~
+
+# Local OS/editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/

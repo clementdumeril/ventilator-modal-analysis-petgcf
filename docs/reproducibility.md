@@ -12,6 +12,9 @@ This repository contains the main scientific artifacts needed to understand and 
 - Compiled PDF report in `reports/`.
 - Result tables in `data/`.
 - README figures and first-mode animation in `assets/`.
+- SALOME-NETGEN meshing script in `src/mesh/` (defaults = settings of the published mesh: min 1 mm, max 10 mm, fineness 2).
+- Drop-shock study in `shock/`: Code_Aster 17.4 `.comm`/`.export` files for the three shroud impact cases and the two
+  base-drop levels, solver logs, result CSVs, post-processing scripts. Report (French): `docs/shock_report_fr.pdf`.
 
 ## External Tools
 
@@ -23,6 +26,11 @@ The original workflow used:
 - ParaViS/ParaView for result visualization;
 - Python for post-processing figures and sensitivity plots;
 - LaTeX for scientific report generation.
+
+## Report Dates
+
+The modal report (`paper/`, `reports/`) is dated 15 June 2026. Its "Drop or Shock Analysis Feasibility" section was
+written before the shock runs of 24 June; the shock results are in `shock/` and `docs/shock_report_fr.pdf`.
 
 ## Report Compilation
 

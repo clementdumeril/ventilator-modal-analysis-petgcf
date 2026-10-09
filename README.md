@@ -1,13 +1,15 @@
 # Modal and drop-shock analysis of a 3D-printed PETG-CF fan housing
 
-Code_Aster finite-element study of a desk-fan housing printed in carbon-fibre PETG: first elastic mode at 49.2 Hz (free-free), mode 3 within 1 % of the 4X rotation harmonic at 2000 rpm, and local stress peaks of 80 to 117 MPa in a simplified 2.5 ms impact on the cylindrical shroud.
+Code_Aster finite-element study of a desk-fan housing printed in carbon-fibre PETG: first elastic mode at 49.2 Hz (free-free), mode 3 1.4 Hz (1 %) below the 4X rotation harmonic at 2000 rpm, and local stress peaks of 80 to 117 MPa in a simplified 2.5 ms impact on the cylindrical shroud.
 
 <p align="center">
   <img src="assets/animations/mode_001_49p214Hz_vibration.gif" width="640"><br>
   <em>First elastic mode, 49.2 Hz. Deformation amplified for readability; colour is displacement magnitude.</em>
 </p>
 
-The fan is one of the first projects of Polytechnia, the engineering consultancy I co-founded in 2026. Its housing is printed in PETG-CF and carries a brushless motor in the duct and the electronics in the base. In June 2026 I wanted to know two things before printing it: does any natural frequency sit on an excitation line of the rotor, and where does the shroud concentrate stress if the fan is knocked over. This is an internal study; it has not been delivered to a client. The airflow and noise of the same fan are simulated in [ducted-fan-aeroacoustics](https://github.com/clementdumeril/ducted-fan-aeroacoustics).
+The fan is one of the first projects of Polytechnia, the engineering consultancy I co-founded in 2026. Its housing is printed in PETG-CF and carries a brushless motor in the duct and the electronics in the base. In June 2026 I wanted to know two things before printing it: does any natural frequency sit on an excitation line of the rotor, and where does the shroud concentrate stress if the fan is knocked over. Internal Polytechnia study, not a client deliverable. The airflow and noise of the same fan are simulated in [ducted-fan-aeroacoustics](https://github.com/clementdumeril/ducted-fan-aeroacoustics).
+
+Skills: FE modelling and eigen-analysis against rotor harmonics (the same resonance check used for drone frames and robot links), Python/h5py/VTK post-processing, Code_Aster 17.4 in Apptainer on a Linux cluster I built.
 
 ## Results
 
@@ -18,8 +20,8 @@ The fan is one of the first projects of Polytechnia, the engineering consultancy
 | Mesh | 95,358 nodes, 312,777 TETRA4 | [solver log](src/code_aster/solver_log_code_aster.txt) |
 | Total mass (PETG-CF + motor + electronics) | 1.080 kg | [`equivalent_mass_distribution.csv`](data/equivalent_mass_distribution.csv) |
 | Elastic modes 1 to 3 | **49.2**, 73.2, 131.9 Hz | [`modal_frequencies.csv`](data/modal_frequencies.csv) |
-| Excitation lines at 2000 rpm | 1X 33.3 Hz, 4X 133.3 Hz, 5-blade BPF 166.7 Hz | |
-| Closest coincidence | mode 3 vs 4X: 1.4 Hz apart (1.0 %) | |
+| Excitation lines at 2000 rpm (nominal speed of this study) | 1X 33.3 Hz, 4X 133.3 Hz, 5-blade BPF 166.7 Hz | <!-- TODO Clément: origin of the 2000 rpm figure (the CFD runs at 1509 rpm) --> |
+| Closest coincidence | mode 3 is 1.4 Hz (1 %) below 4X | |
 
 <p align="center">
   <img src="assets/figures/frequency_excitation_map_en.png" width="85%"><br>
@@ -36,6 +38,8 @@ The fan is one of the first projects of Polytechnia, the engineering consultancy
 
 Source: [`synthese_robuste_choc_cylindrique_v1.csv`](shock/results/synthese_robuste_choc_cylindrique_v1.csv). The peaks are very local (p95 an order of magnitude lower) and sit on the lips and arm-to-shroud junctions, between z = 145 and 200 mm. The raw maximum of the oblique case, 867 MPa, is on the blocked contact nodes and is a boundary-condition singularity, not a housing stress.
 
+Outcome: I recommended testing a soft bumper ring on the shroud lip and larger fillets at the lips and arm-to-shroud junctions, the regions where all three cases concentrate stress.
+
 <p align="center">
   <img src="assets/figures/shock_oblique_vmis_hotspot.png" width="48%">
   <img src="assets/figures/shock_robust_metrics.png" width="50%"><br>
@@ -44,22 +48,22 @@ Source: [`synthese_robuste_choc_cylindrique_v1.csv`](shock/results/synthese_robu
 
 ## What I built
 
-- CAD preparation ([`cad/`](cad)): the original FreeCAD housing would not take a conforming tetrahedral mesh in NETGEN or Gmsh because of small faces and intersecting surfaces. I defeatured it (small faces and short edges removed, one body taken out of a fusion), which cost 1.4 % of the volume, and exported a clean STEP/BREP. A voxel mesh (h = 3 mm) was my fallback in the meantime; it lost 12.5 % of the volume, so I dropped it once the conforming mesh worked.
-- Mesh ([`src/mesh/mesh_carter_netgen.py`](src/mesh/mesh_carter_netgen.py)): SALOME-NETGEN tetrahedra, 95,358 nodes and 312,777 TETRA4.
+- CAD preparation ([`cad/`](cad)): the original FreeCAD housing would not take a conforming tetrahedral mesh in NETGEN or Gmsh because of small faces and intersecting surfaces. I defeatured it (small faces and short edges removed, the detailed support arms replaced by simple ribs, one body taken out of a fusion), which cost 1.4 % of the volume, and exported a clean STEP/BREP. A voxel mesh (h = 3 mm) was my fallback in the meantime; it lost 12.5 % of the volume, so I dropped it once the conforming mesh worked.
+- Mesh ([`src/mesh/mesh_carter_netgen.py`](src/mesh/mesh_carter_netgen.py)): SALOME `FULL_NETGEN`, linear tetrahedra, min size 1 mm, max size 10 mm, fineness 2, giving 95,358 nodes and 312,777 TETRA4.
 - Material and masses ([`.comm`](src/code_aster/carter_modal_petgcf_composants_v5_socle_xy_z.comm)): PETG-CF as an equivalent isotropic material (E = 6000 MPa, ν = 0.35, ρ = 1300 kg/m³). The motor (5010 360KV brushless, estimated 0.090 kg) and the electronics (ESP32-S3 board, motor controller, switch, estimated 0.075 kg together) are not modelled as solids; their mass is spread over two spherical element groups by raising the density there, without adding stiffness.
 
   <img src="assets/figures/mesh_mass_zones.png" width="60%">
 
 - Modal solve: `CALC_MODES` with the band option between 1 and 1500 Hz, free-free, Code_Aster 16.9.
 - Several model versions: a steel sanity model, PETG-CF with the component masses (V2), then re-orientations (V3 to V5) until the base rests on the XY plane and the fan height follows +Z, which makes the drop cases easy to set up.
-- Drop shock ([`shock/code_aster/`](shock/code_aster)): `DYNA_NON_LINE` with Newmark time integration on the same mesh and masses. The contact patch is a group of blocked nodes (63 nodes for the lateral cases, 1091 for the oblique one), and the rest of the housing receives a triangular acceleration pulse of 251 g peak over 2.5 ms. The three cases are generated by [a script](shock/code_aster/generate_cylindrical_drop_cases.py) and ran on a 2-node Linux cluster I set up (Code_Aster 17.4 in Apptainer).
-- Post-processing: Python scripts that extract maxima from the `.rmed` results, compute robust metrics excluding 4, 8 and 12 mm bands around the contact, and draw the figures ([`shock/scripts/`](shock/scripts), [`src/postprocessing/`](src/postprocessing)). Reports in LaTeX: [modal, English](reports/modal_report_petgcf_v5_en.pdf); shock, French ([`docs/shock_report_fr.pdf`](docs/shock_report_fr.pdf)).
+- Drop shock ([`shock/code_aster/`](shock/code_aster)): `DYNA_NON_LINE` with Newmark time integration on the same mesh and masses. The contact patch is a group of blocked nodes (63 nodes for the lateral cases, 1091 for the oblique one), and the rest of the housing receives a triangular acceleration pulse of 251 g peak over 2.5 ms. The three cases are generated by [a script](shock/code_aster/generate_cylindrical_drop_cases.py) and were run on one node of the 2-node Linux cluster I set up (Code_Aster 17.4 in Apptainer).
+- Post-processing: Python scripts that extract maxima from the `.rmed` results, compute robust metrics excluding 4, 8 and 12 mm bands around the contact, and draw the figures ([`shock/scripts/`](shock/scripts), [`src/postprocessing/`](src/postprocessing)). Reports in LaTeX: [modal, English](reports/modal_report_petgcf_v5_en.pdf), dated 15 June and written before the shock runs; shock, French ([`docs/shock_report_fr.pdf`](docs/shock_report_fr.pdf)).
 
 ## How it works
 
 The modal problem is the generalised eigenproblem K φ = ω² M φ on the free housing. Without supports, the first six modes are rigid-body motions near 0 Hz; starting the search band at 1 Hz leaves only the elastic modes. Each one is then compared with the excitation lines of the rotor, n × 2000/60 Hz for the rotation harmonics and 5 × 2000/60 Hz for the blade-passing frequency.
 
-The shock model does not simulate contact. It asks a simpler question: if the housing is stopped at one patch while the rest decelerates at 251 g, which regions concentrate stress? Ranking the three impact directions and locating the hot spots is what the model can answer; a failure verdict is not.
+The shock model does not simulate contact. One patch of nodes is held fixed while the rest of the housing receives the 251 g pulse, and the stress field shows which regions load up first for each impact direction. It ranks regions; it does not predict cracking.
 
 ## How I checked it
 
@@ -72,7 +76,7 @@ The shock model does not simulate contact. It asks a simpler question: if the ho
 
 <p align="center">
   <img src="assets/figures/shock_vmis_time.png" width="75%"><br>
-  <em>Stress outside the contact band during the pulse. The Y+ case still rises at the last computed step (see limitations).</em>
+  <em>Stress outside the contact band during the pulse. The Y- and Y+ cases still rise at the last computed step; only the oblique case peaks (2.0 ms).</em>
 </p>
 
 ## Limitations
@@ -81,7 +85,8 @@ The shock model does not simulate contact. It asks a simpler question: if the ho
 - PETG-CF is isotropic here. A printed part is anisotropic, with weaker layer adhesion, and none of its properties were measured.
 - Free-free boundary conditions: the real fan stands on a base, so supported modes will differ. Damping is not estimated.
 - The blades are not in the model. A mass-only estimate (f × √(M₀/(M₀+ΔM))) lowers mode 3 to 124 to 130 Hz for 25 to 150 g of blades ([figure](assets/figures/blade_mass_sensitivity_en.png)), which moves it away from 4X, but it ignores where that mass sits.
-- The shock pulse is not exactly a 0.8 m drop: its velocity change is 3.11 m/s against 3.96 m/s for a free fall from 0.8 m. There is no contact law, friction or rebound, and the run stops at 2.5 ms, at the end of the pulse, while the Y+ stress is still rising.
+- The pulse has Δv = 3.11 m/s, equivalent to a free fall of about 0.5 m with no rebound. There is no contact law or friction.
+- The runs stop at 2.5 ms, at the end of the pulse. The Y- and Y+ stresses and all three maximum displacements are still rising at that step, so the ranking is the one at t = 2.5 ms, not a peak over the whole event.
 - No failure assessment: the strength and inter-layer toughness of printed PETG-CF are unknown, so the stresses rank regions; they do not predict cracking.
 - No experimental check (tap test or accelerometer) yet.
 

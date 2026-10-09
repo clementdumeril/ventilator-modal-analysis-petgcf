@@ -1,7 +1,8 @@
 """Tetrahedral NETGEN mesh of the prepared housing CAD in SALOME (run with: salome shell -- python mesh_carter_netgen.py).
 
 Input BREP, output MED/HDF and size parameters (max/min size, fineness, threads) are set through the
-CARTER_* environment variables below.
+CARTER_* environment variables below. The defaults are the settings of the published mesh
+(min 1 mm, max 10 mm, fineness 2: 95,358 nodes, 312,777 TETRA4).
 """
 import os
 
@@ -22,8 +23,8 @@ BREP_PATH = os.environ.get("CARTER_BREP_PATH", os.path.join(ROOT, "carter_modal_
 MED_PATH = os.environ.get("CARTER_MED_PATH", os.path.join(OUT_DIR, "carter_modal_v1_coarse.med"))
 HDF_PATH = os.environ.get("CARTER_HDF_PATH", os.path.join(OUT_DIR, "carter_modal_v1_mesh.hdf"))
 
-MAX_SIZE = float(os.environ.get("CARTER_MAX_SIZE", "14.0"))
-MIN_SIZE = float(os.environ.get("CARTER_MIN_SIZE", "2.0"))
+MAX_SIZE = float(os.environ.get("CARTER_MAX_SIZE", "10.0"))
+MIN_SIZE = float(os.environ.get("CARTER_MIN_SIZE", "1.0"))
 FINENESS = int(os.environ.get("CARTER_FINENESS", "2"))
 NB_THREADS = int(os.environ.get("CARTER_MESH_THREADS", "4"))
 

@@ -111,4 +111,4 @@ The `.med` mesh (28 MB) and the `.rmed` results (over 1 GB for the shock cases) 
 - Fan CAD: Polytechnia FreeCAD model. CAD preparation, meshing, Code_Aster models, post-processing and reports: Clément Dumeril.
 - Tools: Code_Aster (EDF), SALOME-NETGEN, ParaView, FreeCAD.
 
-[clement.dumeril.net](https://clement.dumeril.net) · [github.com/clementdumeril](https://github.com/clementdumeril)
+[clement.dumeril.net](https://clement.dumeril.net) · [github.com/clementdumeril](https://github.com/clementdumeril) · MIT licence

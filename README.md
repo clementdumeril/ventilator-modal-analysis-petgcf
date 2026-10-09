@@ -9,7 +9,7 @@ Code_Aster finite-element study of a desk-fan housing printed in carbon-fibre PE
 
 The fan is one of the first projects of Polytechnia, the engineering consultancy I co-founded in 2026. Its housing is printed in PETG-CF and carries a brushless motor in the duct and the electronics in the base. In June 2026 I wanted to know two things before printing it: does any natural frequency sit on an excitation line of the rotor, and where does the shroud concentrate stress if the fan is knocked over. Internal Polytechnia study, not a client deliverable. The airflow and noise of the same fan are simulated in [ducted-fan-aeroacoustics](https://github.com/clementdumeril/ducted-fan-aeroacoustics).
 
-Skills: FE modelling and eigen-analysis against rotor harmonics (the same resonance check used for drone frames and robot links), Python/h5py/VTK post-processing, Code_Aster 17.4 in Apptainer on a Linux cluster I built.
+Skills: FE eigen-analysis checked against rotor harmonics, transient FE with singularity-aware post-processing, Python/h5py/VTK post-processing, Code_Aster 17.4 in Apptainer on a Linux cluster I built.
 
 ## Results
 
@@ -20,7 +20,7 @@ Skills: FE modelling and eigen-analysis against rotor harmonics (the same resona
 | Mesh | 95,358 nodes, 312,777 TETRA4 | [solver log](src/code_aster/solver_log_code_aster.txt) |
 | Total mass (PETG-CF + motor + electronics) | 1.080 kg | [`equivalent_mass_distribution.csv`](data/equivalent_mass_distribution.csv) |
 | Elastic modes 1 to 3 | **49.2**, 73.2, 131.9 Hz | [`modal_frequencies.csv`](data/modal_frequencies.csv) |
-| Excitation lines at 2000 rpm (nominal speed of this study) | 1X 33.3 Hz, 4X 133.3 Hz, 5-blade BPF 166.7 Hz | <!-- TODO Clément: origin of the 2000 rpm figure (the CFD runs at 1509 rpm) --> |
+| Excitation lines at 2000 rpm (nominal speed of this study) | 1X 33.3 Hz, 4X 133.3 Hz, 5-blade BPF 166.7 Hz | |
 | Closest coincidence | mode 3 is 1.4 Hz (1 %) below 4X | |
 
 <p align="center">
@@ -38,7 +38,7 @@ Skills: FE modelling and eigen-analysis against rotor harmonics (the same resona
 
 Source: [`synthese_robuste_choc_cylindrique_v1.csv`](shock/results/synthese_robuste_choc_cylindrique_v1.csv). The peaks are very local (p95 an order of magnitude lower) and sit on the lips and arm-to-shroud junctions, between z = 145 and 200 mm. The raw maximum of the oblique case, 867 MPa, is on the blocked contact nodes and is a boundary-condition singularity, not a housing stress.
 
-Outcome: I recommended testing a soft bumper ring on the shroud lip and larger fillets at the lips and arm-to-shroud junctions, the regions where all three cases concentrate stress.
+Outcome: I recommended testing a soft bumper ring on the shroud lip and larger fillets at the lips and arm-to-shroud junctions, the regions where all three cases concentrate stress ([shock report](docs/shock_report_fr.pdf), §7).
 
 <p align="center">
   <img src="assets/figures/shock_oblique_vmis_hotspot.png" width="48%">
@@ -63,9 +63,12 @@ Outcome: I recommended testing a soft bumper ring on the shroud lip and larger f
 
 The modal problem is the generalised eigenproblem K φ = ω² M φ on the free housing. Without supports, the first six modes are rigid-body motions near 0 Hz; starting the search band at 1 Hz leaves only the elastic modes. Each one is then compared with the excitation lines of the rotor, n × 2000/60 Hz for the rotation harmonics and 5 × 2000/60 Hz for the blade-passing frequency.
 
-The shock model does not simulate contact. One patch of nodes is held fixed while the rest of the housing receives the 251 g pulse, and the stress field shows which regions load up first for each impact direction. It ranks regions; it does not predict cracking.
+The shock model does not simulate contact. One patch of nodes is held fixed while the rest of the housing receives the 251 g pulse, and the stress field shows which regions load up first for each impact direction.
 
 ## How I checked it
+
+<details>
+<summary>Six checks: steel sanity run, mesh volume, mass zones, Sturm count, re-orientation, contact singularity</summary>
 
 - Steel first. The first runs used steel (E = 210 GPa) to validate the chain. Scaling that steel first mode (125.7 Hz) by √(E/ρ) gives about 52 Hz for bare PETG-CF; with the 0.165 kg of components the PETG-CF model gives 49.2 Hz, which is consistent.
 - Geometry: mesh volume 704,189 mm³ against 705,872 mm³ for the prepared CAD (0.24 %).
@@ -73,6 +76,8 @@ The shock model does not simulate contact. One patch of nodes is held fixed whil
 - Solver: the Sturm count gives 21 eigenvalues in the band and 21 modes were found; residual norms are between 2e-11 and 4e-8, and the run ends with no alarm.
 - Re-orienting the model between V2 and V5 (pure rotations of the mesh and mass centres) leaves mode 1 at 49.214 Hz, as it should.
 - Shock singularity: the contact nodes carry the raw maximum (867 MPa in the oblique case). I excluded bands of 4, 8 and 12 mm around them and report the 8 mm values plus p95/p99, so the numbers describe the housing and not the boundary condition.
+
+</details>
 
 <p align="center">
   <img src="assets/figures/shock_vmis_time.png" width="75%"><br>

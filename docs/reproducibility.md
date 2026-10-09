@@ -50,5 +50,6 @@ Some large binary solver outputs are not versioned in this portfolio repository 
 - `reports/modal_report_petgcf_v5_en.pdf`
 - `data/modal_frequencies.csv`
 - `src/code_aster/solver_log_code_aster.txt`
+- `shock/results/` (shock maxima, time histories and robust metrics) and `shock/logs/`
 
 For a production-grade scientific archive, the mesh and result binaries should be deposited separately as release assets or in a data repository with checksums.

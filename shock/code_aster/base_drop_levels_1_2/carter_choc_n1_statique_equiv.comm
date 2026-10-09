@@ -1,0 +1,154 @@
+DEBUT(LANG='FR')
+
+# Etude de chute - Niveau 1
+# Choc equivalent quasi-statique: chute de 0.8 m, arret sur 5 mm.
+# Unites coherentes avec l'etude modale:
+# longueur = mm, masse = tonne, force = N, temps = s, contrainte = MPa.
+
+MAIL = LIRE_MAILLAGE(FORMAT='MED', UNITE=20)
+
+MAIL = DEFI_GROUP(
+    reuse=MAIL,
+    MAILLAGE=MAIL,
+    INFO=1,
+    CREA_GROUP_MA=(
+        _F(NOM='G_TETRA', TOUT='OUI', TYPE_MAILLE='TETRA4'),
+        _F(
+            NOM='G_MOTEUR',
+            OPTION='SPHERE',
+            TYPE_MAILLE='TETRA4',
+            POINT=(23.093853, -45.158407, 163.598992),
+            RAYON=30.0,
+            CRIT_NOEUD='MAJORITE',
+        ),
+        _F(
+            NOM='G_BASE_ELEC',
+            OPTION='SPHERE',
+            TYPE_MAILLE='TETRA4',
+            POINT=(24.323447, 9.996963, 52.043480),
+            RAYON=45.0,
+            CRIT_NOEUD='MAJORITE',
+        ),
+        _F(
+            NOM='G_MASSES_AJOUTEES',
+            UNION=('G_MOTEUR', 'G_BASE_ELEC'),
+            TYPE_MAILLE='TETRA4',
+        ),
+        _F(
+            NOM='G_PETGCF',
+            DIFFE=('G_TETRA', 'G_MASSES_AJOUTEES'),
+            TYPE_MAILLE='TETRA4',
+        ),
+    ),
+    CREA_GROUP_NO=(
+        _F(
+            NOM='N_SOCLE_Z0',
+            OPTION='PLAN',
+            POINT=(0.0, 0.0, 0.0),
+            VECT_NORMALE=(0.0, 0.0, 1.0),
+            PRECISION=1.0,
+        ),
+    ),
+)
+
+MODELE = AFFE_MODELE(
+    MAILLAGE=MAIL,
+    AFFE=_F(
+        GROUP_MA='G_TETRA',
+        PHENOMENE='MECANIQUE',
+        MODELISATION='3D',
+    ),
+)
+
+# PETG-CF imprime: valeur effective prudente deja employee dans l'etude modale.
+PETGCF = DEFI_MATERIAU(
+    ELAS=_F(
+        E=6000.0,
+        NU=0.35,
+        RHO=1.30e-9,
+    )
+)
+
+# Densites homogenisees pour representer le moteur et l'electronique embarquee.
+PETGCF_MOTEUR = DEFI_MATERIAU(
+    ELAS=_F(
+        E=6000.0,
+        NU=0.35,
+        RHO=2.063354290143e-9,
+    )
+)
+
+PETGCF_BASE_ELEC = DEFI_MATERIAU(
+    ELAS=_F(
+        E=6000.0,
+        NU=0.35,
+        RHO=2.160457338233e-9,
+    )
+)
+
+CHMAT = AFFE_MATERIAU(
+    MAILLAGE=MAIL,
+    AFFE=(
+        _F(GROUP_MA='G_PETGCF', MATER=PETGCF),
+        _F(GROUP_MA='G_MOTEUR', MATER=PETGCF_MOTEUR),
+        _F(GROUP_MA='G_BASE_ELEC', MATER=PETGCF_BASE_ELEC),
+    ),
+)
+
+# Socle en contact idealise avec un sol rigide: blocage complet des noeuds bas.
+BC_SOCLE = AFFE_CHAR_MECA(
+    MODELE=MODELE,
+    DDL_IMPO=_F(
+        GROUP_NO='N_SOCLE_Z0',
+        DX=0.0,
+        DY=0.0,
+        DZ=0.0,
+    ),
+)
+
+# Chute 0.8 m avec distance d'arret 5 mm:
+# a = g*h/s = 9810*800/5 = 1.5696e6 mm/s2 = 160 g.
+CHOC_EQ = AFFE_CHAR_MECA(
+    MODELE=MODELE,
+    PESANTEUR=_F(
+        GROUP_MA='G_TETRA',
+        GRAVITE=1569600.0,
+        DIRECTION=(0.0, 0.0, -1.0),
+    ),
+)
+
+MASS = POST_ELEM(
+    MODELE=MODELE,
+    CHAM_MATER=CHMAT,
+    MASS_INER=_F(GROUP_MA='G_TETRA'),
+)
+
+IMPR_TABLE(TABLE=MASS, UNITE=8, SEPARATEUR=';')
+
+RESU = MECA_STATIQUE(
+    MODELE=MODELE,
+    CHAM_MATER=CHMAT,
+    EXCIT=(
+        _F(CHARGE=BC_SOCLE),
+        _F(CHARGE=CHOC_EQ),
+    ),
+    SOLVEUR=_F(METHODE='MUMPS'),
+)
+
+RESU = CALC_CHAMP(
+    reuse=RESU,
+    RESULTAT=RESU,
+    CONTRAINTE=('SIGM_ELNO',),
+    CRITERES=('SIEQ_ELNO',),
+)
+
+IMPR_RESU(
+    FORMAT='MED',
+    UNITE=80,
+    RESU=_F(
+        RESULTAT=RESU,
+        NOM_CHAM=('DEPL', 'SIGM_ELNO', 'SIEQ_ELNO'),
+    ),
+)
+
+FIN()

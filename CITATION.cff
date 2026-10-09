@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you reference this project, please cite it as below."
-title: "Modal Analysis of a PETG-CF Fan Housing"
+title: "Modal and drop-shock analysis of a 3D-printed PETG-CF fan housing"
 authors:
   - family-names: "Dumeril"
-    given-names: "Clement"
+    given-names: "Clément"
 date-released: "2026-06-15"
 version: "1.0.0"

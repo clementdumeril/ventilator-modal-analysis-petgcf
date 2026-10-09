@@ -1,0 +1,193 @@
+DEBUT(LANG='FR')
+
+# Etude de chute sur carter cylindrique - Niveau 2
+# Impact oblique sur le carter cylindrique cote Y- avec composante vers le bas
+# Dynamique transitoire elastique avec impact idealise par une impulsion.
+# Unites: mm, tonne, N, s, MPa.
+
+MAIL = LIRE_MAILLAGE(FORMAT='MED', UNITE=20)
+
+MAIL = DEFI_GROUP(
+    reuse=MAIL,
+    MAILLAGE=MAIL,
+    INFO=1,
+    CREA_GROUP_MA=(
+        _F(NOM='G_TETRA', TOUT='OUI', TYPE_MAILLE='TETRA4'),
+        _F(
+            NOM='G_MOTEUR',
+            OPTION='SPHERE',
+            TYPE_MAILLE='TETRA4',
+            POINT=(23.093853, -45.158407, 163.598992),
+            RAYON=30.0,
+            CRIT_NOEUD='MAJORITE',
+        ),
+        _F(
+            NOM='G_BASE_ELEC',
+            OPTION='SPHERE',
+            TYPE_MAILLE='TETRA4',
+            POINT=(24.323447, 9.996963, 52.043480),
+            RAYON=45.0,
+            CRIT_NOEUD='MAJORITE',
+        ),
+        _F(
+            NOM='G_MASSES_AJOUTEES',
+            UNION=('G_MOTEUR', 'G_BASE_ELEC'),
+            TYPE_MAILLE='TETRA4',
+        ),
+        _F(
+            NOM='G_PETGCF',
+            DIFFE=('G_TETRA', 'G_MASSES_AJOUTEES'),
+            TYPE_MAILLE='TETRA4',
+        ),
+    ),
+    CREA_GROUP_NO=(
+        _F(
+            NOM='N_CONTACT',
+            OPTION='PLAN',
+            POINT=(-6.31, -135.05, 164.18),
+            VECT_NORMALE=(0.0, 0.70710678, 0.70710678),
+            PRECISION=1.0,
+        )
+    ),
+)
+
+MODELE = AFFE_MODELE(
+    MAILLAGE=MAIL,
+    AFFE=_F(
+        GROUP_MA='G_TETRA',
+        PHENOMENE='MECANIQUE',
+        MODELISATION='3D',
+    ),
+)
+
+PETGCF = DEFI_MATERIAU(
+    ELAS=_F(
+        E=6000.0,
+        NU=0.35,
+        RHO=1.30e-9,
+    )
+)
+
+PETGCF_MOTEUR = DEFI_MATERIAU(
+    ELAS=_F(
+        E=6000.0,
+        NU=0.35,
+        RHO=2.063354290143e-9,
+    )
+)
+
+PETGCF_BASE_ELEC = DEFI_MATERIAU(
+    ELAS=_F(
+        E=6000.0,
+        NU=0.35,
+        RHO=2.160457338233e-9,
+    )
+)
+
+CHMAT = AFFE_MATERIAU(
+    MAILLAGE=MAIL,
+    AFFE=(
+        _F(GROUP_MA='G_PETGCF', MATER=PETGCF),
+        _F(GROUP_MA='G_MOTEUR', MATER=PETGCF_MOTEUR),
+        _F(GROUP_MA='G_BASE_ELEC', MATER=PETGCF_BASE_ELEC),
+    ),
+)
+
+# Approximation conservative du contact:
+# la petite zone de contact cylindrique est bloque en translation.
+BC_CONTACT = AFFE_CHAR_MECA(
+    MODELE=MODELE,
+    DDL_IMPO=_F(
+        GROUP_NO='N_CONTACT',
+        DX=0.0,
+        DY=0.0,
+        DZ=0.0,
+    ),
+)
+
+# Impulsion inertielle simplifiee:
+# le pulse actuel sert a comparer des zones sensibles, mais ne reproduit pas
+# strictement une chute de 0.8 m. Son integrale vaut environ 3.11 m/s.
+# Amplitude maximale: 2.465e6 mm/s2, soit environ 251 g.
+# La direction change selon le plan de chute.
+CHOC_DYN = AFFE_CHAR_MECA(
+    MODELE=MODELE,
+    PESANTEUR=_F(
+        GROUP_MA='G_TETRA',
+        GRAVITE=2465521.9,
+        DIRECTION=(0.0, -0.70710678, -0.70710678),
+    ),
+)
+
+PULSE = DEFI_FONCTION(
+    NOM_PARA='INST',
+    PROL_GAUCHE='CONSTANT',
+    PROL_DROITE='CONSTANT',
+    VALE=(
+        0.0, 0.0,
+        0.000631, 0.5,
+        0.001262, 1.0,
+        0.001893, 0.5,
+        0.002524, 0.0,
+        0.006000, 0.0,
+    ),
+)
+
+L_INST = DEFI_LIST_REEL(
+    DEBUT=0.0,
+    INTERVALLE=_F(
+        JUSQU_A=0.0025,
+        PAS=1.0e-4,
+    ),
+)
+
+L_ARCH = DEFI_LIST_REEL(
+    DEBUT=0.0,
+    INTERVALLE=_F(
+        JUSQU_A=0.0025,
+        PAS=5.0e-4,
+    ),
+)
+
+RESU = DYNA_NON_LINE(
+    MODELE=MODELE,
+    CHAM_MATER=CHMAT,
+    EXCIT=(
+        _F(CHARGE=BC_CONTACT),
+        _F(CHARGE=CHOC_DYN, FONC_MULT=PULSE),
+    ),
+    COMPORTEMENT=_F(
+        GROUP_MA='G_TETRA',
+        RELATION='ELAS',
+        DEFORMATION='PETIT',
+    ),
+    SCHEMA_TEMPS=_F(
+        SCHEMA='NEWMARK',
+        FORMULATION='DEPLACEMENT',
+    ),
+    INCREMENT=_F(LIST_INST=L_INST),
+    NEWTON=_F(
+        PREDICTION='TANGENTE',
+        MATRICE='TANGENTE',
+        REAC_ITER=1,
+    ),
+    ARCHIVAGE=_F(LIST_INST=L_ARCH),
+    SOLVEUR=_F(METHODE='MUMPS'),
+)
+
+RESU = CALC_CHAMP(
+    reuse=RESU,
+    RESULTAT=RESU,
+    CRITERES=('SIEQ_ELGA',),
+)
+
+IMPR_RESU(
+    FORMAT='MED',
+    UNITE=80,
+    RESU=_F(
+        RESULTAT=RESU,
+        NOM_CHAM=('DEPL', 'SIEF_ELGA', 'SIEQ_ELGA'),
+    ),
+)
+
+FIN()

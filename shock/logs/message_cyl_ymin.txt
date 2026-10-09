@@ -1,0 +1,1330 @@
+setting '--memory' value to 29491.20 MB (keyword RESERVE_MEMOIRE)
+copying '/home/qltus1/aster_jobs/carter_choc_cylindrique_v1/02_MAILLAGE/carter_socle_xy_z_netgen.med' to 'fort.20'...
+checking MPI initialization...
+using COMM_WORLD.
+MPI is initialized.
+Ouverture en écriture du fichier ./vola.1
+
+<INFO> Démarrage de l'exécution.
+
+                        -- CODE_ASTER -- VERSION : EXPLOITATION (stable) --                         
+                               Version 17.4.0 modifiée le 02/01/2026                                
+                              révision spack-local - branche 'v17.4.0'                              
+                                   Copyright EDF R&D 1991 - 2026                                    
+                                                                                                    
+                              Exécution du : Wed Jun 24 15:00:45 2026                               
+                                     Nom de la machine : qltus2                                     
+                                        Architecture : 64bit                                        
+                                    Type de processeur : x86_64                                     
+               Système d'exploitation : Linux-7.0.0-22-generic-x86_64-with-glibc2.36                
+                                  Langue des messages : en (UTF-8)                                  
+                                    Version de Python : 3.11.14                                     
+                                     Version de NumPy : 1.26.4                                      
+                                      Parallélisme MPI : actif                                      
+                                   Rang du processeur courant : 0                                   
+                               Nombre de processeurs MPI utilisés : 1                               
+                                    Parallélisme OpenMP : actif                                     
+                              Nombre de processus OpenMP utilisés : 1                               
+                               Version de la librairie HDF5 : 1.10.7                                
+                                Version de la librairie MED : 4.2.0                                 
+                               Version de la librairie MFront : 5.0.0                               
+                               Version de la librairie MUMPS : 5.6.2                                
+                              Version de la librairie PETSc : 3.24.0p0                              
+                              Version de la librairie SCOTCH : 7.0.10                               
+
+starting the execution...
+Valeur initiale du temps CPU maximum =   21600 secondes
+  Valeur du temps CPU maximum passé aux commandes =   19440 secondes
+  Réserve CPU prévue = 2160 secondes
+
+Ouverture en écriture du fichier ./glob.1
+
+Ouverture en écriture du fichier ./vola.1
+
+Ouverture en lecture du fichier
+/opt/spack/opt/spack/linux-zen2/code-aster-17.4.0-ecm2bfgr5obydotnlte6xilvggppqnap/lib64/aster/elem
+1
+
+Nom de la base                          :  ELEMBASE
+     Créée avec la version                   :  17.04.00
+     Nombre d'enregistrements utilisés       :  46
+     Nombre d'enregistrements maximum        :  512
+     Nombre d'enregistrements par fichier    :  512
+     Longueur d'enregistrement (octets)      :  819200
+     Nombre d'identificateurs utilisés       :  123
+     Taille maximum du répertoire            :  300
+     Pourcentage d'utilisation du répertoire :  41 %
+
+Ouverture en lecture du fichier
+/opt/spack/opt/spack/linux-zen2/code-aster-17.4.0-ecm2bfgr5obydotnlte6xilvggppqnap/lib64/aster/elem
+1
+
+Nom de la base                          :  ELEMBASE
+     Nombre d'enregistrements utilisés       :  46
+     Nombre d'enregistrements maximum        :  512
+     Nombre d'enregistrements par fichier    :  512
+     Longueur d'enregistrement (octets)      :  819200
+     Nombre total d'accès en lecture         :  64
+     Volume des accès en lecture             :         50.00 Mo.
+     Nombre total d'accès en écriture        :  0
+     Volume des accès en écriture            :          0.00 Mo.
+     Nombre d'identificateurs utilisés       :  123
+     Taille maximum du répertoire            :  300
+     Pourcentage d'utilisation du répertoire :  41 %
+
+Relecture des catalogues des éléments faite.
+
+Fin de lecture (durée  0.085706  s.) 
+
+                      Mémoire limite pour l'allocation dynamique : 30003.27 Mo                      
+                         ajouté à l'initialisation du processus : 576.51 Mo                         
+                              Limite cible du processus : 30579.78 Mo                               
+                         Taille limite des fichiers d'échange : 2048.00 Go                          
+# Mémoire (Mo) :   576.51 /   568.39 /   207.61 /   183.67 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0001   user+syst:        0.06s (syst:        0.13s, elaps:        0.24s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt20
+# ----------------------------------------------------------------------------------------------
+# Commande #0002 de carter_choc_cyl_ymin.comm.changed.py, ligne 20
+MAIL = LIRE_MAILLAGE(FORMAT='MED',
+                     INFO=1,
+                     INFO_MED=0,
+                     PARTITIONNEUR='SANS',
+                     UNITE=20,
+                     VERI_MAIL=_F(APLAT=0.001,
+                                  VERIF='OUI'))
+
+Nom MED du maillage : carter_modal_v1_tetra
+
+
+------------ MAILLAGE 00000001 - IMPRESSIONS NIVEAU  1 ------------
+
+
+NOMBRE DE NOEUDS                       95358
+
+NOMBRE DE MAILLES                     549603
+                              SEG2                66508
+                              TRIA3              170318
+                              TETRA4             312777
+
+--------------------------------------------------------------------------------
+
+Vérification du maillage.
+
+# Résultat commande #0002 (LIRE_MAILLAGE): MAIL ('<00000001>') de type <Mesh>
+# Mémoire (Mo) :   668.05 /   642.25 /   255.10 /   224.16 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0002   user+syst:        3.60s (syst:        0.05s, elaps:        3.69s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt22
+# ----------------------------------------------------------------------------------------------
+# Commande #0003 de carter_choc_cyl_ymin.comm.changed.py, ligne 22
+MAIL = DEFI_GROUP(ALARME='OUI',
+                  CREA_GROUP_MA=(_F(NOM='G_TETRA',
+                                    TOUT='OUI',
+                                    TYPE_MAILLE='TETRA4'),
+                                 _F(CRIT_NOEUD='MAJORITE',
+                                    NOM='G_MOTEUR',
+                                    OPTION='SPHERE',
+                                    POINT=(23.093853, -45.158407, 163.598992),
+                                    RAYON=30.0,
+                                    TYPE_MAILLE='TETRA4'),
+                                 _F(CRIT_NOEUD='MAJORITE',
+                                    NOM='G_BASE_ELEC',
+                                    OPTION='SPHERE',
+                                    POINT=(24.323447, 9.996963, 52.04348),
+                                    RAYON=45.0,
+                                    TYPE_MAILLE='TETRA4'),
+                                 _F(NOM='G_MASSES_AJOUTEES',
+                                    TYPE_MAILLE='TETRA4',
+                                    UNION=('G_MOTEUR', 'G_BASE_ELEC')),
+                                 _F(DIFFE=('G_TETRA', 'G_MASSES_AJOUTEES'),
+                                    NOM='G_PETGCF',
+                                    TYPE_MAILLE='TETRA4')),
+                  CREA_GROUP_NO=_F(NOM='N_CONTACT',
+                                   OPTION='PLAN',
+                                   POINT=(0.0, -136.692359, 0.0),
+                                   PRECISION=3.0,
+                                   VECT_NORMALE=(0.0, 1.0, 0.0)),
+                  INFO=1,
+                  MAILLAGE=MAIL,
+                  reuse=MAIL)
+
+
+
+NOMBRE  DE GROUPES DE MAILLES CREES :      5
+=============================================
+
+               ------------------------------------------------------
+               !         NOM DU GROUPE         ! NBRE DE MAILLES DU !
+               !            MAILLES            !     GROUPE_MA      !
+               ------------------------------------------------------
+               !  G_TETRA                      !    312777          !
+               !  G_MOTEUR                     !     23127          !
+               !  G_BASE_ELEC                  !     11616          !
+               !  G_MASSES_AJOUTEES            !     34743          !
+               !  G_PETGCF                     !    278034          !
+               ------------------------------------------------------
+
+
+
+NOMBRE  DE GROUPES DE NOEUDS CREES :      1
+=======================================
+
+               ------------------------------------------------------
+               !         NOM DU GROUPE         ! NBRE DE NOEUDS DU  !
+               !            NOEUDS             !      GROUPE_NO     !
+               ------------------------------------------------------
+               !  N_CONTACT                    !        63          !
+               ------------------------------------------------------
+
+# Résultat commande #0003 (DEFI_GROUP): MAIL ('<00000001>') de type <Mesh>
+# Mémoire (Mo) :   668.05 /   647.37 /   255.10 /   224.16 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0003   user+syst:       11.96s (syst:        0.02s, elaps:       11.98s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt66
+# ----------------------------------------------------------------------------------------------
+# Commande #0004 de carter_choc_cyl_ymin.comm.changed.py, ligne 66
+MODELE = AFFE_MODELE(AFFE=_F(GROUP_MA='G_TETRA',
+                             MODELISATION='3D',
+                             PHENOMENE='MECANIQUE'),
+                     DISTRIBUTION=_F(METHODE='SOUS_DOMAINE',
+                                     PARTITIONNEUR='METIS'),
+                     INFO=1,
+                     MAILLAGE=MAIL,
+                     VERI_FORMULATION_IFS='OUI',
+                     VERI_JACOBIEN='OUI',
+                     VERI_NORM_IFS='OUI',
+                     VERI_PLAN='OUI')
+
+Sur les 549603 mailles du maillage 00000001, on a demandé l'affectation de 312777, on a pu en
+affecter 312777.
+Modélisation     Formulation      Type maille  Élément fini     Nombre
+3D               _                TETRA4       MECA_TETRA4      312777
+#2      Calculs elementaires et assemblages               CPU (USER+SYST/SYST/ELAPS):      0.11      0.01      0.11
+# Résultat commande #0004 (AFFE_MODELE): MODELE ('<00000002>') de type <Model>
+# Mémoire (Mo) :   814.46 /   799.21 /   279.85 /   251.86 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0004   user+syst:        1.69s (syst:        0.03s, elaps:        1.74s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt75
+# ----------------------------------------------------------------------------------------------
+# Commande #0005 de carter_choc_cyl_ymin.comm.changed.py, ligne 75
+PETGCF = DEFI_MATERIAU(ELAS=_F(B_ENDOGE=0.0,
+                               COEF_AMOR=1.0,
+                               E=6000.0,
+                               K_DESSIC=0.0,
+                               NU=0.35,
+                               RHO=1.3e-09),
+                       INFO=1)
+
+# Résultat commande #0005 (DEFI_MATERIAU): PETGCF ('<00000003>') de type <Material>
+# Mémoire (Mo) :   814.46 /   799.88 /   279.85 /   251.86 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0005   user+syst:        0.04s (syst:        0.00s, elaps:        0.04s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt83
+# ----------------------------------------------------------------------------------------------
+# Commande #0006 de carter_choc_cyl_ymin.comm.changed.py, ligne 83
+PETGCF_MOTEUR = DEFI_MATERIAU(ELAS=_F(B_ENDOGE=0.0,
+                                      COEF_AMOR=1.0,
+                                      E=6000.0,
+                                      K_DESSIC=0.0,
+                                      NU=0.35,
+                                      RHO=2.063354290143e-09),
+                              INFO=1)
+
+# Résultat commande #0006 (DEFI_MATERIAU): PETGCF_MOTEUR ('<00000004>') de type <Material>
+# Mémoire (Mo) :   814.46 /   799.88 /   279.85 /   251.86 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0006   user+syst:        0.04s (syst:        0.00s, elaps:        0.04s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt91
+# ----------------------------------------------------------------------------------------------
+# Commande #0007 de carter_choc_cyl_ymin.comm.changed.py, ligne 91
+PETGCF_BASE_ELEC = DEFI_MATERIAU(ELAS=_F(B_ENDOGE=0.0,
+                                         COEF_AMOR=1.0,
+                                         E=6000.0,
+                                         K_DESSIC=0.0,
+                                         NU=0.35,
+                                         RHO=2.160457338233e-09),
+                                 INFO=1)
+
+# Résultat commande #0007 (DEFI_MATERIAU): PETGCF_BASE_ELEC ('<00000005>') de type <Material>
+# Mémoire (Mo) :   814.46 /   799.88 /   279.85 /   251.86 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0007   user+syst:        0.04s (syst:        0.00s, elaps:        0.03s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt99
+# ----------------------------------------------------------------------------------------------
+# Commande #0008 de carter_choc_cyl_ymin.comm.changed.py, ligne 99
+CHMAT = AFFE_MATERIAU(AFFE=(_F(GROUP_MA='G_PETGCF',
+                               MATER=PETGCF),
+                            _F(GROUP_MA='G_MOTEUR',
+                               MATER=PETGCF_MOTEUR),
+                            _F(GROUP_MA='G_BASE_ELEC',
+                               MATER=PETGCF_BASE_ELEC)),
+                      INFO=1,
+                      MAILLAGE=MAIL)
+
+# Résultat commande #0008 (AFFE_MATERIAU): CHMAT ('<00000006>') de type <MaterialField>
+# Mémoire (Mo) :   814.46 /   804.12 /   279.85 /   251.86 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0008   user+syst:        0.04s (syst:        0.02s, elaps:        0.06s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt110
+# ----------------------------------------------------------------------------------------------
+# Commande #0009 de carter_choc_cyl_ymin.comm.changed.py, ligne 110
+BC_CONTACT = AFFE_CHAR_MECA(DDL_IMPO=_F(DX=0.0,
+                                        DY=0.0,
+                                        DZ=0.0,
+                                        GROUP_NO='N_CONTACT'),
+                            DOUBLE_LAGRANGE='OUI',
+                            INFO=1,
+                            MODELE=MODELE,
+                            SYNTAXE='NON',
+                            VERI_AFFE='OUI',
+                            VERI_NORM='OUI')
+
+# Résultat commande #0009 (AFFE_CHAR_MECA): BC_CONTACT ('<00000007>') de type <MechanicalLoadReal>
+# Mémoire (Mo) :   814.46 /   812.13 /   279.85 /   251.86 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0009   user+syst:        0.02s (syst:        0.01s, elaps:        0.04s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt124
+# ----------------------------------------------------------------------------------------------
+# Commande #0010 de carter_choc_cyl_ymin.comm.changed.py, ligne 124
+CHOC_DYN = AFFE_CHAR_MECA(DOUBLE_LAGRANGE='OUI',
+                          INFO=1,
+                          MODELE=MODELE,
+                          PESANTEUR=_F(DIRECTION=(0.0, -1.0, 0.0),
+                                       GRAVITE=2465521.9,
+                                       GROUP_MA='G_TETRA'),
+                          SYNTAXE='NON',
+                          VERI_AFFE='OUI',
+                          VERI_NORM='OUI')
+
+# Résultat commande #0010 (AFFE_CHAR_MECA): CHOC_DYN ('<00000008>') de type <MechanicalLoadReal>
+# Mémoire (Mo) :   833.68 /   814.52 /   290.57 /   251.86 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0010   user+syst:        0.09s (syst:        0.01s, elaps:        0.09s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt133
+# ----------------------------------------------------------------------------------------------
+# Commande #0011 de carter_choc_cyl_ymin.comm.changed.py, ligne 133
+PULSE = DEFI_FONCTION(INFO=1,
+                      INTERPOL='LIN',
+                      NOM_PARA='INST',
+                      NOM_RESU='TOUTRESU',
+                      PROL_DROITE='CONSTANT',
+                      PROL_GAUCHE='CONSTANT',
+                      VALE=(0.0, 0.0, 0.000631, 0.5, 0.001262, 1.0, 0.001893, 0.5, 0.002524, 0.0, 0.006, 0.0),
+                      VERIF='CROISSANT')
+
+# Résultat commande #0011 (DEFI_FONCTION): PULSE ('<00000009>') de type <Function>
+# Mémoire (Mo) :   833.68 /   814.52 /   290.57 /   251.86 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0011   user+syst:        0.00s (syst:        0.00s, elaps:        0.01s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt147
+# ----------------------------------------------------------------------------------------------
+# Commande #0012 de carter_choc_cyl_ymin.comm.changed.py, ligne 147
+L_INST = DEFI_LIST_REEL(DEBUT=0.0,
+                        INFO=1,
+                        INTERVALLE=_F(JUSQU_A=0.0025,
+                                      PAS=0.0001))
+
+# Résultat commande #0012 (DEFI_LIST_REEL): L_INST ('<0000000a>') de type <ListOfFloats>
+# Mémoire (Mo) :   833.68 /   814.52 /   290.57 /   251.86 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0012   user+syst:        0.00s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt155
+# ----------------------------------------------------------------------------------------------
+# Commande #0013 de carter_choc_cyl_ymin.comm.changed.py, ligne 155
+L_ARCH = DEFI_LIST_REEL(DEBUT=0.0,
+                        INFO=1,
+                        INTERVALLE=_F(JUSQU_A=0.0025,
+                                      PAS=0.0005))
+
+# Résultat commande #0013 (DEFI_LIST_REEL): L_ARCH ('<0000000b>') de type <ListOfFloats>
+# Mémoire (Mo) :   833.68 /   814.52 /   290.57 /   251.86 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0013   user+syst:        0.00s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt163
+# ----------------------------------------------------------------------------------------------
+# Commande #0014 de carter_choc_cyl_ymin.comm.changed.py, ligne 163
+RESU = DYNA_NON_LINE(AFFICHAGE=_F(INFO_RESIDU='NON',
+                                  INFO_TEMPS='NON'),
+                     AMOR_RAYL_RIGI='ELASTIQUE',
+                     ARCHIVAGE=_F(CHAM_EXCLU=('RESI_NOEU', 'RESI_RELA_NOEU'),
+                                  CRITERE='RELATIF',
+                                  LIST_INST=L_ARCH,
+                                  PRECISION=1e-06),
+                     CHAM_MATER=CHMAT,
+                     COMPORTEMENT=_F(DEFORMATION='PETIT',
+                                     GROUP_MA='G_TETRA',
+                                     ITER_CPLAN_MAXI=10,
+                                     ITER_INTE_MAXI=20,
+                                     ITER_INTE_PAS=0,
+                                     PARM_THETA=1.0,
+                                     REGU_VISC='NON',
+                                     RELATION='ELAS',
+                                     RESI_CPLAN_RELA=1e-06,
+                                     RESI_INTE=1e-06),
+                     CONVERGENCE=_F(ARRET='OUI',
+                                    ITER_GLOB_ELAS=25,
+                                    ITER_GLOB_MAXI=10,
+                                    RESI_GLOB_RELA=1e-06,
+                                    VERIF='TOUT'),
+                     EXCIT=(_F(CHARGE=BC_CONTACT,
+                               MULT_APPUI='NON',
+                               TYPE_CHARGE='FIXE_CSTE'),
+                            _F(CHARGE=CHOC_DYN,
+                               FONC_MULT=PULSE,
+                               MULT_APPUI='NON',
+                               TYPE_CHARGE='FIXE_CSTE')),
+                     INCREMENT=_F(LIST_INST=L_INST,
+                                  NUME_INST_INIT=0),
+                     INFO=1,
+                     MESURE=_F(TABLE='NON'),
+                     METHODE='NEWTON',
+                     MODELE=MODELE,
+                     NEWTON=_F(MATRICE='TANGENTE',
+                               MATR_RIGI_SYME='NON',
+                               PREDICTION='TANGENTE',
+                               REAC_INCR=1,
+                               REAC_ITER=1,
+                               REAC_ITER_ELAS=0),
+                     SCHEMA_TEMPS=_F(BETA=0.25,
+                                     COEF_MASS_SHIFT=0.0,
+                                     FORMULATION='DEPLACEMENT',
+                                     GAMMA=0.5,
+                                     SCHEMA='NEWMARK'),
+                     SOLVEUR=_F(ACCELERATION='AUTO',
+                                ELIM_LAGR='LAGR2',
+                                FILTRAGE_MATRICE=-1.0,
+                                GESTION_MEMOIRE='AUTO',
+                                LOW_RANK_SEUIL=0.0,
+                                MATR_DISTRIBUEE='NON',
+                                METHODE='MUMPS',
+                                MIXER_PRECISION='NON',
+                                NB_RHS=1,
+                                NPREC=8,
+                                PCENT_PIVOT=35,
+                                POSTTRAITEMENTS='AUTO',
+                                PRETRAITEMENTS='AUTO',
+                                REDUCTION_MPI=0,
+                                RENUM='AUTO',
+                                RESI_RELA=-1.0,
+                                STOP_SINGULIER='OUI',
+                                TYPE_RESOL='AUTO'),
+                     VNOR=1.0)
+
+Liste des comportements
+
+Affecté sur 312777 éléments
+Relation                             : ELAS
+Déformation                          : PETIT
+Pas de régularisation visqueuse
+Pas de post-traitement à la fin du pas de temps
+Nombre total de variables internes   : 1
+V1 : VIDE
+Le système linéaire à résoudre a 286452 degrés de liberté:
+   - 286074 sont des degrés de liberté physiques
+     (ils sont portés par 95358 noeuds du maillage)
+   - 378 sont les couples de paramètres de Lagrange associés
+     aux 189 relations linéaires dualisées.
+La matrice est de taille 286452 équations.
+  Elle contient 5013531 termes non nuls si elle est symétrique et 9740610 termes non nuls si elle
+n'est pas symétrique.
+  Soit un taux de remplissage de   0.012 %.
+Il n'y a pas d'état initial défini. On prend un état initial nul.
+Le champ <DEPL> est initialisé a zéro
+Le champ <SIEF_ELGA> est initialisé a zéro
+Le champ <VARI_ELGA> est initialisé a zéro
+Le champ <VITE> est initialisé a zéro
+Le champ <ACCE> est initialisé a zéro
+On suppose qu'on part d'un état a vitesses nulles
+
+On estime une accélération initiale.
+
+L'état initial n'a pas d'accélération donnée.
+ On la calcule.
+ 
+Archivage de l'état initial
+Archivage des champs
+
+Champ stocké <DEPL> à l'instant  0.000000000000e+00 pour le numéro d'ordre 0
+Champ stocké <SIEF_ELGA> à l'instant  0.000000000000e+00 pour le numéro d'ordre 0
+Champ stocké <VARI_ELGA> à l'instant  0.000000000000e+00 pour le numéro d'ordre 0
+Champ stocké <COMPORTEMENT> à l'instant  0.000000000000e+00 pour le numéro d'ordre 0
+Champ stocké <VITE> à l'instant  0.000000000000e+00 pour le numéro d'ordre 0
+Champ stocké <ACCE> à l'instant  0.000000000000e+00 pour le numéro d'ordre 0
+---------------------------------------------------------------------
+Instant de calcul:  1.000000000000e-04 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 1.04629E-13    | 8.22349E-14    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  1.046289193008e-13 au noeud et degré de liberté <94504  
+DY>
+Temps CPU consommé dans ce pas de temps    : 18.957 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.191 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.076 s (1 factorisations)
+* Temps construction second membre                  : 1.016 s
+* Temps total résolution K.U=F                      : 0.187 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.488 s
+Mémoire (Mo) :  4322.16 /  3968.35 /  2036.79 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[  4%] Instant calculé : 1.00000e-04, seul l'instant initial a été archivé
+---------------------------------------------------------------------
+Instant de calcul:  2.000000000000e-04 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 1.46694E-13    | 4.60162E-13    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  1.466936185429e-13 au noeud et degré de liberté <94239  
+DY>
+Temps CPU consommé dans ce pas de temps    : 18.821 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.146 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.027 s (1 factorisations)
+* Temps construction second membre                  : 0.954 s
+* Temps total résolution K.U=F                      : 0.188 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.506 s
+Mémoire (Mo) :  4331.11 /  3967.95 /  2045.53 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[  8%] Instant calculé : 2.00000e-04, seul l'instant initial a été archivé
+---------------------------------------------------------------------
+Instant de calcul:  3.000000000000e-04 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 1.60097E-13    | 1.12354E-12    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  1.600968776143e-13 au noeud et degré de liberté <85852  
+DY>
+Temps CPU consommé dans ce pas de temps    : 18.781 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.149 s (3 intégrations)
+* Temps total factorisation matrice                 : 3.995 s (1 factorisations)
+* Temps construction second membre                  : 0.948 s
+* Temps total résolution K.U=F                      : 0.187 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.502 s
+Mémoire (Mo) :  4331.22 /  3968.06 /  2045.53 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[ 12%] Instant calculé : 3.00000e-04, seul l'instant initial a été archivé
+---------------------------------------------------------------------
+Instant de calcul:  4.000000000000e-04 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 1.70420E-13    | 2.10375E-12    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  1.704200355564e-13 au noeud et degré de liberté <63998  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.785 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.163 s (3 intégrations)
+* Temps total factorisation matrice                 : 3.981 s (1 factorisations)
+* Temps construction second membre                  : 0.948 s
+* Temps total résolution K.U=F                      : 0.189 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.505 s
+Mémoire (Mo) :  4331.29 /  3970.59 /  2045.53 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[ 16%] Instant calculé : 4.00000e-04, seul l'instant initial a été archivé
+---------------------------------------------------------------------
+Instant de calcul:  5.000000000000e-04 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 1.83822E-13    | 3.49106E-12    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  1.838218296986e-13 au noeud et degré de liberté <64026  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.913 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.157 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.097 s (1 factorisations)
+* Temps construction second membre                  : 0.955 s
+* Temps total résolution K.U=F                      : 0.188 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.516 s
+Mémoire (Mo) :  4331.29 /  3971.57 /  2045.53 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+Archivage des champs
+
+Champ stocké <DEPL> à l'instant  5.000000000000e-04 pour le numéro d'ordre 1
+Champ stocké <SIEF_ELGA> à l'instant  5.000000000000e-04 pour le numéro d'ordre 1
+Champ stocké <VARI_ELGA> à l'instant  5.000000000000e-04 pour le numéro d'ordre 1
+Champ stocké <COMPORTEMENT> à l'instant  5.000000000000e-04 pour le numéro d'ordre 1
+Champ stocké <VITE> à l'instant  5.000000000000e-04 pour le numéro d'ordre 1
+Champ stocké <ACCE> à l'instant  5.000000000000e-04 pour le numéro d'ordre 1
+[ 20%] Instant calculé : 5.00000e-04, dernier instant archivé : 0.00000e+00, au numéro d'ordre :    
+1
+---------------------------------------------------------------------
+Instant de calcul:  6.000000000000e-04 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 3.70867E-13    | 9.95005E-12    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  3.708666777793e-13 au noeud et degré de liberté <64007  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.849 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.212 s (3 intégrations)
+* Temps total factorisation matrice                 : 3.997 s (1 factorisations)
+* Temps construction second membre                  : 0.948 s
+* Temps total résolution K.U=F                      : 0.188 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.504 s
+Mémoire (Mo) :  4375.96 /  4015.28 /  2090.30 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[ 24%] Instant calculé : 6.00000e-04, dernier instant archivé : 0.00000e+00, au numéro d'ordre :    
+1
+---------------------------------------------------------------------
+Instant de calcul:  7.000000000000e-04 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 2.40642E-13    | 8.60353E-12    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  2.406421571827e-13 au noeud et degré de liberté <63823  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.870 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.206 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.021 s (1 factorisations)
+* Temps construction second membre                  : 0.947 s
+* Temps total résolution K.U=F                      : 0.189 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.507 s
+Mémoire (Mo) :  4375.96 /  4014.09 /  2090.30 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[ 28%] Instant calculé : 7.00000e-04, dernier instant archivé : 0.00000e+00, au numéro d'ordre :    
+1
+---------------------------------------------------------------------
+Instant de calcul:  8.000000000000e-04 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 2.53798E-13    | 1.20057E-11    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  2.537975570643e-13 au noeud et degré de liberté <64026  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.860 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.170 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.059 s (1 factorisations)
+* Temps construction second membre                  : 0.953 s
+* Temps total résolution K.U=F                      : 0.187 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.491 s
+Mémoire (Mo) :  4376.02 /  4015.34 /  2090.30 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[ 32%] Instant calculé : 8.00000e-04, dernier instant archivé : 0.00000e+00, au numéro d'ordre :    
+1
+---------------------------------------------------------------------
+Instant de calcul:  9.000000000000e-04 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 2.87916E-13    | 1.81623E-11    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  2.879162430844e-13 au noeud et degré de liberté <64019  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.856 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.165 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.043 s (1 factorisations)
+* Temps construction second membre                  : 0.953 s
+* Temps total résolution K.U=F                      : 0.188 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.506 s
+Mémoire (Mo) :  4376.20 /  4018.80 /  2090.30 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[ 36%] Instant calculé : 9.00000e-04, dernier instant archivé : 0.00000e+00, au numéro d'ordre :    
+1
+---------------------------------------------------------------------
+Instant de calcul:  1.000000000000e-03 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 2.32064E-13    | 1.88435E-11    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  2.320638305341e-13 au noeud et degré de liberté <64019  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.864 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.136 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.025 s (1 factorisations)
+* Temps construction second membre                  : 1.013 s
+* Temps total résolution K.U=F                      : 0.188 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.502 s
+Mémoire (Mo) :  4376.20 /  4019.88 /  2090.30 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+Archivage des champs
+
+Champ stocké <DEPL> à l'instant  1.000000000000e-03 pour le numéro d'ordre 2
+Champ stocké <SIEF_ELGA> à l'instant  1.000000000000e-03 pour le numéro d'ordre 2
+Champ stocké <VARI_ELGA> à l'instant  1.000000000000e-03 pour le numéro d'ordre 2
+Champ stocké <COMPORTEMENT> à l'instant  1.000000000000e-03 pour le numéro d'ordre 2
+Champ stocké <VITE> à l'instant  1.000000000000e-03 pour le numéro d'ordre 2
+Champ stocké <ACCE> à l'instant  1.000000000000e-03 pour le numéro d'ordre 2
+[ 40%] Instant calculé : 1.00000e-03, dernier instant archivé : 5.00000e-04, au numéro d'ordre :    
+2
+---------------------------------------------------------------------
+Instant de calcul:  1.100000000000e-03 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 2.73309E-13    | 2.77373E-11    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  2.733087238237e-13 au noeud et degré de liberté <64019  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.815 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.153 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.035 s (1 factorisations)
+* Temps construction second membre                  : 0.946 s
+* Temps total résolution K.U=F                      : 0.189 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.492 s
+Mémoire (Mo) :  4420.94 /  4064.63 /  2135.06 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[ 44%] Instant calculé : 1.10000e-03, dernier instant archivé : 5.00000e-04, au numéro d'ordre :    
+2
+---------------------------------------------------------------------
+Instant de calcul:  1.200000000000e-03 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 2.60396E-13    | 3.22936E-11    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  2.603958788720e-13 au noeud et degré de liberté <64007  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.848 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.208 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.014 s (1 factorisations)
+* Temps construction second membre                  : 0.945 s
+* Temps total résolution K.U=F                      : 0.188 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.494 s
+Mémoire (Mo) :  4421.43 /  4066.23 /  2135.06 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[ 48%] Instant calculé : 1.20000e-03, dernier instant archivé : 5.00000e-04, au numéro d'ordre :    
+2
+---------------------------------------------------------------------
+Instant de calcul:  1.300000000000e-03 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 2.12676E-13    | 3.16490E-11    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  2.126764109854e-13 au noeud et degré de liberté <64007  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.844 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.198 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.018 s (1 factorisations)
+* Temps construction second membre                  : 0.943 s
+* Temps total résolution K.U=F                      : 0.189 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.496 s
+Mémoire (Mo) :  4421.89 /  4066.70 /  2135.06 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[ 52%] Instant calculé : 1.30000e-03, dernier instant archivé : 5.00000e-04, au numéro d'ordre :    
+2
+---------------------------------------------------------------------
+Instant de calcul:  1.400000000000e-03 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 3.02246E-13    | 5.29634E-11    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  3.022461959855e-13 au noeud et degré de liberté <64068  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.794 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.142 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.019 s (1 factorisations)
+* Temps construction second membre                  : 0.947 s
+* Temps total résolution K.U=F                      : 0.188 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.497 s
+Mémoire (Mo) :  4421.95 /  4067.42 /  2135.06 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[ 56%] Instant calculé : 1.40000e-03, dernier instant archivé : 5.00000e-04, au numéro d'ordre :    
+2
+---------------------------------------------------------------------
+Instant de calcul:  1.500000000000e-03 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 2.46974E-13    | 4.99298E-11    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  2.469738863939e-13 au noeud et degré de liberté <64019  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.766 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.136 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.011 s (1 factorisations)
+* Temps construction second membre                  : 0.944 s
+* Temps total résolution K.U=F                      : 0.188 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.487 s
+Mémoire (Mo) :  4421.95 /  4065.84 /  2135.06 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+Archivage des champs
+
+Champ stocké <DEPL> à l'instant  1.500000000000e-03 pour le numéro d'ordre 3
+Champ stocké <SIEF_ELGA> à l'instant  1.500000000000e-03 pour le numéro d'ordre 3
+Champ stocké <VARI_ELGA> à l'instant  1.500000000000e-03 pour le numéro d'ordre 3
+Champ stocké <COMPORTEMENT> à l'instant  1.500000000000e-03 pour le numéro d'ordre 3
+Champ stocké <VITE> à l'instant  1.500000000000e-03 pour le numéro d'ordre 3
+Champ stocké <ACCE> à l'instant  1.500000000000e-03 pour le numéro d'ordre 3
+[ 60%] Instant calculé : 1.50000e-03, dernier instant archivé : 1.00000e-03, au numéro d'ordre :    
+3
+---------------------------------------------------------------------
+Instant de calcul:  1.600000000000e-03 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 2.33046E-13    | 5.32823E-11    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  2.330459038576e-13 au noeud et degré de liberté <63825  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.853 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.212 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.018 s (1 factorisations)
+* Temps construction second membre                  : 0.947 s
+* Temps total résolution K.U=F                      : 0.188 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.490 s
+Mémoire (Mo) :  4466.09 /  4113.10 /  2179.83 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[ 64%] Instant calculé : 1.60000e-03, dernier instant archivé : 1.00000e-03, au numéro d'ordre :    
+3
+---------------------------------------------------------------------
+Instant de calcul:  1.700000000000e-03 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 2.30138E-13    | 5.86808E-11    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  2.301383452005e-13 au noeud et degré de liberté <64019  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.826 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.174 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.018 s (1 factorisations)
+* Temps construction second membre                  : 0.947 s
+* Temps total résolution K.U=F                      : 0.189 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.498 s
+Mémoire (Mo) :  4466.15 /  4112.06 /  2179.83 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[ 68%] Instant calculé : 1.70000e-03, dernier instant archivé : 1.00000e-03, au numéro d'ordre :    
+3
+---------------------------------------------------------------------
+Instant de calcul:  1.800000000000e-03 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 2.10120E-13    | 6.04396E-11    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  2.101201413079e-13 au noeud et degré de liberté <64026  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.870 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.224 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.020 s (1 factorisations)
+* Temps construction second membre                  : 0.944 s
+* Temps total résolution K.U=F                      : 0.188 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.493 s
+Mémoire (Mo) :  4466.15 /  4113.12 /  2179.83 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[ 72%] Instant calculé : 1.80000e-03, dernier instant archivé : 1.00000e-03, au numéro d'ordre :    
+3
+---------------------------------------------------------------------
+Instant de calcul:  1.900000000000e-03 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 2.15873E-13    | 6.92286E-11    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  2.158734490319e-13 au noeud et degré de liberté <64050  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.786 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.153 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.017 s (1 factorisations)
+* Temps construction second membre                  : 0.939 s
+* Temps total résolution K.U=F                      : 0.189 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.488 s
+Mémoire (Mo) :  4466.15 /  4110.55 /  2179.83 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[ 76%] Instant calculé : 1.90000e-03, dernier instant archivé : 1.00000e-03, au numéro d'ordre :    
+3
+---------------------------------------------------------------------
+Instant de calcul:  2.000000000000e-03 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 1.60447E-13    | 5.67013E-11    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  1.604467839119e-13 au noeud et degré de liberté <64056  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.828 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.181 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.029 s (1 factorisations)
+* Temps construction second membre                  : 0.940 s
+* Temps total résolution K.U=F                      : 0.188 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.490 s
+Mémoire (Mo) :  4466.15 /  4112.93 /  2179.83 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+Archivage des champs
+
+Champ stocké <DEPL> à l'instant  2.000000000000e-03 pour le numéro d'ordre 4
+Champ stocké <SIEF_ELGA> à l'instant  2.000000000000e-03 pour le numéro d'ordre 4
+Champ stocké <VARI_ELGA> à l'instant  2.000000000000e-03 pour le numéro d'ordre 4
+Champ stocké <COMPORTEMENT> à l'instant  2.000000000000e-03 pour le numéro d'ordre 4
+Champ stocké <VITE> à l'instant  2.000000000000e-03 pour le numéro d'ordre 4
+Champ stocké <ACCE> à l'instant  2.000000000000e-03 pour le numéro d'ordre 4
+[ 80%] Instant calculé : 2.00000e-03, dernier instant archivé : 1.50000e-03, au numéro d'ordre :    
+4
+---------------------------------------------------------------------
+Instant de calcul:  2.100000000000e-03 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 1.61413E-13    | 6.21803E-11    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  1.614127735167e-13 au noeud et degré de liberté <64068  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.866 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.220 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.022 s (1 factorisations)
+* Temps construction second membre                  : 0.944 s
+* Temps total résolution K.U=F                      : 0.189 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.491 s
+Mémoire (Mo) :  4510.67 /  4156.48 /  2224.59 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[ 84%] Instant calculé : 2.10000e-03, dernier instant archivé : 1.50000e-03, au numéro d'ordre :    
+4
+---------------------------------------------------------------------
+Instant de calcul:  2.200000000000e-03 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 1.52611E-13    | 6.34492E-11    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  1.526112571455e-13 au noeud et degré de liberté <63823  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.773 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.139 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.009 s (1 factorisations)
+* Temps construction second membre                  : 0.942 s
+* Temps total résolution K.U=F                      : 0.188 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.495 s
+Mémoire (Mo) :  4510.72 /  4155.53 /  2224.59 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[ 88%] Instant calculé : 2.20000e-03, dernier instant archivé : 1.50000e-03, au numéro d'ordre :    
+4
+---------------------------------------------------------------------
+Instant de calcul:  2.300000000000e-03 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 1.38362E-13    | 6.15000E-11    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  1.383619448110e-13 au noeud et degré de liberté <64007  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.800 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.169 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.005 s (1 factorisations)
+* Temps construction second membre                  : 0.945 s
+* Temps total résolution K.U=F                      : 0.188 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.492 s
+Mémoire (Mo) :  4510.72 /  4155.32 /  2224.59 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[ 91%] Instant calculé : 2.30000e-03, dernier instant archivé : 1.50000e-03, au numéro d'ordre :    
+4
+---------------------------------------------------------------------
+Instant de calcul:  2.400000000000e-03 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 1.48130E-13    | 6.97398E-11    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  1.481303706167e-13 au noeud et degré de liberté <63788  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.842 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.195 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.015 s (1 factorisations)
+* Temps construction second membre                  : 0.946 s
+* Temps total résolution K.U=F                      : 0.188 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.499 s
+Mémoire (Mo) :  4510.72 /  4151.98 /  2224.59 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+[ 96%] Instant calculé : 2.40000e-03, dernier instant archivé : 1.50000e-03, au numéro d'ordre :    
+4
+---------------------------------------------------------------------
+Instant de calcul:  2.500000000000e-03 - Niveau de découpe: 1
+
+---------------------------------------------------------------------
+|     NEWTON     |     RESIDU     |     RESIDU     |     OPTION     |
+|    ITERATION   |     RELATIF    |     ABSOLU     |   ASSEMBLAGE   |
+|                | RESI_GLOB_RELA | RESI_GLOB_MAXI |(+ TYPE MATRICE)|
+---------------------------------------------------------------------
+|     0          | 1.00778E-13    | 4.97984E-11    |TANGENTE   (SYM)|
+---------------------------------------------------------------------
+Critère(s) de convergence atteint(s)
+
+Le résidu de type <RESI_GLOB_RELA> vaut  1.007779969104e-13 au noeud et degré de liberté <65098  
+DX>
+Temps CPU consommé dans ce pas de temps    : 18.897 s
+
+* Nombre d'itérations de Newton                     : 1
+* Temps total intégration comportement              : 11.199 s (3 intégrations)
+* Temps total factorisation matrice                 : 4.068 s (1 factorisations)
+* Temps construction second membre                  : 0.949 s
+* Temps total résolution K.U=F                      : 0.188 s (1 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+* Temps autres opérations                           : 2.494 s
+Mémoire (Mo) :  4510.72 /  4152.10 /  2224.59 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+
+Archivage des champs
+
+Champ stocké <DEPL> à l'instant  2.500000000000e-03 pour le numéro d'ordre 5
+Champ stocké <SIEF_ELGA> à l'instant  2.500000000000e-03 pour le numéro d'ordre 5
+Champ stocké <VARI_ELGA> à l'instant  2.500000000000e-03 pour le numéro d'ordre 5
+Champ stocké <COMPORTEMENT> à l'instant  2.500000000000e-03 pour le numéro d'ordre 5
+Champ stocké <VITE> à l'instant  2.500000000000e-03 pour le numéro d'ordre 5
+Champ stocké <ACCE> à l'instant  2.500000000000e-03 pour le numéro d'ordre 5
+[100%] Instant calculé : 2.50000e-03, dernier instant archivé : 2.50000e-03, au numéro d'ordre :    
+5
+Temps CPU consommé dans le calcul          : 7 min 51 s
+
+dont temps CPU "perdu" dans les découpes            : 0.000 s
+* Nombre de pas de temps                            : 25
+* Nombre d'itérations de Newton                     : 25
+* Temps dans l'archivage                            : 0.146 s
+* Temps dans le post-traitement                     : 0.000 s
+* Temps total intégration comportement              : 4 min 39 s (75 intégrations)
+* Temps total factorisation matrice                 : 1 min 40 s (25 factorisations)
+* Temps construction second membre                  : 23.802 s
+* Temps total résolution K.U=F                      : 4.702 s (25 résolutions)
+* Temps assemblage matrice                          : 0.000 s
+#1      Resolution des systemes lineaires                 CPU (USER+SYST/SYST/ELAPS):    110.66     12.39    110.71
+#2      Calculs elementaires et assemblages               CPU (USER+SYST/SYST/ELAPS):    349.59     12.40    349.78
+#4      Communications MPI                                CPU (USER+SYST/SYST/ELAPS):      0.00      0.00      0.00
+# Résultat commande #0014 (DYNA_NON_LINE): RESU ('<0000000c>') de type <NonLinearResult>
+# Mémoire (Mo) :  4510.72 /  1329.85 /  2224.59 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0014   user+syst:      474.75s (syst:       35.03s, elaps:      509.92s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt189
+# ----------------------------------------------------------------------------------------------
+# Commande #0015 de carter_choc_cyl_ymin.comm.changed.py, ligne 189
+RESU = CALC_CHAMP(CRITERE='RELATIF',
+                  CRITERES='SIEQ_ELGA',
+                  INFO=1,
+                  PARALLELISME_TEMPS='NON',
+                  PRECISION=1e-06,
+                  RESULTAT=RESU,
+                  reuse=RESU)
+
+#2      Calculs elementaires et assemblages               CPU (USER+SYST/SYST/ELAPS):      2.23      0.13      2.20
+# Résultat commande #0015 (CALC_CHAMP): RESU ('<0000000c>') de type <NonLinearResult>
+# Mémoire (Mo) :  4510.72 /  1630.62 /  2224.59 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0015   user+syst:        2.34s (syst:        0.25s, elaps:        2.60s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt195
+# ----------------------------------------------------------------------------------------------
+# Commande #0016 de carter_choc_cyl_ymin.comm.changed.py, ligne 195
+IMPR_RESU(FICHIER_UNIQUE='NON',
+          FORMAT='MED',
+          INFO=1,
+          PROC0='OUI',
+          RESU=_F(IMPR_NOM_VARI='OUI',
+                  INFO_MAILLAGE='NON',
+                  NOM_CHAM=('DEPL', 'SIEF_ELGA', 'SIEQ_ELGA'),
+                  NOM_CHAM_MED=('RESU____DEPL', 'RESU____SIEF_ELGA', 'RESU____SIEQ_ELGA'),
+                  RESULTAT=RESU),
+          UNITE=80,
+          VERSION_MED='3.3.1')
+
+Création du fichier au format MED 3.3.1.
+
+# Mémoire (Mo) :  4510.72 /  1630.62 /  2224.59 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0016   user+syst:        3.58s (syst:        0.21s, elaps:        3.79s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt76
+# ----------------------------------------------------------------------------------------------
+# Commande #0017 de /opt/spack/opt/spack/linux-zen2/code-aster-17.4
+0-ecm2bfgr5obydotnlte6xilvggppqnap/lib64/aster/code_aster/CodeCommands/fin.py, ligne 76
+FIN(INFO_RESU='NON',
+    RETASSAGE='NON')
+
+No database in results, objects not saved on processor #0
+
+ ╔════════════════════════════════════════════════════════════════════════════════════════════════╗
+ ║ <I> <CATAMESS_89>                                                                              ║
+ ║                                                                                                ║
+ ║ Liste des alarmes émises lors de l'exécution du calcul.                                        ║
+ ║                                                                                                ║
+ ║     Les alarmes que vous avez choisies d'ignorer sont précédées de (*).                        ║
+ ║     Nombre d'occurrences pour chacune des alarmes :                                            ║
+ ║            aucune alarme                                                                       ║
+ ╚════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+<I> <FIN> ARRET NORMAL DANS "FIN" PAR APPEL A "JEFINI".
+  
+ <I> <FIN> MEMOIRE JEVEUX MINIMALE REQUISE POUR L'EXECUTION :                     697.68 Mo
+ <I> <FIN> MEMOIRE JEVEUX OPTIMALE REQUISE POUR L'EXECUTION :                    2224.59 Mo
+ <I> <FIN> MAXIMUM DE MEMOIRE UTILISEE PAR LE PROCESSUS LORS DE L'EXECUTION :    4510.72 Mo
+  
+ <I>       FERMETURE DES BASES EFFECTUEE
+  
+   STATISTIQUES CONCERNANT L'ALLOCATION DYNAMIQUE :
+     TAILLE CUMULEE MAXIMUM            :                 2225  Mo.
+     TAILLE CUMULEE LIBEREE            :                10515  Mo.
+     NOMBRE TOTAL D'ALLOCATIONS        :             23162767
+     NOMBRE TOTAL DE LIBERATIONS       :             23162075
+     APPELS AU MECANISME DE LIBERATION :                    0
+     TAILLE MEMOIRE CUMULEE RECUPEREE  :                 1638  Mo.
+     VOLUME DES LECTURES               :                    0  Mo.
+     VOLUME DES ECRITURES              :                 1022  Mo.
+  
+   MEMOIRE JEVEUX MINIMALE REQUISE POUR L'EXECUTION :     697.68 Mo
+     - IMPOSE DE NOMBREUX ACCES DISQUE
+     - RALENTIT LA VITESSE D'EXECUTION
+   MEMOIRE JEVEUX OPTIMALE REQUISE POUR L'EXECUTION :    2224.59 Mo
+     - LIMITE LES ACCES DISQUE
+     - AMELIORE LA VITESSE D'EXECUTION
+   MAXIMUM DE MEMOIRE UTILISEE PAR LE PROCESSUS     :    4510.72 Mo
+     - COMPREND LA MEMOIRE CONSOMMEE PAR  JEVEUX, 
+       LE SUPERVISEUR PYTHON, LES LIBRAIRIES EXTERNES
+  
+ <I>       FIN D'EXECUTION LE : ME-24-JUIN-2026 15:09:39
+INFO './glob.1' deleted
+Deleting './glob.2': No such file or directory
+INFO './vola.1' deleted
+Deleting './vola.2': No such file or directory
+
+ ********************************************************************************
+ * COMMAND                  :       USER :     SYSTEM :   USER+SYS :    ELAPSED *
+ ********************************************************************************
+ * DEBUT                    :       0.06 :       0.13 :       0.19 :       0.24 *
+ * LIRE_MAILLAGE            :       3.60 :       0.05 :       3.65 :       3.69 *
+ * DEFI_GROUP               :      11.96 :       0.02 :      11.98 :      11.98 *
+ * AFFE_MODELE              :       1.69 :       0.03 :       1.72 :       1.74 *
+ * DEFI_MATERIAU            :       0.04 :       0.00 :       0.04 :       0.04 *
+ * DEFI_MATERIAU            :       0.04 :       0.00 :       0.04 :       0.04 *
+ * DEFI_MATERIAU            :       0.04 :       0.00 :       0.04 :       0.03 *
+ * AFFE_MATERIAU            :       0.04 :       0.02 :       0.06 :       0.06 *
+ * AFFE_CHAR_MECA           :       0.02 :       0.01 :       0.03 :       0.04 *
+ * AFFE_CHAR_MECA           :       0.09 :       0.01 :       0.10 :       0.09 *
+ * DEFI_FONCTION            :       0.00 :       0.00 :       0.00 :       0.01 *
+ * DEFI_LIST_REEL           :       0.00 :       0.00 :       0.00 :       0.00 *
+ * DEFI_LIST_REEL           :       0.00 :       0.00 :       0.00 :       0.00 *
+ * DYNA_NON_LINE            :     474.75 :      35.03 :     509.78 :     509.92 *
+ * CALC_CHAMP               :       2.34 :       0.25 :       2.59 :       2.60 *
+ * IMPR_RESU                :       3.58 :       0.21 :       3.79 :       3.79 *
+ * FIN                      :       0.07 :       0.01 :       0.08 :       0.17 *
+ *  . check syntax          :       0.04 :       0.00 :       0.04 :       0.05 *
+ *  . fortran               :     494.51 :      35.70 :     530.21 :     530.52 *
+ *  . cleanup               :       0.14 :       0.00 :       0.14 :       0.13 *
+ ********************************************************************************
+ * TOTAL_JOB                :     498.36 :      35.78 :     534.14 :     534.57 *
+ ********************************************************************************
+
+# Mémoire (Mo) :  4510.72 /  1639.32 /  2224.59 /   697.68 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0017   user+syst:        0.07s (syst:        0.01s, elaps:        0.17s)
+# ----------------------------------------------------------------------------------------------
+End of the Code_Aster execution
+Code_Aster MPI exits normally
+Exited
+
+EXECUTION_CODE_ASTER_EXIT_128717=0
+
+
+
+------------------------------------------------------------
+--- DIAGNOSTIC JOB : OK
+------------------------------------------------------------
+

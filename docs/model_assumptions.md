@@ -58,6 +58,6 @@ For a nominal operating speed of 2000 rpm:
 | Five-blade passing frequency | 166.667 Hz |
 
 In the June 2026 model (linear tetrahedra) the third elastic mode, at 131.946 Hz, was the closest computed mode to a
-rotational harmonic. Superseded: linear tetrahedra overestimate the first modes by 12 to 20 %; with converged quadratic
-elements, modes 3, 4 and 5 cross the 3X, 4X and blade-passing lines inside the modulus range 3.8 to 6.0 GPa
+rotational harmonic. Superseded: linear tetrahedra overestimate the first modes by 12 to 20 %; with quadratic
+elements (element-order checked), modes 3, 4 and 5 cross the 3X, 4X and blade-passing lines inside the modulus range 3.8 to 6.0 GPa
 (see `paper/main.pdf`).

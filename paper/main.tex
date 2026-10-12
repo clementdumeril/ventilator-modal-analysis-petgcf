@@ -26,19 +26,17 @@ October 2026. Repository: \url{https://github.com/clementdumeril/ventilator-moda
 
 \begin{abstract}
 The housing of a desk fan printed in carbon-fibre PETG (PETG-CF) is analysed with code\_aster for resonance with
-the rotor and for its response to an impact. The free-free modes, with the motor and electronics as distributed masses,
-were first computed with linear tetrahedra; a convergence study shows these to be 12 to \SI{20}{\%} too stiff, while
-quadratic tetrahedra on four meshes agree within \SI{1}{\%}, at 44.0, 64.3 and \SI{109.9}{Hz} for the first three
-modes with $E=\SI{6}{GPa}$. The Young's modulus of the printed material is not measured. Between \SI{3.8}{GPa}, the
-published value for printed PETG with \SI{30}{\%} carbon fibre, and the \SI{6.0}{GPa} of the original model, modes 3, 4
-and 5 cross the third and fourth rotor harmonics and the blade-passing frequency at \SI{2000}{rpm}, so a resonance
-cannot be ruled out. Three impact cases, a \SI{251}{g}, \SI{2.5}{ms} pulse with the
-contact patch held fixed, are run to \SI{30}{ms} with linear transient dynamics and Rayleigh damping; verification
-found that the original oblique case fixed a slice through the housing, and it was replaced. With quadratic elements
-and a nominal \SI{5}{\%} damping (2 to \SI{5}{\%} over the frequencies involved), the peak von Mises stresses away from
-the contact, 114 to \SI{174}{MPa}, sit at junctions of the support arms and the stand and exceed the strength reported
-for printed PETG-CF; they are local (95th percentile below \SI{23}{MPa}) and sensitive to the element order and to
-the simplified geometry of these junctions.
+the rotor and for its impact response. Linear tetrahedra overestimate the first free-free modes by 12 to \SI{20}{\%};
+quadratic tetrahedra on four meshes agree within \SI{1}{\%}, at 44.0, 64.3 and \SI{109.9}{Hz} for $E=\SI{6}{GPa}$. The
+modulus of the printed part is not measured. Between \SI{3.8}{GPa}, the published value for printed PETG with
+\SI{30}{\%} fibre, and the \SI{6.0}{GPa} of the original model, modes 3, 4 and 5 cross the third and fourth rotor
+harmonics and the blade-passing frequency at \SI{2000}{rpm}, so a resonance cannot be ruled out. Three impact cases
+(\SI{251}{g}, \SI{2.5}{ms} pulse, contact patch held fixed) are run to \SI{30}{ms} with linear transient dynamics and
+Rayleigh damping; verification found that the original oblique case fixed a slice through the housing, and it was
+replaced. With quadratic elements and a nominal \SI{5}{\%} damping, the peak von Mises stresses away from the contact,
+114 to \SI{174}{MPa}, sit at junctions of the arms and the stand and exceed the strength reported for printed PETG-CF.
+They are local (95th percentile below \SI{23}{MPa}) and sensitive to the element order and to the simplified geometry
+of these junctions.
 \end{abstract}
 
 \section{Introduction}
@@ -270,7 +268,8 @@ line: blade-passing frequency.}
 \subsection{Impact}
 
 The June runs stopped at \SI{2.5}{ms}, at the end of the pulse, while the stress was still rising in the two lateral
-cases. The October runs continue to \SI{30}{ms} with linear elements at four damping levels and with quadratic elements
+cases. The October runs continue to \SI{30}{ms} with linear elements at four damping levels ($\zeta_n=0$, 2, 5 and
+\SI{10}{\%}) and with quadratic elements
 undamped and at the central level (Table~\ref{tab:shockall}; the corrected oblique case with quadratic elements at the
 central level only). The damping of the printed part is not known, and Rayleigh damping
 $\mathbf{C}=\alpha\mathbf{M}+\beta\mathbf{K}$ is assumed, with $\alpha$ and $\beta$ set to give a nominal ratio
@@ -319,7 +318,7 @@ oblique impact on the base edge the peak is again where the stand joins the shro
 \SI{8.2}{ms} with quadratic elements. With quadratic elements this response beats, with a second maximum of
 \SI{136}{MPa} at \SI{25.6}{ms}; continued to \SI{60}{ms}, its later maxima stay lower (at most \SI{118}{MPa}, at
 \SI{43.8}{ms}). Damping lowers the peaks slowly: from 152 to \SI{128}{MPa}
-between 0 and \SI{10}{\%} for the $-y$ impact with linear elements. Quadratic elements, which are less stiff in bending,
+between $\zeta_n=0$ and \SI{10}{\%} for the $-y$ impact with linear elements. Quadratic elements, which are less stiff in bending,
 give higher peaks at \SI{5}{\%}: 174 against \SI{138}{MPa} for $-y$, 114 against \SI{110}{MPa} for $+y$ and 139
 against \SI{112}{MPa} for the oblique impact. They also move the $-y$ peak to another junction, so the hot spots are
 best read as a set of regions (arm-to-hub, arm-to-shroud and stand-to-shroud junctions) rather than as single points.
@@ -369,7 +368,7 @@ lengthening the stop, and larger fillets at the arm and stand junctions.
 
 Two results of the June analysis do not hold. Its frequencies, from linear tetrahedra, were 12 to \SI{20}{\%} too high
 for the first three modes, so the closest call it reported (mode~3 near the fourth harmonic) is a different mode near the
-third harmonic once the elements are converged. Its impact stresses, read at \SI{2.5}{ms}, stopped before the peak of the
+third harmonic once the element order is checked. Its impact stresses, read at \SI{2.5}{ms}, stopped before the peak of the
 $-y$ case and used elements that are too stiff in bending. Its oblique case fixed a slice cut through the housing instead of a
 contact patch. What holds is that the stress concentrates locally, at a few junctions of the housing; the values of
 these local peaks are not converged.
@@ -396,7 +395,8 @@ not capture. The other limits are:
 The free-free modes of the PETG-CF housing, computed with quadratic elements and known to about \SI{2}{\%}, are 44.0,
 64.3 and \SI{109.9}{Hz} for the first three at $E=\SI{6}{GPa}$, 12 to \SI{20}{\%} below the values of the original linear-element model. Carried over
 the modulus range \SIrange{3.8}{6.0}{GPa}, modes 3, 4 and 5 each cross a rotor line at \SI{2000}{rpm}, so
-the absence of resonance cannot be claimed without measuring the material. Under an idealised impact with the contact
+the absence of resonance cannot be claimed without measuring the material; the crossings of modes 4 and 5 appear
+only with quadratic elements. Under an idealised impact with the contact
 patch held fixed, the damped stress peaks at the arm and stand junctions (114 to \SI{174}{MPa} with quadratic
 elements at a nominal \SI{5}{\%} damping) are local and sensitive to the mesh and the simplified geometry, and they
 exceed the strength reported for printed PETG-CF. In order of priority, the next steps are: a tap test of a printed

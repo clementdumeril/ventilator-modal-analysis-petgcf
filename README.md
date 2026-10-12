@@ -29,7 +29,7 @@ Full report, in preprint form: [`paper/main.pdf`](paper/main.pdf).
   <em>Each band spans a mode for E = 3.8 GPa (bottom) to 6.0 GPa (top). Circles and crosses: the June linear-element values.</em>
 </p>
 
-The 6 GPa of the June model has no source; 3.8 GPa is the value published for printed PETG with 30 % carbon fibre (Prabhakaran et al., 2025). Within that range three modes cross a rotor line, so a resonance at 2000 rpm cannot be ruled out without measuring the printed part. The crossings of modes 4 and 5 appear only with quadratic elements: linear elements find no mode between 132 and 228 Hz.
+The 6 GPa of the June model has no source; 3.8 GPa is the value published for printed PETG with 30 % carbon fibre (Prabhakaran et al., 2025). Within that range three modes cross a rotor line, so a resonance at 2000 rpm cannot be ruled out without measuring the printed part. The crossings of modes 4 and 5 exist only with quadratic elements (TETRA10): linear elements find no mode between 132 and 228 Hz.
 
 ### Impact (0 to 30 ms)
 

@@ -1,0 +1,5 @@
+# wall times from the run queue (Idle priority, 2 threads, i7-6700HQ); code_aster 17.4
+run_cyl_ymin.bat end 2026-10-11T19:55:59 wall_s=5963 --- DIAGNOSTIC JOB : OK
+# first attempt (stresses at all 301 archived instants, scratch on C:) ran the transient to 60 ms in 6465 s, then failed in CALC_CHAMP:
+# JEVEUX_40 write error, write error attributed by Code_Aster to a lack of disk space (estimated need about 120 GB, 118 GB free on C:; message_cyl_ymin_first_attempt_disk_full.txt); rerun with CHOC_STRESS_FROM=0.026 and CHOC_TMPDIR on D:
+# check: from 26 to 30 ms the rerun reproduces runs_quad_damped_05pct (stress and displacement differences 0.0)

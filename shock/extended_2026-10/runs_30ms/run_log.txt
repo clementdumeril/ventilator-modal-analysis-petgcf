@@ -1,0 +1,8 @@
+﻿host: DESKTOP-3F96U6B  started: 2026-10-09T16:44:32
+cyl_ymin start 2026-10-09T16:44:32
+cyl_ymin end 2026-10-09T17:51:05 wall_s=3993 --- DIAGNOSTIC JOB : OK rmed_MB=6470
+cyl_ymax start 2026-10-09T17:51:06
+cyl_ymax end 2026-10-09T18:09:08 wall_s=1083 --- DIAGNOSTIC JOB : OK rmed_MB=6470
+cyl_oblique_ymin_z start 2026-10-09T18:09:09
+cyl_oblique_ymin_z end 2026-10-09T18:25:14 wall_s=965 --- DIAGNOSTIC JOB : OK rmed_MB=6470
+all done 2026-10-09T18:25:14

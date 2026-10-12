@@ -1,0 +1,1 @@
+mesh mesh_h10.med: 102417 nodes, 333483 TETRA4, volume 704192 mm3; G_MOTEUR: 23081 elems, 117525 mm3, rho 2.065795e-09; G_BASE_ELEC: 11454 elems, 85955 mm3, rho 2.172551e-09

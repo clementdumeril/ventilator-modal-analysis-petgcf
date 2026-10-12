@@ -1,0 +1,590 @@
+setting '--memory' value to 29491.20 MB (keyword RESERVE_MEMOIRE)
+copying 'D:\\v2025\\carter_modal_v1_analysis\\ETUDE_CHOC_PROLONGEE_2026-10\\carter_socle_xy_z_netgen.med' to 'fort.20'...
+Ouverture en écriture du fichier ./vola.1
+
+<INFO> Démarrage de l'exécution.
+
+                                                                                   
+   ___         _         _       _            __      ___         _                
+  / __|___  __| |___    /_\   __| |_ ___ _ _  \ \    / (_)_ _  __| |_____ __ _____ 
+ | (__/ _ \/ _` / -_)  / _ \ (_-<  _/ -_) '_|  \ \/\/ /| | ' \/ _` / _ \ V  V (_-< 
+  \___\___/\__,_\___| /_/ \_\/__/\__\___|_|     \_/\_/ |_|_||_\__,_\___/\_/\_//__/ 
+                                                 https://code-aster-windows.com    
+                  -- CODE_ASTER -- VERSION : DÉVELOPPEMENT STABILISÉE (testing) --                  
+                               Version 17.4.0 modifiée le 22/01/2026                                
+                          révision 03b95c288047 - branche 'windows-draft'                           
+                                   Copyright EDF R&D 1991 - 2026                                    
+                                                                                                    
+                              Exécution du : Sat Oct 10 12:17:27 2026                               
+                                        Nom de la machine :                                         
+                                          DESKTOP-3F96U6B                                           
+                                        Architecture : 64bit                                        
+                                     Type de processeur : AMD64                                     
+                                      Système d'exploitation :                                      
+                                     Windows-10-10.0.19045-SP0                                      
+                                 Langue des messages : fr (cp1252)                                  
+                                     Version de Python : 3.11.9                                     
+                                     Version de NumPy : 1.26.4                                      
+                                     Parallélisme MPI : inactif                                     
+                                    Parallélisme OpenMP : actif                                     
+                              Nombre de processus OpenMP utilisés : 2                               
+                               Version de la librairie HDF5 : 1.10.9                                
+                                Version de la librairie MED : 4.2.0                                 
+                                 Librairie MFront : non disponible                                  
+                               Version de la librairie MUMPS : 5.6.2                                
+                                  Librairie PETSc : non disponible                                  
+                               Version de la librairie SCOTCH : 7.0.3                               
+
+starting the execution...
+Valeur initiale du temps CPU maximum =   36000 secondes
+  Valeur du temps CPU maximum passé aux
+commandes =   32400 secondes
+  Réserve CPU prévue = 3600 secondes
+
+Ouverture en écriture du fichier ./glob.1
+
+Ouverture en écriture du fichier ./vola.1
+
+Ouverture en lecture du fichier D:\Code_Aster\v2025\17.4\bin\..\lib\aster/elem.1
+
+Nom de la base                          :  ELEMBASE
+     Créée avec la version                   : 
+17.04.00
+     Nombre d'enregistrements utilisés       :  46
+     Nombre d'enregistrements maximum   
+    :  512
+     Nombre d'enregistrements par fichier    :  512
+     Longueur d'enregistrement
+(octets)      :  819200
+     Nombre d'identificateurs utilisés       :  123
+     Taille maximum du
+répertoire            :  300
+     Pourcentage d'utilisation du répertoire :  41 %
+
+Ouverture en lecture du fichier D:\Code_Aster\v2025\17.4\bin\..\lib\aster/elem.1
+
+Nom de la base                          :  ELEMBASE
+     Nombre d'enregistrements utilisés       : 
+46
+     Nombre d'enregistrements maximum        :  512
+     Nombre d'enregistrements par fichier   
+:  512
+     Longueur d'enregistrement (octets)      :  819200
+     Nombre total d'accès en lecture  
+      :  64
+     Volume des accès en lecture             :         50.00 Mo.
+     Nombre total
+d'accès en écriture        :  0
+     Volume des accès en écriture            :          0.00 Mo.
+   
+ Nombre d'identificateurs utilisés       :  123
+     Taille maximum du répertoire            :  300
+
+    Pourcentage d'utilisation du répertoire :  41 %
+
+Relecture des catalogues des éléments faite.
+
+Fin de lecture (durée  0.000000  s.) 
+
+                      Mémoire limite pour l'allocation dynamique : 30004.44 Mo                      
+                              ajouté à l'initialisation du processus :                              
+                                             290.08 Mo                                              
+                              Limite cible du processus : 30294.52 Mo                               
+                         Taille limite des fichiers d'échange : 2048.00 Go                          
+# Mémoire (Mo) :   290.08 /   283.07 /   207.61 /   183.67 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0001   user+syst:        0.06s (syst:        0.12s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt21
+# ----------------------------------------------------------------------------------------------
+# Commande #0002 de C:\Users\PC\AppData\Local\Temp\run_aster_3azsptbb\cyl_ymax.comm.changed.py,
+ligne 21
+MAIL = LIRE_MAILLAGE(FORMAT='MED',
+                     INFO=1,
+                     INFO_MED=0,
+                     PARTITIONNEUR='SANS',
+                     UNITE=20,
+                     VERI_MAIL=_F(APLAT=0.001,
+                                  VERIF='OUI'))
+
+Nom MED du maillage : carter_modal_v1_tetra
+
+
+------------ MAILLAGE 00000001 - IMPRESSIONS NIVEAU  1 ------------
+
+
+NOMBRE DE NOEUDS                       95358
+
+NOMBRE DE MAILLES                     549603
+                              SEG2                66508
+                              TRIA3              170318
+                              TETRA4             312777
+
+--------------------------------------------------------------------------------
+
+Vérification du maillage.
+
+# Résultat commande #0002 (LIRE_MAILLAGE): MAIL ('<00000001>') de type <Mesh>
+# Mémoire (Mo) :   384.54 /   363.24 /   255.10 /   224.16 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0002   user+syst:        5.55s (syst:        0.06s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt23
+# ----------------------------------------------------------------------------------------------
+# Commande #0003 de C:\Users\PC\AppData\Local\Temp\run_aster_3azsptbb\cyl_ymax.comm.changed.py,
+ligne 23
+MAIL = DEFI_GROUP(ALARME='OUI',
+                  CREA_GROUP_MA=(_F(NOM='G_TETRA',
+                                    TOUT='OUI',
+                                    TYPE_MAILLE='TETRA4'),
+                                 _F(CRIT_NOEUD='MAJORITE',
+                                    NOM='G_MOTEUR',
+                                    OPTION='SPHERE',
+                                    POINT=(23.093853, -45.158407, 163.598992),
+                                    RAYON=30.0,
+                                    TYPE_MAILLE='TETRA4'),
+                                 _F(CRIT_NOEUD='MAJORITE',
+                                    NOM='G_BASE_ELEC',
+                                    OPTION='SPHERE',
+                                    POINT=(24.323447, 9.996963, 52.04348),
+                                    RAYON=45.0,
+                                    TYPE_MAILLE='TETRA4'),
+                                 _F(NOM='G_MASSES_AJOUTEES',
+                                    TYPE_MAILLE='TETRA4',
+                                    UNION=('G_MOTEUR', 'G_BASE_ELEC')),
+                                 _F(DIFFE=('G_TETRA', 'G_MASSES_AJOUTEES'),
+                                    NOM='G_PETGCF',
+                                    TYPE_MAILLE='TETRA4')),
+                  CREA_GROUP_NO=_F(NOM='N_CONTACT',
+                                   OPTION='PLAN',
+                                   POINT=(0.0, 102.879253, 0.0),
+                                   PRECISION=5.0,
+                                   VECT_NORMALE=(0.0, 1.0, 0.0)),
+                  INFO=1,
+                  MAILLAGE=MAIL,
+                  reuse=MAIL)
+
+
+
+NOMBRE  DE GROUPES DE MAILLES CREES :      5
+=============================================
+
+               ------------------------------------------------------
+               !         NOM DU GROUPE         ! NBRE DE MAILLES DU !
+               !            MAILLES            !     GROUPE_MA      !
+               ------------------------------------------------------
+               !  G_TETRA                      !    312777          !
+               !  G_MOTEUR                     !     23127          !
+               !  G_BASE_ELEC                  !     11616          !
+               !  G_MASSES_AJOUTEES            !     34743          !
+               !  G_PETGCF                     !    278034          !
+               ------------------------------------------------------
+
+
+
+NOMBRE  DE GROUPES DE NOEUDS CREES :      1
+=======================================
+
+               ------------------------------------------------------
+               !         NOM DU GROUPE         ! NBRE DE NOEUDS DU  !
+               !            NOEUDS             !      GROUPE_NO     !
+               ------------------------------------------------------
+               !  N_CONTACT                    !        63          !
+               ------------------------------------------------------
+
+# Résultat commande #0003 (DEFI_GROUP): MAIL ('<00000001>') de type <Mesh>
+# Mémoire (Mo) :   384.54 /   368.23 /   255.10 /   224.16 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0003   user+syst:       25.20s (syst:        0.58s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt67
+# ----------------------------------------------------------------------------------------------
+# Commande #0004 de C:\Users\PC\AppData\Local\Temp\run_aster_3azsptbb\cyl_ymax.comm.changed.py,
+ligne 67
+MODELE = AFFE_MODELE(AFFE=_F(GROUP_MA='G_TETRA',
+                             MODELISATION='3D',
+                             PHENOMENE='MECANIQUE'),
+                     DISTRIBUTION=_F(METHODE='SOUS_DOMAINE',
+                                     PARTITIONNEUR='METIS'),
+                     INFO=1,
+                     MAILLAGE=MAIL,
+                     VERI_FORMULATION_IFS='OUI',
+                     VERI_JACOBIEN='OUI',
+                     VERI_NORM_IFS='OUI',
+                     VERI_PLAN='OUI')
+
+Sur les 549603 mailles du maillage 00000001, on a demandé l'affectation de 312777, on a pu en
+affecter 312777.
+Modélisation     Formulation      Type maille  Élément fini     Nombre
+3D               _                TETRA4       MECA_TETRA4      312777
+#2      Calculs elementaires et assemblages               CPU (USER+SYST/SYST/ELAPS):      0.23      0.00      1.00
+# Résultat commande #0004 (AFFE_MODELE): MODELE ('<00000002>') de type <Model>
+# Mémoire (Mo) :   407.81 /   393.51 /   279.85 /   251.86 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0004   user+syst:        2.64s (syst:        0.05s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt76
+# ----------------------------------------------------------------------------------------------
+# Commande #0005 de C:\Users\PC\AppData\Local\Temp\run_aster_3azsptbb\cyl_ymax.comm.changed.py,
+ligne 76
+PETGCF = DEFI_MATERIAU(ELAS=_F(B_ENDOGE=0.0,
+                               COEF_AMOR=1.0,
+                               E=6000.0,
+                               K_DESSIC=0.0,
+                               NU=0.35,
+                               RHO=1.3e-09),
+                       INFO=1)
+
+# Résultat commande #0005 (DEFI_MATERIAU): PETGCF ('<00000003>') de type <Material>
+# Mémoire (Mo) :   407.81 /   393.71 /   279.85 /   251.86 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0005   user+syst:        0.03s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt84
+# ----------------------------------------------------------------------------------------------
+# Commande #0006 de C:\Users\PC\AppData\Local\Temp\run_aster_3azsptbb\cyl_ymax.comm.changed.py,
+ligne 84
+PETGCF_MOTEUR = DEFI_MATERIAU(ELAS=_F(B_ENDOGE=0.0,
+                                      COEF_AMOR=1.0,
+                                      E=6000.0,
+                                      K_DESSIC=0.0,
+                                      NU=0.35,
+                                      RHO=2.063354290143e-09),
+                              INFO=1)
+
+# Résultat commande #0006 (DEFI_MATERIAU): PETGCF_MOTEUR ('<00000004>') de type <Material>
+# Mémoire (Mo) :   407.81 /   393.71 /   279.85 /   251.86 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0006   user+syst:        0.05s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt92
+# ----------------------------------------------------------------------------------------------
+# Commande #0007 de C:\Users\PC\AppData\Local\Temp\run_aster_3azsptbb\cyl_ymax.comm.changed.py,
+ligne 92
+PETGCF_BASE_ELEC = DEFI_MATERIAU(ELAS=_F(B_ENDOGE=0.0,
+                                         COEF_AMOR=1.0,
+                                         E=6000.0,
+                                         K_DESSIC=0.0,
+                                         NU=0.35,
+                                         RHO=2.160457338233e-09),
+                                 INFO=1)
+
+# Résultat commande #0007 (DEFI_MATERIAU): PETGCF_BASE_ELEC ('<00000005>') de type <Material>
+# Mémoire (Mo) :   407.81 /   393.71 /   279.85 /   251.86 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0007   user+syst:        0.05s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt100
+# ----------------------------------------------------------------------------------------------
+# Commande #0008 de C:\Users\PC\AppData\Local\Temp\run_aster_3azsptbb\cyl_ymax.comm.changed.py,
+ligne 100
+CHMAT = AFFE_MATERIAU(AFFE=(_F(GROUP_MA='G_PETGCF',
+                               MATER=PETGCF),
+                            _F(GROUP_MA='G_MOTEUR',
+                               MATER=PETGCF_MOTEUR),
+                            _F(GROUP_MA='G_BASE_ELEC',
+                               MATER=PETGCF_BASE_ELEC)),
+                      INFO=1,
+                      MAILLAGE=MAIL)
+
+# Résultat commande #0008 (AFFE_MATERIAU): CHMAT ('<00000006>') de type <MaterialField>
+# Mémoire (Mo) :   407.81 /   398.17 /   279.85 /   251.86 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0008   user+syst:        0.06s (syst:        0.02s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt111
+# ----------------------------------------------------------------------------------------------
+# Commande #0009 de C:\Users\PC\AppData\Local\Temp\run_aster_3azsptbb\cyl_ymax.comm.changed.py,
+ligne 111
+BC_CONTACT = AFFE_CHAR_MECA(DDL_IMPO=_F(DX=0.0,
+                                        DY=0.0,
+                                        DZ=0.0,
+                                        GROUP_NO='N_CONTACT'),
+                            DOUBLE_LAGRANGE='OUI',
+                            INFO=1,
+                            MODELE=MODELE,
+                            SYNTAXE='NON',
+                            VERI_AFFE='OUI',
+                            VERI_NORM='OUI')
+
+# Résultat commande #0009 (AFFE_CHAR_MECA): BC_CONTACT ('<00000007>') de type <MechanicalLoadReal>
+# Mémoire (Mo) :   407.81 /   406.57 /   279.85 /   251.86 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0009   user+syst:        0.02s (syst:        0.02s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt122
+# ----------------------------------------------------------------------------------------------
+# Commande #0010 de C:\Users\PC\AppData\Local\Temp\run_aster_3azsptbb\cyl_ymax.comm.changed.py,
+ligne 122
+ASSEMBLAGE(CHAM_MATER=CHMAT,
+           CHARGE=BC_CONTACT,
+           INFO=1,
+           INST=0.0,
+           MATR_ASSE=(_F(MATRICE=CO('RIGI'),
+                         MODE_FOURIER=0,
+                         OPTION='RIGI_MECA'),
+                      _F(MATRICE=CO('MASS'),
+                         OPTION='MASS_MECA')),
+           MODELE=MODELE,
+           NUME_DDL=CO('NUMEDDL'))
+
+Le système linéaire à résoudre a 286452 degrés de liberté:
+   - 286074 sont des degrés de liberté
+physiques
+     (ils sont portés par 95358 noeuds du maillage)
+   - 378 sont les couples de
+paramètres de Lagrange associés
+     aux 189 relations linéaires dualisées.
+La matrice est de taille 286452 équations.
+  Elle contient 5013531 termes non nuls si elle est
+symétrique et 9740610 termes non nuls si elle n'est pas symétrique.
+  Soit un taux de remplissage de
+  0.012 %.
+# Résultat commande #0010 (ASSEMBLAGE): NUMEDDL ('<00000010>') de type <DOFNumbering>
+# Résultat commande #0010 (ASSEMBLAGE): RIGI ('<00000012>') de type <AssemblyMatrixDisplacementReal>
+# Résultat commande #0010 (ASSEMBLAGE): MASS ('<00000018>') de type <AssemblyMatrixDisplacementReal>
+# Mémoire (Mo) :   899.84 /   525.43 /   763.98 /   291.13 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0010   user+syst:        9.69s (syst:        0.36s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt124
+# ----------------------------------------------------------------------------------------------
+# Commande #0016 de C:\Users\PC\AppData\Local\Temp\run_aster_3azsptbb\cyl_ymax.comm.changed.py,
+ligne 124
+MODES = CALC_MODES(AMELIORATION='NON',
+                   CALC_FREQ=_F(NMAX_FREQ=6,
+                                NMAX_ITER_SHIFT=3,
+                                PREC_SHIFT=0.05,
+                                SEUIL_FREQ=0.01),
+                   INFO=1,
+                   MATR_MASS=MASS,
+                   MATR_RIGI=RIGI,
+                   OPTION='PLUS_PETITE',
+                   SOLVEUR=_F(ACCELERATION='FR',
+                              ELIM_LAGR='LAGR2',
+                              GESTION_MEMOIRE='AUTO',
+                              LOW_RANK_SEUIL=0.0,
+                              METHODE='MUMPS',
+                              NB_RHS=1,
+                              NPREC=8,
+                              PCENT_PIVOT=35,
+                              POSTTRAITEMENTS='AUTO',
+                              PRETRAITEMENTS='AUTO',
+                              RENUM='AUTO',
+                              RESI_RELA=-1.0,
+                              TYPE_RESOL='AUTO'),
+                   SOLVEUR_MODAL=_F(APPROCHE='REEL',
+                                    METHODE='SORENSEN',
+                                    NMAX_ITER_SOREN=20,
+                                    PARA_ORTHO_SOREN=0.717,
+                                    PREC_SOREN=0.0),
+                   STOP_BANDE_VIDE='OUI',
+                   TYPE_RESU='DYNAMIQUE',
+                   VERI_MODE=_F(PREC_SHIFT=0.005,
+                                SEUIL=1e-06,
+                                STOP_ERREUR='NON',
+                                STURM='OUI'))
+
+Le nombre total de DDL est       :     286452
+  Le nombre de DDL de Lagrange est :        378
+  Le
+nombre de DDL actifs est      :     285885
+
+L'option choisie est : PLUS_PETITE
+
+La valeur de décalage en fréquence est :  0.00000E+00
+
+------------------------------------------------------------------------
+
+Informations sur le calcul demandé:
+
+  Nombre de modes recherchés  : 6
+
+
+La dimension de l'espace réduit est : 0
+
+Elle est inférieure au nombre de modes, on la prend égale à : 12
+
+=============================================
+     =       Méthode de Sorensen (code ARPACK)   =
+   
+ =       Version :  2.4                      =
+     =          Date :  07/31/96                 =
+  
+  =============================================
+
+     Nombre de redémarrages                     =  
+  4
+     Nombre de produits OP*X                    =    23
+     Nombre de produits B*X             
+       =    70
+     Nombre de réorthogonalisations  (étape 1)  =    22
+     Nombre de
+réorthogonalisations  (étape 2)  =     0
+     Nombre de redémarrages du a un V0 nul      =     0
+
+
+------------------------------------------------------------------------
+Les fréquences calculées sont comprises entre :
+      Fréquence inférieure :  4.26029E+01
+     
+Fréquence supérieure :  1.93164E+02
+
+
+------------------------------------------------------------------------
+Calcul modal : Méthode d'itération simultanée
+                    Méthode de Sorensen
+
+numéro   
+fréquence (HZ)     norme d'erreur
+
+1       4.26029E+01        1.42564E-08
+
+2       4.45141E+01        1.09458E-08
+
+3       7.00769E+01        1.51779E-09
+
+4       8.33971E+01        1.29703E-09
+
+5       1.09975E+02        9.91704E-09
+
+6       1.93164E+02        1.53467E-09
+
+Norme d'erreur moyenne   :  6.57812E-09
+
+------------------------------------------------------------------------
+
+Vérification à posteriori des modes
+
+
+Dans l'intervalle ( 4.24962E+01 , 1.93646E+02 ) il y a bien 6 fréquence(s).
+
+------------------------------------------------------------------------
+
+#1      Resolution des systemes lineaires                 CPU (USER+SYST/SYST/ELAPS):     74.90      0.00     73.00
+# Résultat commande #0016 (CALC_MODES): MODES ('<00000019>') de type <ModeResult>
+# Mémoire (Mo) :  1236.80 /   526.77 /   763.98 /   354.10 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0016   user+syst:       50.92s (syst:       20.22s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt126
+# ----------------------------------------------------------------------------------------------
+# Commande #0018 de C:\Users\PC\AppData\Local\Temp\run_aster_3azsptbb\cyl_ymax.comm.changed.py,
+ligne 126
+TF = RECU_TABLE(CO=MODES,
+                NOM_PARA=('NUME_MODE', 'FREQ'))
+
+# Résultat commande #0018 (RECU_TABLE): TF ('<0000001a>') de type <Table>
+# Mémoire (Mo) :  1236.80 /   526.81 /   763.98 /   354.10 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0018   user+syst:        0.02s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt127
+# ----------------------------------------------------------------------------------------------
+# Commande #0019 de C:\Users\PC\AppData\Local\Temp\run_aster_3azsptbb\cyl_ymax.comm.changed.py,
+ligne 127
+IMPR_TABLE(COMMENTAIRE='#',
+           COMM_PARA='',
+           DEBUT_LIGNE='',
+           FIN_LIGNE='\n',
+           FIN_TABLE='',
+           FORMAT='TABLEAU',
+           FORMAT_R='E12.5',
+           IMPR_FONCTION='NON',
+           INFO=1,
+           SEPARATEUR=' ',
+           TABLE=TF,
+           UNITE=8)
+
+# Mémoire (Mo) :  1236.80 /   526.86 /   763.98 /   354.10 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0019   user+syst:        0.03s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt76
+# ----------------------------------------------------------------------------------------------
+# Commande #0022 de D:\Code_Aster\v2025\17.4\lib\aster\code_aster\CodeCommands\fin.py, ligne 76
+FIN(INFO_RESU='NON',
+    RETASSAGE='NON')
+
+No database in results, objects not saved on processor #0
+
+ ╔════════════════════════════════════════════════════════════════════════════════════════════════╗
+ ║ <I> <CATAMESS_89>                                                                              ║
+ ║                                                                                                ║
+ ║ Liste des alarmes émises lors de l'exécution du calcul.                                        ║
+ ║                                                                                                ║
+ ║     Les alarmes que vous avez                                                                  ║
+ ║ choisies d'ignorer sont précédées de (*).                                                      ║
+ ║     Nombre d'occurrences pour chacune des alarmes :                                            ║
+ ║                                                                                                ║
+ ║           aucune alarme                                                                        ║
+ ╚════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+<I> <FIN> ARRET NORMAL DANS "FIN" PAR APPEL A "JEFINI".
+  
+ <I> <FIN> MEMOIRE JEVEUX MINIMALE REQUISE POUR L'EXECUTION :                     354.10 Mo
+ <I> <FIN> MEMOIRE JEVEUX OPTIMALE REQUISE POUR L'EXECUTION :                     763.98 Mo
+ <I> <FIN> MAXIMUM DE MEMOIRE UTILISEE PAR LE PROCESSUS LORS DE L'EXECUTION :    1236.80 Mo
+  
+ <I>       FERMETURE DES BASES EFFECTUEE
+  
+   STATISTIQUES CONCERNANT L'ALLOCATION DYNAMIQUE :
+     TAILLE CUMULEE MAXIMUM            :                  764  Mo.
+     TAILLE CUMULEE LIBEREE            :                 1123  Mo.
+     NOMBRE TOTAL D'ALLOCATIONS        :              9639743
+     NOMBRE TOTAL DE LIBERATIONS       :              9639286
+     APPELS AU MECANISME DE LIBERATION :                    0
+     TAILLE MEMOIRE CUMULEE RECUPEREE  :                  177  Mo.
+     VOLUME DES LECTURES               :                    0  Mo.
+     VOLUME DES ECRITURES              :                  137  Mo.
+  
+   MEMOIRE JEVEUX MINIMALE REQUISE POUR L'EXECUTION :     354.10 Mo
+     - IMPOSE DE NOMBREUX ACCES DISQUE
+     - RALENTIT LA VITESSE D'EXECUTION
+   MEMOIRE JEVEUX OPTIMALE REQUISE POUR L'EXECUTION :     763.98 Mo
+     - LIMITE LES ACCES DISQUE
+     - AMELIORE LA VITESSE D'EXECUTION
+   MAXIMUM DE MEMOIRE UTILISEE PAR LE PROCESSUS     :    1236.80 Mo
+     - COMPREND LA MEMOIRE CONSOMMEE PAR  JEVEUX, 
+       LE SUPERVISEUR PYTHON, LES LIBRAIRIES EXTERNES
+  
+ <I>       FIN D'EXECUTION LE : SA-10-OCTO-2026 12:19:41
+
+ ********************************************************************************
+ * COMMAND                  :       USER :     SYSTEM :   USER+SYS :    ELAPSED *
+ ********************************************************************************
+ * DEBUT                    :       0.06 :       0.12 :       0.19 :       0.00 *
+ * LIRE_MAILLAGE            :       5.55 :       0.06 :       5.61 :       0.00 *
+ * DEFI_GROUP               :      25.20 :       0.58 :      25.78 :       0.00 *
+ * AFFE_MODELE              :       2.64 :       0.05 :       2.69 :       0.00 *
+ * DEFI_MATERIAU            :       0.03 :       0.00 :       0.03 :       0.00 *
+ * DEFI_MATERIAU            :       0.05 :       0.00 :       0.05 :       0.00 *
+ * DEFI_MATERIAU            :       0.05 :       0.00 :       0.05 :       0.00 *
+ * AFFE_MATERIAU            :       0.06 :       0.02 :       0.08 :       0.00 *
+ * AFFE_CHAR_MECA           :       0.02 :       0.02 :       0.03 :       0.00 *
+ * ASSEMBLAGE               :       9.69 :       0.36 :      10.05 :       0.00 *
+ * CALC_MODES               :      50.92 :      20.22 :      71.14 :       0.00 *
+ * RECU_TABLE               :       0.02 :       0.00 :       0.02 :       0.00 *
+ * IMPR_TABLE               :       0.03 :       0.00 :       0.03 :       0.00 *
+ * FIN                      :       0.05 :       0.00 :       0.05 :       0.00 *
+ *  . check syntax          :       0.05 :       0.00 :       0.05 :       0.00 *
+ *  . fortran               :      78.81 :      20.98 :      99.80 :       0.00 *
+ *  . cleanup               :       0.27 :       0.02 :       0.28 :       0.00 *
+ ********************************************************************************
+ * TOTAL_JOB                :      94.45 :      21.47 :     115.92 :       0.00 *
+ ********************************************************************************
+
+# Mémoire (Mo) :  1236.80 /   526.89 /   763.98 /   354.10 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0022   user+syst:        0.05s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+End of the Code_Aster execution
+Exited
+
+EXECUTION_CODE_ASTER_EXIT_33400=0
+
+
+
+------------------------------------------------------------
+--- DIAGNOSTIC JOB : OK
+------------------------------------------------------------
+

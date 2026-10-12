@@ -1,0 +1,19 @@
+P actions make_etude
+P debug nodebug
+P memjob 12582912
+P memory_limit 12288.0
+P mode interactif
+P mpi_nbcpu 1
+P mpi_nbnoeud 1
+P ncpus 2
+P nomjob modes_cyl_ymax
+P server localhost
+P time_limit 36000.0
+P tpsjob 600
+P version 17.4
+A memjeveux 4096.0
+A tpmax 36000.0
+F comm D:\v2025\carter_modal_v1_analysis\ETUDE_CHOC_PROLONGEE_2026-10\03_MODES_PATCH_BLOCKED\cyl_ymax.comm D 1
+F libr D:\v2025\carter_modal_v1_analysis\ETUDE_CHOC_PROLONGEE_2026-10\carter_socle_xy_z_netgen.med D 20
+F resu D:\v2025\carter_modal_v1_analysis\ETUDE_CHOC_PROLONGEE_2026-10\03_MODES_PATCH_BLOCKED\cyl_ymax_freq.txt R 8
+F mess D:\v2025\carter_modal_v1_analysis\ETUDE_CHOC_PROLONGEE_2026-10\03_MODES_PATCH_BLOCKED\message_cyl_ymax.txt R 6

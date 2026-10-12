@@ -1,378 +1,381 @@
-\documentclass[11pt,a4paper]{article}
-
-\usepackage[utf8]{inputenc}
+\documentclass[11pt]{article}
+\usepackage[margin=2.5cm]{geometry}
 \usepackage[T1]{fontenc}
-\usepackage[numbers]{natbib}
-\usepackage[english]{babel}
-\usepackage{geometry}
-\usepackage{graphicx}
-\usepackage{booktabs}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
 \usepackage{amsmath}
 \usepackage{siunitx}
-\usepackage{float}
-\usepackage{xcolor}
-\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\graphicspath{{figures/}{../assets/figures/}}
+\sisetup{group-separator={\,},group-minimum-digits=4}
 
-\geometry{margin=2.3cm}
-\graphicspath{{figures/}}
-\DeclareSIUnit{\rpm}{rpm}
-\sisetup{per-mode=symbol}
-
-\hypersetup{
-  colorlinks=true,
-  linkcolor=blue!55!black,
-  citecolor=blue!55!black,
-  urlcolor=blue!55!black
-}
-
-\title{\textbf{Modal Analysis of a PETG-CF Fan Housing}\\
-\large V5 orientation: base on the \(XY\) plane and height along \(+Z\)}
-\author{Numerical study prepared in \texttt{ETUDE\_MODALE\_PETGCF\_COMPOSANTS\_V5\_SOCLE\_XY\_Z}}
-\date{15 June 2026}
+\title{Natural frequencies and transient impact response of a 3D-printed carbon-fibre PETG fan housing,
+with an unmeasured elastic modulus}
+\author{Cl\'ement Dumeril\thanks{University of California, Berkeley (MEng). Work carried out in June 2026 at
+Polytechnia, an engineering consultancy co-founded by the author; convergence study and extended impact runs in
+October 2026. Repository: \url{https://github.com/clementdumeril/ventilator-modal-analysis-petgcf}.}}
+\date{October 2026}
 
 \begin{document}
-
 \maketitle
 
 \begin{abstract}
-This report documents the finite-element modal analysis of a fan housing
-intended to be manufactured in PETG-CF. The purpose is to identify the elastic
-natural frequencies of the housing and compare them with excitation frequencies
-associated with a blade rotational speed close to \SI{2000}{\rpm}. The final V5
-model is oriented with the real base resting on the \(XY\) plane and the fan
-height along \(+Z\). The mesh is a validated tetrahedral mesh with 95,358 nodes
-and 312,777 TETRA4 elements. The housing is modelled as PETG-CF, while the
-motor and electronics are represented as localized equivalent masses. The first
-elastic mode is found at \SI{49.214}{\hertz}. The rotation frequency at
-\SI{2000}{\rpm} is \SI{33.333}{\hertz}, and the five-blade passing frequency is
-\SI{166.667}{\hertz}. The first mode is not directly coincident with the 1X
-rotation line, and no computed mode is directly coincident with the five-blade
-passing line. The third mode, however, is close to the 4X rotational harmonic
-and should be monitored in later design iterations.
+The housing of a desk fan printed in carbon-fibre PETG (PETG-CF) is analysed with code\_aster for resonance with
+the rotor and for its response to an impact. The free-free modes, with the motor and electronics as distributed masses,
+were first computed with linear tetrahedra; a convergence study shows these to be 12 to \SI{20}{\%} too stiff, while
+quadratic tetrahedra on three meshes agree within \SI{0.5}{\%}, at 44.0, 64.3 and \SI{109.9}{Hz} for the first three
+modes with $E=\SI{6}{GPa}$. The Young's modulus of the printed material is not measured. Over the published range of
+3.8 to \SI{6.0}{GPa}, modes 3, 4 and 5 cross the third and fourth rotor harmonics and the blade-passing frequency at
+\SI{2000}{rpm}, so a resonance cannot be ruled out. Three impact cases, a \SI{251}{g}, \SI{2.5}{ms} pulse with the
+contact patch held fixed, are run to \SI{30}{ms} with linear transient dynamics and Rayleigh damping; verification
+found that the original oblique case fixed a slice through the housing, and it was replaced. With quadratic elements
+and \SI{5}{\%} damping the peak von Mises stresses away from the contact, 114 to \SI{174}{MPa}, sit at junctions of the
+support arms and the stand, and exceed the strength reported for printed PETG-CF, while the 95th percentile stays
+below \SI{23}{MPa}.
 \end{abstract}
 
-\section{Objective}
+\section{Introduction}
 
-The study objective is to evaluate whether the fan housing has natural
-frequencies close to the main operating excitations. For a nominal rotational
-speed \(N=\SI{2000}{\rpm}\),
-\begin{equation}
-  f_{\mathrm{rot}} = \frac{N}{60}
-  = \SI{33.333}{\hertz}.
-\end{equation}
-For five blades, the blade passing frequency is
-\begin{equation}
-  f_{\mathrm{BPF}} = 5 f_{\mathrm{rot}}
-  = \SI{166.667}{\hertz}.
-\end{equation}
-The relevant comparison therefore includes the 1X rotational line, its
-harmonics, and the blade passing frequency.
+Small rotating machines printed in fibre-reinforced polymers, such as desk fans, drone frames and robot covers, need
+two quick structural checks before a first print: whether a natural frequency of the printed part sits on an
+excitation line of the rotor, and where the part concentrates stress when it is knocked over. Both are routine with
+finite elements, but for a printed composite the inputs are uncertain. Fused-filament parts are anisotropic and
+weaker between layers \citep{ahn2002}, and short carbon fibres raise the stiffness by an amount that depends on fibre
+content and print orientation \citep{tekinalp2014,prabhakaran2025,batista2023}.
 
-\section{Geometry Preparation}
-
-The original CAD was geometrically valid but poorly suited for a robust
-tetrahedral mesh. It contained many small faces and short edges, especially on
-the arms. The final mesh-preparation geometry replaced highly detailed arms by
-simpler prismatic ribs, removed small non-structural faces, and avoided a small
-feature that introduced sliver faces during boolean operations.
-
-\begin{table}[H]
-  \centering
-  \caption{Topology reduction produced by the mesh-preparation step.}
-  \label{tab:cadprep}
-  \begin{tabular}{lrrrr}
-    \toprule
-    Geometry & Faces & Edges & Edges \(<\SI{0.1}{mm}\) & Faces \(<\SI{5}{mm^2}\) \\
-    \midrule
-    Original CAD & 1450 & 4135 & 2299 & 1175 \\
-    Mesh-prepared CAD & 274 & 622 & 5 & 18 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-The final V5 orientation was produced after the modal model was validated. The
-real support base was identified and placed on the \(XY\) plane, with the fan
-height along \(+Z\). This rigid transformation does not change the modal
-physics, but it makes the results easier to inspect and communicate.
-
-\section{Mesh and Material Model}
-
-The mesh was generated with the NETGEN tetrahedral algorithm through
-SALOME/SMESH~\cite{salome}. The chosen mesh was retained because it computed
-robustly and provided a reasonable model size for repeated Code\_Aster runs.
-
-\begin{table}[H]
-  \centering
-  \caption{Mesh characteristics.}
-  \label{tab:mesh}
-  \begin{tabular}{lr}
-    \toprule
-    Quantity & Value \\
-    \midrule
-    Element type & TETRA4 \\
-    Nodes & 95,358 \\
-    Volume elements & 312,777 \\
-    Mechanical degrees of freedom & 286,074 \\
-    Mesh volume & \SI{704189.190}{mm^3} \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-The housing material is an equivalent isotropic PETG-CF. This is an engineering
-approximation: a printed PETG-CF part is expected to be anisotropic, and its
-actual stiffness depends on print orientation, wall count, infill, temperature,
-and inter-layer bonding.
-
-\begin{table}[H]
-  \centering
-  \caption{Equivalent PETG-CF material properties used in the modal model.}
-  \label{tab:material}
-  \begin{tabular}{lcc}
-    \toprule
-    Property & Symbol & Value \\
-    \midrule
-    Young's modulus & \(E\) & \SI{6000}{MPa} \\
-    Poisson ratio & \(\nu\) & 0.35 \\
-    Density & \(\rho\) & \(1.30\times10^{-9}\) tonne/mm\(^3\) \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\section{Embedded Masses}
-
-The motor and electronics are not modelled as detailed CAD parts. Instead,
-their mass is distributed over two local mesh regions. The stiffness in these
-regions remains PETG-CF; only the equivalent density is increased.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.74\linewidth]{mass_distribution_en.png}
-  \caption{Equivalent mass distribution used in the V5 model.}
-  \label{fig:massdist}
-\end{figure}
-
-\begin{table}[H]
-  \centering
-  \caption{Equivalent mass distribution.}
-  \label{tab:masses}
-  \begin{tabular}{lrrr}
-    \toprule
-    Zone & Elements & Volume (mm\(^3\)) & Mass (kg) \\
-    \midrule
-    PETG-CF housing region & 278,034 & 499,125.546 & 0.648863 \\
-    Motor region & 23,127 & 117,900.693 & 0.243271 \\
-    Electronics base region & 11,616 & 87,162.950 & 0.188312 \\
-    \midrule
-    Total & 312,777 & 704,189.190 & 1.080446 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\section{Modal Solver Setup}
-
-The modal problem is solved in Code\_Aster~\cite{codeaster} using a linear 3D
-mechanical model in free-free conditions. The stiffness and mass matrices are
-assembled and the generalized eigenvalue problem is solved:
-\begin{equation}
-  K \phi_i = \omega_i^2 M \phi_i.
-\end{equation}
-The search band is \SIrange{1}{1500}{\hertz}. The six rigid-body modes near
-\SI{0}{\hertz} are not listed because the frequency band starts at
-\SI{1}{\hertz}. The Code\_Aster run ended with diagnostic \texttt{OK}.
-
-\section{Modal Results}
-
-\begin{table}[H]
-  \centering
-  \caption{Computed elastic natural frequencies.}
-  \label{tab:modes}
-  \begin{tabular}{rrr}
-    \toprule
-    Elastic mode & Aster mode number & Frequency (Hz) \\
-    \midrule
-     1 &  7 & 49.214 \\
-     2 &  8 & 73.181 \\
-     3 &  9 & 131.946 \\
-     4 & 10 & 250.576 \\
-     5 & 11 & 289.925 \\
-     6 & 12 & 339.059 \\
-     7 & 13 & 377.305 \\
-     8 & 14 & 450.782 \\
-     9 & 15 & 492.777 \\
-    10 & 16 & 522.370 \\
-    11 & 17 & 584.026 \\
-    12 & 18 & 622.931 \\
-    13 & 19 & 643.105 \\
-    14 & 20 & 748.567 \\
-    15 & 21 & 925.806 \\
-    16 & 22 & 1042.368 \\
-    17 & 23 & 1137.910 \\
-    18 & 24 & 1217.084 \\
-    19 & 25 & 1277.192 \\
-    20 & 26 & 1393.306 \\
-    21 & 27 & 1459.501 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.92\linewidth]{mode_001_v5_preview.png}
-  \caption{First elastic mode at \SI{49.214}{\hertz}. The deformation is
-  visually amplified and is not a physical displacement amplitude.}
-  \label{fig:mode1}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.98\linewidth]{frequency_excitation_map_en.png}
-  \caption{Computed modes compared with excitation lines for
-  \SI{2000}{\rpm}.}
-  \label{fig:freqmap}
-\end{figure}
-
-The first mode is above the 1X rotation line. The third mode at
-\SI{131.946}{\hertz} is close to the 4X rotational harmonic at
-\SI{133.333}{\hertz}; this is the main frequency proximity observed in the
-current free-free model. The five-blade passing frequency at
-\SI{166.667}{\hertz} is not directly coincident with a computed natural
-frequency.
-
-\section{Mass-Only Estimate for Adding Five Blades}
-
-The blades are not yet included in the finite-element model. A first-order
-estimate can be made by assuming that the five blades only add mass and do not
-change the structural stiffness:
-\begin{equation}
-  f_{\mathrm{new}} \approx f_0
-  \sqrt{\frac{M_0}{M_0+\Delta M}},
-  \label{eq:massonly}
-\end{equation}
-where \(f_0=\SI{49.214}{\hertz}\), \(M_0=\SI{1.080446}{kg}\), and
-\(\Delta M\) is the total blade mass.
-
-\begin{table}[H]
-  \centering
-  \caption{Mass-only estimate for adding five blades.}
-  \label{tab:blades}
-  \begin{tabular}{rrrrr}
-    \toprule
-    Mass per blade (g) & Five blades (kg) & Mode 1 (Hz) & Mode 2 (Hz) & Mode 3 (Hz) \\
-    \midrule
-     5 & 0.025 & 48.654 & 72.349 & 130.445 \\
-    10 & 0.050 & 48.113 & 71.544 & 128.995 \\
-    15 & 0.075 & 47.590 & 70.766 & 127.592 \\
-    20 & 0.100 & 47.083 & 70.013 & 126.234 \\
-    25 & 0.125 & 46.593 & 69.283 & 124.918 \\
-    30 & 0.150 & 46.117 & 68.575 & 123.642 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.88\linewidth]{blade_mass_sensitivity_en.png}
-  \caption{Estimated shift of the first mode when five blades are added as
-  mass only.}
-  \label{fig:blades}
-\end{figure}
-
-\section{Effect of a Circular Gasket Under the Base}
-
-Adding a circular gasket under the base is relevant, but it must be represented
-by the right physical mechanism. In the present free-free modal model, adding a
-gasket without any support condition would have little meaning unless its mass
-is included. The important effect of a gasket is usually not its mass but its
-compliance and damping at the interface between the fan and the table/support.
-
-Three levels of modelling are possible:
-\begin{enumerate}
-  \item add the gasket mass only: useful if the gasket is heavy, but usually a
-  small effect on frequencies;
-  \item model the gasket as distributed elastic supports under the base:
-  appropriate for studying how support stiffness shifts the modes;
-  \item model a real rubber layer or contact interface: needed for more
-  realistic damping and shock behaviour, but requires rubber properties and
-  contact assumptions.
-\end{enumerate}
-
-For modal analysis, the most useful next step is a supported modal model with
-vertical and lateral stiffnesses under the circular base. The expected outcome
-is that rigid-body modes disappear, low-frequency supported modes appear, and
-some housing modes may shift depending on gasket stiffness. A very soft gasket
-can isolate vibration but may introduce low-frequency rocking modes; a very
-stiff gasket behaves almost like a hard support.
-
-\section{Drop or Shock Analysis Feasibility}
-
-A table drop is a different problem from a modal analysis. Modal analysis gives
-natural frequencies and mode shapes; a drop requires transient dynamics,
-contact, and possibly nonlinear material behaviour.
-
-The impact velocity for a drop height \(h\) is approximately
-\begin{equation}
-  v_0 = \sqrt{2 g h}.
-\end{equation}
-For example, a \SI{0.8}{m} table drop gives \(v_0\approx\SI{3.96}{m/s}\).
-The most important unknown is not only the velocity, but the stopping distance
-or contact duration. A short stopping distance produces a high deceleration and
-therefore high stresses.
-
-There are two practical modelling routes:
-\begin{enumerate}
-  \item simplified shock load: impose an equivalent acceleration pulse or
-  deceleration level and run a transient or quasi-static check;
-  \item nonlinear drop model: include the floor/contact, gasket/contact
-  compliance, transient dynamics, and possibly nonlinear PETG-CF behaviour.
-\end{enumerate}
-
-The simplified shock model is a good first engineering step. The nonlinear drop
-model is more realistic but requires additional data: drop height, impact
-orientation, floor stiffness, gasket properties, blade and motor mass/inertia,
-and PETG-CF failure criteria.
-
-\section{Limitations}
-
-The present model is a useful design-level modal study, but it is not an
-experimental validation. The main limitations are:
+This study covers the housing of a desk fan designed at Polytechnia: a cylindrical shroud on a stand, printed in
+carbon-fibre PETG (PETG-CF), carrying a brushless motor in the shroud and the electronics in the base. The rotor has five
+blades and runs at a nominal speed of \SI{2000}{rpm} in this study. The contributions are:
 \begin{itemize}
-  \item PETG-CF is treated as isotropic;
-  \item the model is free-free and does not include real mounting stiffness;
-  \item blades are not explicitly meshed;
-  \item damping is not estimated;
-  \item the motor and electronics are represented as distributed equivalent
-  masses;
-  \item no contact or nonlinear impact behaviour is included.
+  \item a free-free modal model of the housing with the motor and electronics as distributed masses, checked against
+    the rotor harmonics, with the unmeasured Young's modulus carried as an uncertainty band rather than a single value;
+  \item a mesh and element-order convergence study of the first modes, missing from the original analysis;
+  \item a linear transient analysis of three impact cases, with damping, run past the end of the load pulse to the
+    peak response, with stress metrics that separate the boundary-condition singularity at the contact from the stress
+    in the housing, and a check of the contact patches that corrects one of the original cases.
 \end{itemize}
 
-\section{Recommended Next Work}
+\section{Related work}
 
-The most useful next simulations are:
-\begin{enumerate}
-  \item supported modal analysis with a circular gasket stiffness under the
-  base;
-  \item sensitivity study versus gasket stiffness and gasket thickness;
-  \item mass and inertia representation of the five blades;
-  \item simplified shock analysis using an acceleration pulse for a table drop;
-  \item experimental tap test or microphone/accelerometer measurement to
-  compare real frequencies with the model.
-\end{enumerate}
+The anisotropy of fused-deposition parts was characterised early by \citet{ahn2002}: strength and stiffness depend on
+raster orientation and drop across layers. Carbon-fibre reinforcement of printed polymers raises the in-plane stiffness
+when fibres align with the extrusion direction \citep{tekinalp2014}. For PETG-CF printed by fused filament fabrication,
+\citet{prabhakaran2025} report a tensile modulus rising from \SI{2.3}{GPa} for pure PETG to \SI{3.8}{GPa} at
+\SI{30}{\%} fibre, with natural frequencies of test beams \SIrange{18}{25}{\%} higher; \citet{batista2023} and
+\citet{kohn2021} report that print parameters and build orientation change the mechanical response markedly, and that
+reinforcement does not always raise strength. The rotor-dynamic check used here is the Campbell diagram: frequencies of
+the structure plotted against rotor speed together with the lines $k\,\Omega$ of the rotor harmonics
+\citep{genta2005}; for a stationary housing the structural frequencies do not depend on speed. The mesh is generated
+with NETGEN \citep{schoberl1997} in SALOME \citep{salome}; modal and transient analyses use code\_aster
+\citep{codeaster}, with Newmark's average-acceleration scheme \citep{newmark1959} for the transient runs.
 
-\section{Reproducibility}
+\section{Model}
 
-The main files are:
+\subsection{Geometry and mesh}
+
+The housing geometry comes from the Polytechnia FreeCAD model. The original CAD would not take a conforming tetrahedral
+mesh because of small faces and intersecting surfaces; it was defeatured (small faces and short edges removed, the
+detailed support arms replaced by simple ribs, one body removed from a fusion), which lowered the volume by
+\SI{1.4}{\%}, and oriented with the base on the $xy$ plane and the height along $+z$. The reference mesh
+(Figure~\ref{fig:mesh}) has \num{95358} nodes and \num{312777} linear tetrahedra (TETRA4), from NETGEN with a minimum
+size of \SI{1}{mm}, a maximum size of \SI{10}{mm} and fineness 2.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.48\linewidth]{mesh_mass_zones.png}\hfill
+\includegraphics[width=0.48\linewidth]{mode_001_v5_preview.png}
+\caption{Left: reference mesh (skin shown) with the motor (orange) and electronics (green) mass zones. Right: first
+elastic mode at $E=\SI{6}{GPa}$ (linear-element run of June 2026; deformation amplified).}
+\label{fig:mesh}
+\end{figure}
+
+\subsection{Material and masses}
+
+PETG-CF is modelled as an isotropic linear-elastic solid (Table~\ref{tab:model}). The density is that of the filament.
+The Young's modulus of \SI{6}{GPa} used in the original analysis has no documented source; the published value for
+FFF-printed PETG with \SI{30}{\%} carbon fibre is \SI{3.8}{GPa} \citep{prabhakaran2025}. The results below are computed
+at \SI{6}{GPa} and carried over the range \SIrange{3.8}{6.0}{GPa}. The motor (5010 brushless, estimated \SI{0.090}{kg})
+and the electronics (controller board, ESC and switch, estimated \SI{0.075}{kg}) are not modelled as solids: their mass
+is added to two spherical groups of elements (radius 30 and \SI{45}{mm}, elements with at least half of their nodes
+inside) by raising the density there, without adding stiffness. The total mass is \SI{1.080}{kg}.
+
+\begin{table}[h]
+\centering
+\caption{Model parameters.}
+\label{tab:model}
+\begin{tabular}{ll}
+\toprule
+Quantity & Value \\
+\midrule
+PETG-CF & isotropic, $E=\SI{6.0}{GPa}$ (range \SIrange{3.8}{6.0}{GPa}), $\nu=0.35$, $\rho=\SI{1300}{kg/m^3}$ \\
+Motor zone & sphere $R=\SI{30}{mm}$, \num{23127} elements, $+\SI{0.090}{kg}$ \\
+Electronics zone & sphere $R=\SI{45}{mm}$, \num{11616} elements, $+\SI{0.075}{kg}$ \\
+Total mass & \SI{1.080446}{kg} \\
+Modal boundary conditions & free-free \\
+Rotor & 5 blades, nominal \SI{2000}{rpm} ($n=\SI{33.3}{Hz}$, BPF $=\SI{166.7}{Hz}$) \\
+Impact pulse & triangular, \SI{2.524}{ms}, peak \SI{2.466e4}{m/s^2} (\SI{251}{g}), $\Delta v=\SI{3.11}{m/s}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Modal problem}
+
+The free-free modes solve $\mathbf{K}\boldsymbol{\phi}=\omega^2\mathbf{M}\boldsymbol{\phi}$. The six rigid-body modes lie
+below \SI{1}{Hz}; the search band starts at \SI{1}{Hz}. For an isotropic material at fixed density and Poisson ratio,
+$\mathbf{K}$ is proportional to $E$ and the mode shapes do not change, so $f(E)=f(E_0)\sqrt{E/E_0}$ exactly. Each
+mode is compared with the rotor lines $k\,n$ ($k=1\dots4$) and with the blade-passing frequency $5n$.
+
+\subsection{Impact model}
+
+The impact is idealised: the nodes of a small patch where the housing touches the floor are held fixed, and the rest
+of the housing receives a uniform acceleration pulse $a(t)$ (triangular, \SI{2.524}{ms}, peak \SI{251}{g}). The patch
+is the set of nodes within a tolerance of the floor plane, which is tangent to the housing at its extreme point in the
+impact direction. In the frame of the patch this is
+\begin{equation}
+  \mathbf{M}\ddot{\mathbf{u}}+\mathbf{K}\mathbf{u}=-\mathbf{M}\,\mathbf{e}\,a(t),
+\end{equation}
+with $\mathbf{e}$ the impact direction. The velocity change of the pulse is \SI{3.11}{m/s}, the impact speed of a free
+fall of about \SI{0.5}{m} with no rebound. There is no contact law, friction or rebound. Three directions are
+studied (Figure~\ref{fig:hotspots}): lateral on the $-y$ side, where the shroud touches the floor (63 fixed nodes,
+of the linear mesh, tolerance \SI{3}{mm}); lateral on the $+y$ side, where the stand touches first (63 nodes, \SI{5}{mm}); and oblique, at
+\SI{45}{\degree} between $-y$ and $-z$, where the edge of the base touches first (107 nodes, \SI{3}{mm}). The June
+study defined the oblique case differently; Section~\ref{sec:verif} explains why it was replaced.
+
+\section{Numerical method}
+
+Modes are computed with \texttt{CALC\_MODES} in a frequency band (shift-invert Lanczos with a Sturm count check),
+code\_aster 16.9 for the reference run and 17.4 for the convergence study. The impact runs of June 2026 used
+\texttt{DYNA\_NON\_LINE} with an elastic constitutive law up to \SI{2.5}{ms}. Because the problem is linear, the October
+runs use \texttt{DYNA\_VIBRA} in the physical basis with the same Newmark average-acceleration scheme
+($\beta=1/4$, $\gamma=1/2$), $\Delta t=\SI{0.1}{ms}$, up to \SI{30}{ms}; the system is factorised once, which brings
+the cost from about \SI{1000}{s} to \SI{66}{s} of CPU for the first \SI{2.5}{ms}. Stresses are computed at the
+archived instants (every \SI{0.2}{ms}). Because the fixed patch creates a stress singularity, the stress is reported as
+the maximum, 99th and 95th percentile of the element von Mises stress over the elements whose centroid lies more than
+\SI{8}{mm} from the contact plane, next to the raw maximum.
+
+\section{Verification}\label{sec:verif}
+
+\paragraph{Model checks.} The chain was first run with steel properties: scaling the steel first mode
+(\SI{125.7}{Hz}) by $\sqrt{E/\rho}$ predicts \SI{52}{Hz} for bare PETG-CF, against \SI{49.2}{Hz} once the
+\SI{0.165}{kg} of components is added. The mesh volume differs from the prepared CAD by \SI{0.24}{\%}. Recounting the
+mass-zone elements from the mesh file gives the same \num{23127} and \num{11616} elements as code\_aster. The Sturm count
+finds 21 eigenvalues in \SIrange{1}{1500}{Hz} and 21 modes were computed, with residual norms between
+\num{2e-11} and \num{4e-8}. Rotating the model between orientations leaves mode~1 at \SI{49.214}{Hz}.
+
+\paragraph{Mesh and element order.} The June analysis used a single mesh of linear tetrahedra. The convergence study
+(Table~\ref{tab:conv}, Figure~\ref{fig:conv}) remeshes the oriented geometry with NETGEN and changes the element order.
+Reducing the maximum element size from 10 to \SI{5}{mm} barely changes the mesh (\num{102417} to \num{105816} nodes),
+because the element size is set by the thin walls and the curvature, not by the maximum size; refinement was obtained
+through the NETGEN fineness instead (\num{123454} and \num{184692} nodes). With linear elements the frequencies keep
+falling as the mesh is refined (mode~1 from 49.2 to \SI{46.5}{Hz}, mode~3 from 131.9 to \SI{122.3}{Hz}): linear
+tetrahedra are too stiff in the bending of thin walls. Quadratic elements (TETRA10) on the reference mesh and on the
+\num{102417}-node mesh give 43.97/64.29/\SI{109.87}{Hz} and 43.94/64.22/\SI{109.79}{Hz}, within \SI{0.1}{\%} of each
+other, and a third, coarser mesh (\num{92381} nodes, fineness 1) gives 43.88/63.95/\SI{109.44}{Hz}: the three
+quadratic results agree within \SI{0.5}{\%}. The linear-element values of the June analysis are therefore 12, 14 and
+\SI{20}{\%} too high for modes 1, 2 and 3, and the quadratic values are used in Section~\ref{sec:res}.
+
+\begin{table}[h]
+\centering
+\caption{Convergence of the first three elastic modes ($E=\SI{6}{GPa}$). Nodes: corner nodes of the linear mesh.}
+\label{tab:conv}
+\small
+\input{tables/convergence.tex}
+\end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{convergence.pdf}
+\caption{Frequencies of modes 1--3 against mesh size: linear tetrahedra (TETRA4) keep falling with refinement;
+quadratic tetrahedra (TETRA10) agree within 0.5\,\% on three meshes.}
+\label{fig:conv}
+\end{figure}
+
+\paragraph{Transient solver.} The linear solver (\texttt{DYNA\_VIBRA}) reproduces the June non-linear-solver results at
+every archived instant up to \SI{2.5}{ms} (identical to four significant digits: \SI{79.82}{MPa}, 95th percentile
+\SI{7.070}{MPa}, displacement \SI{4.238}{mm} at \SI{2.5}{ms} for the $-y$ impact). Halving the time step to
+\SI{0.05}{ms} on the same case over \SI{15}{ms} changes the stress history by at most \SI{0.4}{\%} and leaves the
+peak unchanged (\SI{152.2}{MPa} at \SI{10.8}{ms}; displacement 29.23 against \SI{29.26}{mm}).
+
+\paragraph{Fixed patches.} Plotting the fixed node groups on the mesh showed an error in the June oblique case. Its
+plane, with normal $(0,1,1)/\sqrt2$, was placed through the $-y$ side of the shroud and is not tangent to the housing:
+the \num{1091} nodes within \SI{1}{mm} of it form a slice through the shroud, the stand and the base, and
+\num{17295} nodes lie beyond it. That case fixes a cut through the part rather than a contact patch, and its results
+(peak \SI{91}{MPa} in June) are not used. A fall in that direction first touches the edge of the base, at the node that
+minimises $y+z$; the corrected oblique case puts the plane through that node. The planes of the two lateral cases are
+tangent, with no node beyond them.
+
+\paragraph{Window length.} Two cases with quadratic elements and \SI{5}{\%} damping had not settled at \SI{30}{ms}
+and were continued to \SI{60}{ms}: the $-y$ case, whose peak comes at \SI{27.4}{ms}, and the oblique case, whose
+response beats. Between 26 and \SI{30}{ms} both reproduce the \SI{30}{ms} runs exactly. After \SI{30}{ms} the
+$-y$ case reaches 163~MPa at \SI{36.8}{ms} and at most \SI{121}{MPa} from 40 to \SI{60}{ms}, with the displacement
+decaying to \SI{10.7}{mm}; the oblique case reaches at most \SI{118}{MPa}, at \SI{43.8}{ms}. The \SI{30}{ms}
+window therefore contains the damped peaks.
+
+\section{Results}\label{sec:res}
+
+\subsection{Modes against the rotor lines}
+
+With quadratic elements, which the convergence study shows to be converged, the first five elastic modes at
+$E=\SI{6}{GPa}$ are 44.0, 64.3, 109.9, 151.8 and \SI{192.1}{Hz} (Figure~\ref{fig:campbell}); the published values,
+computed with linear elements, were 12 to \SI{20}{\%} higher for modes 1--3. In mode~1 the shroud moves on its stand
+while the base stays nearly still (Figure~\ref{fig:mesh}). At \SI{6}{GPa} no mode sits on a rotor line at
+\SI{2000}{rpm}, but mode~2 is \SI{3.6}{\%} below the second harmonic.
+
+Over \SIrange{3.8}{6.0}{GPa} the modes scale by $\sqrt{E/E_0}$:
 \begin{itemize}
-  \item Code\_Aster command file:
-  \path{03_CODE_ASTER/carter_modal_petgcf_composants_v5_socle_xy_z.comm};
-  \item oriented mesh:
-  \path{02_MAILLAGE/ventilateur_1_meshprep_socle_xy_z_netgen.med};
-  \item modal result:
-  \path{04_RESULTATS_PARAVIS/carter_modal_petgcf_composants_v5_socle_xy_z_modes.rmed};
-  \item ParaViS state:
-  \path{04_RESULTATS_PARAVIS/visualisation_modes_v5_socle_xy_z.pvsm};
-  \item vibration GIF:
-  \path{04_RESULTATS_PARAVIS/mode_001_49p214Hz_vibration_socle_xy_z.gif}.
+  \item mode~1 spans \SIrange{35.0}{44.0}{Hz}: above the rotation frequency, but only by \SI{5}{\%} at \SI{3.8}{GPa};
+  \item mode~2 spans \SIrange{51.2}{64.3}{Hz}, below the second harmonic over the whole range;
+  \item mode~3 spans \SIrange{87.4}{109.9}{Hz} and crosses the third harmonic (\SI{100}{Hz}) at $E=\SI{4.97}{GPa}$;
+  \item mode~4 spans \SIrange{120.8}{151.8}{Hz} and crosses the fourth harmonic at $E=\SI{4.63}{GPa}$;
+  \item mode~5 spans \SIrange{152.8}{192.1}{Hz} and crosses the blade-passing frequency at $E=\SI{4.52}{GPa}$.
 \end{itemize}
+Between 4.5 and \SI{5.0}{GPa}, within the plausible range, three modes cross a rotor line. Whether the printed housing
+has a resonance at \SI{2000}{rpm} therefore depends on a property that was not measured. Mounting adds a further shift:
+the free-free modes ignore the stiffness of whatever the base stands on. A mass-only estimate of the blades,
+$f\sqrt{M_0/(M_0+\Delta M)}$ with $M_0=\SI{1.080}{kg}$, lowers every mode by 1 to \SI{6}{\%} for a total blade mass of
+25 to \SI{150}{g}; it ignores where that mass sits.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.75\linewidth]{campbell.pdf}
+\caption{Campbell diagram with the converged (TETRA10) modes. Each band spans the frequency of a mode for
+$E=\SI{3.8}{GPa}$ (bottom) to \SI{6.0}{GPa} (top, line); open circles: published TETRA4 values at \SI{6}{GPa}; dashed
+lines: rotor harmonics; red line: blade-passing frequency.}
+\label{fig:campbell}
+\end{figure}
+
+\subsection{Impact}
+
+The June runs stopped at \SI{2.5}{ms}, at the end of the pulse, while the stress was still rising in the two lateral
+cases. The October runs continue to \SI{30}{ms} with linear elements at four damping levels and with quadratic elements
+undamped and at \SI{5}{\%} (Table~\ref{tab:shockall}; the corrected oblique case with quadratic
+elements at \SI{5}{\%} only). The Rayleigh coefficients give the stated ratio at 15 and
+\SI{300}{Hz} and a slightly lower one in between. The damping of printed PETG-CF is not known for this part:
+\citet{mansour2018} report damping values of \SI{13.8}{\%} for printed PETG and \SI{12.3}{\%} with \SI{20}{\%} carbon
+fibre from modal tests on specimens, without stating in the abstract whether these are damping ratios or loss factors
+(a loss factor $\eta$ corresponds to $\zeta\approx\eta/2$). The range \SIrange{5}{10}{\%} covers both readings; 2 and
+\SI{5}{\%} are lower, conservative values.
+
+\begin{table}[h]
+\centering
+\caption{Impact peaks over \SIrange{0}{30}{ms}: von Mises stress $\sigma$ (MPa) more than \SI{8}{mm} from the contact
+plane, time of the peak $t$ (ms) and height $z$ (mm) of the peak element, for linear (TETRA4) and quadratic (TETRA10)
+elements and Rayleigh damping ratio $\zeta$. Undamped peaks depend on the length of the window (see text).}
+\label{tab:shockall}
+\small
+\setlength{\tabcolsep}{4pt}
+\input{tables/shock_damping.tex}
+\end{table}
+
+\paragraph{Undamped response.} Without damping the housing keeps vibrating after the pulse, and the maximum over the
+window is set by when the modes happen to add up. With quadratic elements the $-y$ impact shows successive maxima of
+166, 169, 179 and \SI{218}{MPa} at 6, 13, 18 and \SI{27.6}{ms}, and the displacement is still rising at \SI{30}{ms}
+(\SI{39.8}{mm}): the undamped peak grows with the window and is not used as a result.
+
+\paragraph{Damped response.} With damping the late maxima of the lateral cases disappear, and the peaks sit at junctions
+of the housing (Figure~\ref{fig:hotspots}). For the $+y$ impact, where the stand touches the floor, the peak comes at
+the end of the pulse (2.6 to \SI{3.0}{ms}) where the upper support arm meets the motor hub. For the $-y$ impact the
+housing rocks about the fixed patch (first frequency \SI{16.6}{Hz} with the patch fixed, linear elements) and the peak
+comes after the pulse: at \SI{10.8}{ms} with linear elements, where the stand joins the shroud on the side opposite the
+impact, and at \SI{27.4}{ms} with quadratic elements, where the upper arm on the impact side meets the shroud. For the
+oblique impact on the base edge the peak is again where the stand joins the shroud, at \SI{6.2}{ms} with linear and
+\SI{8.2}{ms} with quadratic elements. With quadratic elements this response beats, with maxima of 134 and
+\SI{136}{MPa} between 20 and \SI{30}{ms}; continued to \SI{60}{ms}, its later maxima stay lower (at most \SI{118}{MPa}, at \SI{43.8}{ms}). Damping lowers the peaks slowly: from 152 to \SI{128}{MPa}
+between 0 and \SI{10}{\%} for the $-y$ impact with linear elements. Quadratic elements, which are less stiff in bending,
+give higher peaks at \SI{5}{\%}: 174 against \SI{138}{MPa} for $-y$, 114 against \SI{110}{MPa} for $+y$ and 139
+against \SI{112}{MPa} for the oblique impact. They also move the $-y$ peak to another junction, so the hot spots are
+best read as a set of regions (arm-to-hub, arm-to-shroud and stand-to-shroud junctions) rather than as single points.
+The 95th percentile of the stress outside the contact band stays below \SI{26}{MPa} in all runs (\SI{23}{MPa} with
+damping), so the peaks are local. The raw maxima, which include the elements at the fixed nodes, reach
+\SI{310}{MPa}; inside the contact band they are singularities of the boundary condition.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.82\linewidth]{shock_history.pdf}
+\caption{Impact histories at \SI{5}{\%} Rayleigh damping: maximum von Mises stress more than \SI{8}{mm} from the
+contact plane (top) and maximum displacement (bottom), with quadratic (solid) and linear (dashed) elements. Grey band:
+the \SI{2.5}{ms} pulse. Two cases with quadratic elements are continued to \SI{60}{ms}.}
+\label{fig:shock}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\linewidth]{hotspots.pdf}
+\caption{Fixed nodes of the three impact cases (black squares) and peak elements at \SI{5}{\%} damping, with linear
+(open circles) and quadratic (filled circles) elements. The outline is a random sample of the mesh nodes. The linear
+$-y$ and both oblique peaks are at the same place, where the stand joins the shroud; the two $+y$ peaks are at the
+junction of the upper arm with the hub.}
+\label{fig:hotspots}
+\end{figure}
+
+\paragraph{Comparison with the material strength.} The tensile strength of FFF-printed PETG with \SI{30}{\%} carbon fibre
+is about \SI{60}{MPa} in the plane of the layers \citep{prabhakaran2025}. For unfilled PETG, a manufacturer data sheet
+gives 38.5 to \SI{44}{MPa} for flat and on-edge specimens and \SI{19}{MPa} for upright specimens, which measure the
+adhesion between layers \citep{ultimaker2022}; \citet{ahn2002} and \citet{kohn2021} report the same weakness across
+layers. The damped peaks computed here, 114 to \SI{174}{MPa} with quadratic elements at \SI{5}{\%}, exceed the
+in-plane strength by a factor of 2 to 3 and the interlayer strength by a factor of 6 to 9. Two readings follow. Taken at
+face value, the model predicts local failure at the junctions of the arms with the hub and the shroud and of the stand
+with the shroud. Alternatively the idealisation is too severe: the patch stays welded to the floor after the pulse
+instead of releasing, the pulse is a uniform \SI{251}{g} on the whole housing, and the material stays linear elastic.
+A linear model does not predict cracking; it shows that a fall of this severity is not survivable by design margin
+alone. This supports the direction of the June recommendation, extended to the hot spots found here: a soft bumper on
+the shroud and on the edge of the base, which lowers the peak deceleration by lengthening the stop, and larger fillets
+at the arm and stand junctions.
+
+\section{Discussion and limitations}
+
+Two results of the June analysis do not hold. Its frequencies, from linear tetrahedra, were 12 to \SI{20}{\%} too high
+for the first three modes, so the closest call it reported (mode~3 near the fourth harmonic) is a different mode near the
+third harmonic once the elements are converged. Its impact stresses, read at \SI{2.5}{ms}, stopped before the peak of the
+$-y$ case and used elements that are too stiff in bending. Its oblique case fixed a slice cut through the housing instead of a
+contact patch. What holds is that the stress concentrates locally, at a few junctions of the housing.
+
+The main uncertainty is the material. With $E$ between 3.8 and \SI{6.0}{GPa}, three modes cross a rotor line at
+\SI{2000}{rpm}; with an orthotropic printed material the mode shapes would also change, which the $\sqrt{E}$ scaling does
+not capture. The other limits are:
+\begin{itemize}
+  \item \emph{Material model.} Isotropic, linear elastic, no measured property; the printed part is anisotropic and weaker
+    between layers \citep{ahn2002,kohn2021}.
+  \item \emph{Boundary conditions.} Free-free for the modes; the stand, its support and any mounting are not modelled.
+  \item \emph{Masses.} Motor and electronics are estimated masses spread over spherical zones, with no added stiffness;
+    the blades are not modelled.
+  \item \emph{Impact.} No contact law, friction or rebound: a patch of nodes stays fixed for the whole run. The pulse
+    (\SI{251}{g}, \SI{2.5}{ms}, $\Delta v=\SI{3.11}{m/s}$) is uniform over the housing. Damping is Rayleigh with assumed
+    ratios. The $-y$ case reaches displacements of 30 to \SI{40}{mm}, at the edge of the small-displacement assumption.
+  \item \emph{Validation.} No tap test, accelerometer measurement or drop test.
+\end{itemize}
+
+\section{Conclusion}
+
+The free-free modes of the PETG-CF housing, converged with quadratic elements, are 44.0, 64.3 and \SI{109.9}{Hz} for the
+first three at $E=\SI{6}{GPa}$, 12 to \SI{20}{\%} below the values of the original linear-element model. Carried over
+the plausible modulus range of \SIrange{3.8}{6.0}{GPa}, modes 3, 4 and 5 each cross a rotor line at \SI{2000}{rpm}, so
+the absence of resonance cannot be claimed without measuring the material. Under an idealised impact with the contact
+patch held fixed, the damped stress peaks at the arm and stand junctions (114 to \SI{174}{MPa} with quadratic
+elements at \SI{5}{\%} damping)
+exceed the strength reported for printed PETG-CF. In order of priority, the next steps are: a tap test of a printed
+housing to measure the first frequencies and infer the effective modulus; tensile tests of printed coupons in the
+layer and across layers; a supported modal model with the stand on its real support; and a drop test of a printed
+housing with and without a bumper to calibrate the impact model.
+
+\section*{Reproducibility statement}
+
+Inputs and scripts are in the repository: the oriented CAD (\path{cad/}), the meshing script
+(\path{src/mesh/mesh_carter_netgen.py}; SALOME 9.13, NETGEN, min \SI{1}{mm}, max \SI{10}{mm}, fineness 2), the reference
+modal input (\path{src/code_aster/}; code\_aster 16.9), the convergence inputs and outputs (\path{data/convergence/};
+code\_aster 17.4), the June impact inputs (\path{shock/code_aster/}; code\_aster 17.4) and the October impact generators,
+inputs, logs and time histories (\path{shock/extended_2026-10/}, \path{shock/results_extended/}; code\_aster 17.4). All
+October runs used 2 threads on a 4-core Intel i7-6700HQ computer with \SI{32}{GB} of memory: a TETRA4 modal run takes 3 to
+\SI{5}{min}, a TETRA10 modal run about \SI{25}{min} and \SI{11}{GB}, a \SI{30}{ms} impact run 15 to \SI{65}{min}
+(TETRA4) or 50 to \SI{80}{min} (TETRA10), and a \SI{60}{ms} TETRA10 run about \SI{100}{min} with stresses from
+\SI{26}{ms} on (with stresses at every archived instant, its scratch space exceeded the \SI{118}{GB} free). Meshes and result files (\SI{4}{GB} to \SI{6.5}{GB} per impact run) are not
+versioned. Tables and figures are regenerated by the scripts in \path{paper/scripts/}, and the paper by
+\path{paper/build_paper.sh}.
 
 \bibliographystyle{unsrtnat}
 \bibliography{references}

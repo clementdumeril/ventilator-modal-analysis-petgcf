@@ -1,0 +1,4 @@
+# wall times from the run queue (Idle priority, 2 threads, i7-6700HQ); code_aster 17.4
+run_cyl_ymin.bat end 2026-10-10T15:09:52 wall_s=4529 --- DIAGNOSTIC JOB : OK
+run_cyl_ymax.bat end 2026-10-10T16:27:58 wall_s=4686 --- DIAGNOSTIC JOB : OK
+run_cyl_oblique_ymin_z.bat end 2026-10-10T20:09:56 wall_s=3445 --- DIAGNOSTIC JOB : OK

@@ -1,124 +1,129 @@
-# Modal and drop-shock analysis of a 3D-printed PETG-CF fan housing
+# Natural frequencies and impact response of a 3D-printed PETG-CF fan housing
 
-Code_Aster finite-element study of a desk-fan housing printed in carbon-fibre PETG: first elastic mode at 49.2 Hz (free-free), mode 3 1.4 Hz (1 %) below the 4X rotation harmonic at 2000 rpm, and local stress peaks of 80 to 117 MPa in a simplified 2.5 ms impact on the cylindrical shroud.
+Code_Aster study of a desk-fan housing printed in carbon-fibre PETG: converged free-free modes checked against the rotor harmonics at 2000 rpm (first mode 44 Hz at E = 6 GPa, 35 to 44 Hz over the plausible modulus range), and three impact cases followed to 30 ms with damping.
 
 <p align="center">
   <img src="assets/animations/mode_001_49p214Hz_vibration.gif" width="640"><br>
-  <em>First elastic mode, 49.2 Hz. Deformation amplified for readability; colour is displacement magnitude.</em>
+  <em>First elastic mode (shape from the June linear-element run; deformation amplified). The converged frequency is 44 Hz at E = 6 GPa.</em>
 </p>
 
-The fan is one of the first projects of Polytechnia, the engineering consultancy I co-founded in 2026. Its housing is printed in PETG-CF and carries a brushless motor in the duct and the electronics in the base. In June 2026 I wanted to know two things before printing it: does any natural frequency sit on an excitation line of the rotor, and where does the shroud concentrate stress if the fan is knocked over. Internal Polytechnia study, not a client deliverable. The airflow and noise of the same fan are simulated in [ducted-fan-aeroacoustics](https://github.com/clementdumeril/ducted-fan-aeroacoustics).
+The fan is one of the first projects of Polytechnia, the engineering consultancy I co-founded in 2026. Its housing is printed in PETG-CF and carries a brushless motor in the duct and the electronics in the base. In June 2026 I wanted to know two things before printing it: does a natural frequency sit on an excitation line of the rotor, and where does the shroud concentrate stress if the fan is knocked over. In October 2026 I reran the study: a convergence check showed that the June frequencies were 12 to 20 % too high, the impact runs stopped too early, the oblique impact case held a slice of the housing fixed instead of a contact patch, and the modulus of printed PETG-CF had no source. Internal Polytechnia study, not a client deliverable. The airflow and noise of the same fan are simulated in [ducted-fan-aeroacoustics](https://github.com/clementdumeril/ducted-fan-aeroacoustics).
 
-Skills: FE eigen-analysis checked against rotor harmonics, transient FE with singularity-aware post-processing, Python/h5py/VTK post-processing, Code_Aster 17.4 in Apptainer on a Linux cluster I built.
+Skills: FE eigen-analysis checked against rotor harmonics, mesh and element-order convergence, linear transient FE with damping and singularity-aware post-processing, Python/h5py/VTK post-processing, Code_Aster and SALOME scripted end to end.
+
+Full report, in preprint form: [`paper/main.pdf`](paper/main.pdf).
 
 ## Results
 
-### Modal (free-free, 1 to 1500 Hz)
+### Modes against the rotor lines
 
 | Quantity | Value | Source |
 |---|---:|---|
-| Mesh | 95,358 nodes, 312,777 TETRA4 | [solver log](src/code_aster/solver_log_code_aster.txt) |
-| Total mass (PETG-CF + motor + electronics) | 1.080 kg | [`equivalent_mass_distribution.csv`](data/equivalent_mass_distribution.csv) |
-| Elastic modes 1 to 3 | **49.2**, 73.2, 131.9 Hz | [`modal_frequencies.csv`](data/modal_frequencies.csv) |
-| Excitation lines at 2000 rpm (nominal speed of this study) | 1X 33.3 Hz, 4X 133.3 Hz, 5-blade BPF 166.7 Hz | |
-| Closest coincidence | mode 3 is 1.4 Hz (1 %) below 4X | |
+| Elastic modes 1 to 5, E = 6 GPa (quadratic elements, converged) | 44.0, 64.3, 109.9, 151.8, 192.1 Hz | [`data/convergence/`](data/convergence) |
+| Same modes over E = 3.8 to 6.0 GPa | mode 1: 35.0 to 44.0 Hz | f ∝ √E |
+| Rotor lines at 2000 rpm (nominal speed of this study) | 1X 33.3, 2X 66.7, 3X 100, 4X 133.3 Hz, BPF 166.7 Hz | |
+| Crossings inside the modulus range | mode 3 with 3X at 4.97 GPa, mode 4 with 4X at 4.63 GPa, mode 5 with the BPF at 4.52 GPa | [`fig_campbell.py`](paper/scripts/fig_campbell.py) |
 
 <p align="center">
-  <img src="assets/figures/frequency_excitation_map_en.png" width="85%"><br>
-  <em>Computed modes against the rotation harmonics at 2000 rpm. Mode 1 sits above 1X; mode 3 is the one to watch.</em>
+  <img src="assets/figures/campbell.png" width="75%"><br>
+  <em>Each band spans a mode for E = 3.8 GPa (bottom) to 6.0 GPa (top). Open circles: the June linear-element values.</em>
 </p>
 
-### Drop shock (transient, three impact cases on the shroud)
+The modulus used in June, 6 GPa, has no source; 3.8 GPa is the value published for FFF-printed PETG with 30 % carbon fibre (Prabhakaran et al., 2025). Within that range three modes cross a rotor line, so a resonance at 2000 rpm cannot be ruled out without measuring the printed part.
 
-| Impact case | Max von Mises, outside an 8 mm contact band | p95 | Max displacement |
-|---|---:|---:|---:|
-| Lateral, Y- side | 80 MPa | 7 MPa | 4.2 mm |
-| Lateral, Y+ side | 117 MPa | 11 MPa | 3.7 mm |
-| Oblique, Y- side with vertical component | 91 MPa | 6 MPa | 1.9 mm |
+### Impact (0 to 30 ms)
 
-Source: [`synthese_robuste_choc_cylindrique_v1.csv`](shock/results/synthese_robuste_choc_cylindrique_v1.csv). The peaks are very local (p95 an order of magnitude lower) and sit on the lips and arm-to-shroud junctions, between z = 145 and 200 mm. The raw maximum of the oblique case, 867 MPa, is on the blocked contact nodes and is a boundary-condition singularity, not a housing stress.
+| Impact case | Peak von Mises > 8 mm from contact, TETRA10, ζ = 5 % | Time | Location |
+|---|---:|---:|---|
+| Lateral, Y- side (shroud touches the floor) | 174 MPa | 27.4 ms | upper arm to shroud, impact side |
+| Lateral, Y+ side (stand touches the floor) | 114 MPa | 3.0 ms | upper arm to motor hub |
+| Oblique 45°, base edge touches the floor | 139 MPa | 8.2 ms | stand to shroud |
 
-Outcome: I recommended testing a soft bumper ring on the shroud lip and larger fillets at the lips and arm-to-shroud junctions, the regions where all three cases concentrate stress ([shock report](docs/shock_report_fr.pdf), §7).
+Source: [`shock/results_extended/`](shock/results_extended); all elements and damping levels are in the summary table of the [report](paper/main.pdf). Without damping the housing keeps vibrating and the maximum grows with the length of the window (166 to 218 MPa for the Y- case with quadratic elements), so only damped values are used. The two damped cases that had not settled at 30 ms were continued to 60 ms; their later maxima stay below the 0 to 30 ms peaks (163 MPa at 36.8 ms for Y-, 118 MPa at 43.8 ms for the oblique case). The peaks are local (95th percentile below 23 MPa) and sit at junctions of the arms and the stand with the shroud and the hub; linear elements give lower peaks and, for the Y- case, a different junction. They exceed the tensile strength reported for printed PETG-CF (about 60 MPa in the plane of the layers, 19 MPa across them for unfilled PETG). Either the impact as modelled would crack these junctions, or the idealisation (patch held fixed after the pulse, uniform 251 g pulse, linear elastic material) is too severe. Both readings point to a soft bumper on the shroud and the base edge, and larger fillets at these junctions.
 
 <p align="center">
-  <img src="assets/figures/shock_oblique_vmis_hotspot.png" width="48%">
-  <img src="assets/figures/shock_robust_metrics.png" width="50%"><br>
-  <em>Left: von Mises hot spot on the shroud, oblique impact. Right: max, p99 and p95 outside the contact band for the three cases.</em>
+  <img src="assets/figures/hotspots.png" width="75%"><br>
+  <em>Fixed nodes (black) and peak elements at 5 % damping, linear (open) and quadratic (filled) elements.</em>
+</p>
+
+<p align="center">
+  <img src="assets/figures/shock_history.png" width="75%"><br>
+  <em>Stress and displacement histories at 5 % damping: quadratic elements (solid) and linear elements (dashed).</em>
 </p>
 
 ## What I built
 
-- CAD preparation ([`cad/`](cad)): the original FreeCAD housing would not take a conforming tetrahedral mesh in NETGEN or Gmsh because of small faces and intersecting surfaces. I defeatured it (small faces and short edges removed, the detailed support arms replaced by simple ribs, one body taken out of a fusion), which cost 1.4 % of the volume, and exported a clean STEP/BREP. A voxel mesh (h = 3 mm) was my fallback in the meantime; it lost 12.5 % of the volume, so I dropped it once the conforming mesh worked.
-- Mesh ([`src/mesh/mesh_carter_netgen.py`](src/mesh/mesh_carter_netgen.py)): SALOME `FULL_NETGEN`, linear tetrahedra, min size 1 mm, max size 10 mm, fineness 2, giving 95,358 nodes and 312,777 TETRA4.
-- Material and masses ([`.comm`](src/code_aster/carter_modal_petgcf_composants_v5_socle_xy_z.comm)): PETG-CF as an equivalent isotropic material (E = 6000 MPa, ν = 0.35, ρ = 1300 kg/m³). The motor (5010 360KV brushless, estimated 0.090 kg) and the electronics (ESP32-S3 board, motor controller, switch, estimated 0.075 kg together) are not modelled as solids; their mass is spread over two spherical element groups by raising the density there, without adding stiffness.
+- CAD preparation ([`cad/`](cad)): the original FreeCAD housing would not take a conforming tetrahedral mesh in NETGEN or Gmsh because of small faces and intersecting surfaces. I defeatured it (small faces and short edges removed, the detailed support arms replaced by simple ribs, one body taken out of a fusion), which cost 1.4 % of the volume, and oriented it with the base on the XY plane.
+- Mesh ([`src/mesh/mesh_carter_netgen.py`](src/mesh/mesh_carter_netgen.py)): SALOME `FULL_NETGEN`, min 1 mm, max 10 mm, fineness 2, 95,358 nodes; for the convergence study, remeshes at fineness 1 to 4 (92k to 185k nodes), run from the command line.
+- Material and masses: PETG-CF as an isotropic material (E = 6 GPa, ν = 0.35, ρ = 1300 kg/m³), carried over E = 3.8 to 6.0 GPa. The motor (estimated 0.090 kg) and the electronics (estimated 0.075 kg) are added as density in two spherical element groups, recomputed per mesh so the added masses stay exact.
 
   <img src="assets/figures/mesh_mass_zones.png" width="60%">
 
-- Modal solve: `CALC_MODES` with the band option between 1 and 1500 Hz, free-free, Code_Aster 16.9.
-- Several model versions: a steel sanity model, PETG-CF with the component masses (V2), then re-orientations (V3 to V5) until the base rests on the XY plane and the fan height follows +Z, which makes the drop cases easy to set up.
-- Drop shock ([`shock/code_aster/`](shock/code_aster)): `DYNA_NON_LINE` with Newmark time integration on the same mesh and masses. The contact patch is a group of blocked nodes (63 nodes for the lateral cases, 1091 for the oblique one), and the rest of the housing receives a triangular acceleration pulse of 251 g peak over 2.5 ms. The three cases are generated by [a script](shock/code_aster/generate_cylindrical_drop_cases.py) and were run on one node of the 2-node Linux cluster I set up (Code_Aster 17.4 in Apptainer).
-- Post-processing: Python scripts that extract maxima from the `.rmed` results, compute robust metrics excluding 4, 8 and 12 mm bands around the contact, and draw the figures ([`shock/scripts/`](shock/scripts), [`src/postprocessing/`](src/postprocessing)). Reports in LaTeX: [modal, English](reports/modal_report_petgcf_v5_en.pdf), dated 15 June and written before the shock runs; shock, French ([`docs/shock_report_fr.pdf`](docs/shock_report_fr.pdf)).
+- Modal solve: `CALC_MODES` in a frequency band, free-free, linear (TETRA4) and quadratic (TETRA10) elements, Code_Aster 16.9 and 17.4.
+- Impact ([`shock/extended_2026-10/`](shock/extended_2026-10)): the nodes where the housing touches the floor held fixed (63, 63 and 107 nodes of the linear mesh for the three cases) and a 251 g, 2.5 ms acceleration pulse on the rest of the housing. The June runs used `DYNA_NON_LINE` on what is a linear problem; I switched to `DYNA_VIBRA` (same Newmark scheme, one factorisation), about 15 times cheaper, which made 30 ms runs with linear and quadratic elements and four damping levels affordable. Rayleigh damping is defined in the material and assembled with `AMOR_MECA`; an earlier version that combined the assembled matrices failed in the initial-acceleration step.
+- Post-processing: Python scripts that read the `.rmed` results with h5py and report the raw maximum and the maximum, 99th and 95th percentile of the stress outside an 8 mm band around the contact ([`postprocess_extended.py`](shock/extended_2026-10/postprocess_extended.py)), and the figure and table scripts of the report ([`paper/scripts/`](paper/scripts)).
 
 ## How it works
 
-The modal problem is the generalised eigenproblem K φ = ω² M φ on the free housing. Without supports, the first six modes are rigid-body motions near 0 Hz; starting the search band at 1 Hz leaves only the elastic modes. Each one is then compared with the excitation lines of the rotor, n × 2000/60 Hz for the rotation harmonics and 5 × 2000/60 Hz for the blade-passing frequency.
+The modal problem is K φ = ω² M φ on the free housing. With an isotropic material at fixed density, K scales with E and the mode shapes do not change, so every frequency scales with √E; that is how the modulus band is drawn. Each mode is compared with the rotor lines k × 2000/60 Hz and the blade-passing frequency 5 × 2000/60 Hz.
 
-The shock model does not simulate contact. One patch of nodes is held fixed while the rest of the housing receives the 251 g pulse, and the stress field shows which regions load up first for each impact direction.
+The impact model asks which regions of the housing load up when one patch is stopped and the rest decelerates at 251 g. It is linear, so it ranks regions and compares orders of magnitude; it does not predict cracking.
 
 ## How I checked it
 
 <details>
-<summary>Six checks: steel sanity run, mesh volume, mass zones, Sturm count, re-orientation, contact singularity</summary>
+<summary>Convergence, fixed patches, window length, solver equivalence, time step, and the June model checks</summary>
 
-- Steel first. The first runs used steel (E = 210 GPa) to validate the chain. Scaling that steel first mode (125.7 Hz) by √(E/ρ) gives about 52 Hz for bare PETG-CF; with the 0.165 kg of components the PETG-CF model gives 49.2 Hz, which is consistent.
-- Geometry: mesh volume 704,189 mm³ against 705,872 mm³ for the prepared CAD (0.24 %).
-- Mass model: I recount the elements of each mass zone directly from the MED file ([`render_mesh_mass_zones.py`](src/postprocessing/render_mesh_mass_zones.py)) and get the same 23,127 and 11,616 elements as Code_Aster. The total mass, 1.080446 kg, is integrated element by element.
-- Solver: the Sturm count gives 21 eigenvalues in the band and 21 modes were found; residual norms are between 2e-11 and 4e-8, and the run ends with no alarm.
-- Re-orienting the model between V2 and V5 (pure rotations of the mesh and mass centres) leaves mode 1 at 49.214 Hz, as it should.
-- Shock singularity: the contact nodes carry the raw maximum (867 MPa in the oblique case). I excluded bands of 4, 8 and 12 mm around them and report the 8 mm values plus p95/p99, so the numbers describe the housing and not the boundary condition.
+- Element order and mesh: linear tetrahedra keep lowering the frequencies as the mesh is refined (mode 1 from 49.2 to 46.5 Hz between 95k and 185k nodes); quadratic tetrahedra on three meshes give mode 1 between 43.88 and 43.97 Hz and agree within 0.5 % on modes 1 to 3.
+
+  <img src="assets/figures/convergence.png" width="85%">
+
+- Fixed patches: plotting the fixed node groups showed that the June oblique case was wrong. Its plane was not tangent to the housing, so it fixed a slice of 1091 nodes cut through the shroud, the stand and the base. A fall in that direction first touches the edge of the base; the October oblique case puts the plane there, and the June oblique results are not used.
+- Window length: the Y- and oblique cases with quadratic elements and 5 % damping, which had not settled at 30 ms, were continued to 60 ms. Both reproduce the 30 ms runs exactly up to 30 ms, and their later maxima are lower (163 MPa at 36.8 ms for Y-, 118 MPa at 43.8 ms for the oblique case).
+- Transient solver: `DYNA_VIBRA` reproduces the June `DYNA_NON_LINE` results at every archived instant up to 2.5 ms (79.82 MPa, p95 7.070 MPa, 4.238 mm for the Y- case).
+- Time step: halving it to 0.05 ms changes the Y- stress history by at most 0.4 % over 15 ms and leaves the peak unchanged.
+- Steel first: the June chain was first run with steel; scaling its first mode by √(E/ρ) gives about 52 Hz for bare PETG-CF, consistent with the PETG-CF model once the components are added.
+- Geometry and mass: mesh volume within 0.24 % of the prepared CAD; the mass-zone elements recounted from the MED file match Code_Aster.
+- Solver output: Sturm count equal to the number of modes found; residual norms 2e-11 to 4e-8.
+- Run checks: this Windows build of Code_Aster prints "DIAGNOSTIC JOB : OK" even after a fatal error, so the run queue also checks the message text and the result files.
 
 </details>
 
-<p align="center">
-  <img src="assets/figures/shock_vmis_time.png" width="75%"><br>
-  <em>Stress outside the contact band during the pulse. The Y- and Y+ cases still rise at the last computed step; only the oblique case peaks (2.0 ms).</em>
-</p>
-
 ## Limitations
 
-- No mesh convergence study: a single NETGEN mesh with linear tetrahedra, which are stiff, so the frequencies are probably somewhat overestimated.
-- PETG-CF is isotropic here. A printed part is anisotropic, with weaker layer adhesion, and none of its properties were measured.
-- Free-free boundary conditions: the real fan stands on a base, so supported modes will differ. Damping is not estimated.
-- The blades are not in the model. A mass-only estimate (f × √(M₀/(M₀+ΔM))) lowers mode 3 to 124 to 130 Hz for 25 to 150 g of blades ([figure](assets/figures/blade_mass_sensitivity_en.png)), which moves it away from 4X, but it ignores where that mass sits.
-- The pulse has Δv = 3.11 m/s, equivalent to a free fall of about 0.5 m with no rebound. There is no contact law or friction.
-- The runs stop at 2.5 ms, at the end of the pulse. The Y- and Y+ stresses and all three maximum displacements are still rising at that step, so the ranking is the one at t = 2.5 ms, not a peak over the whole event.
-- No failure assessment: the strength and inter-layer toughness of printed PETG-CF are unknown, so the stresses rank regions; they do not predict cracking.
-- No experimental check (tap test or accelerometer) yet.
+- No measured material property: isotropic, linear elastic PETG-CF; a printed part is anisotropic and weaker between layers.
+- Free-free modes: the stand and its support are not modelled. Motor and electronics are estimated masses without stiffness; the blades are not modelled.
+- Impact: no contact law, friction or rebound (the patch stays fixed for 30 ms), uniform pulse, assumed Rayleigh damping; the Y- case reaches 30 to 40 mm of displacement, at the edge of the small-displacement assumption.
+- No tap test, accelerometer measurement or drop test yet.
 
 ## Reproduce
 
-Requires Code_Aster (16.9 or later), SALOME for meshing, Python 3 with numpy, matplotlib, h5py and vtk.
+Requires Code_Aster 17.4 (16.9 for the June reference run), SALOME 9.13 for meshing, Python 3 with numpy, matplotlib, h5py and vtk, and LaTeX for the report.
 
 ```bash
-# mesh the prepared CAD (cad/fan_housing_meshprep_v5_xy_z.brep) with SALOME-NETGEN
-CARTER_BREP_PATH=cad/fan_housing_meshprep_v5_xy_z.brep salome shell -- python src/mesh/mesh_carter_netgen.py
+# mesh the prepared CAD with SALOME-NETGEN (terminal mode)
+CARTER_BREP_PATH=cad/fan_housing_meshprep_v5_xy_z.brep salome -t src/mesh/mesh_carter_netgen.py
 
 # modal solve (edit the paths in the .export first)
 run_aster src/code_aster/carter_modal_petgcf_composants_v5_socle_xy_z.export
 
-# shock cases: one .export per case in shock/code_aster/ (same path edit)
-run_aster shock/code_aster/carter_choc_cyl_ymin.export
+# impact runs: generate the inputs, run them, extract the time histories
+# (CHOC_MESH = the MED mesh written by the meshing step; CHOC_RUN_ASTER = your Code_Aster launcher)
+export CHOC_MESH=/path/to/carter_socle_xy_z_netgen.med CHOC_RUN_ASTER=run_aster
+python shock/extended_2026-10/make_cases_vibra.py runs_30ms 0.03 0.0002            # TETRA4, undamped
+CHOC_QUAD=1 CHOC_ZETA=0.05 python shock/extended_2026-10/make_cases_vibra.py runs_q5 0.03 0.0002
+run_aster runs_q5/cyl_ymin.export
+python shock/extended_2026-10/postprocess_extended.py runs_q5 runs_q5/time_history.csv
 
-# English figures from the CSV results and the mesh
-python shock/scripts/make_shock_figures_en.py
-python src/postprocessing/render_mesh_mass_zones.py <mesh.med>
+# figures, tables and report
+bash paper/build_paper.sh
 ```
 
-The `.med` mesh (28 MB) and the `.rmed` results (over 1 GB for the shock cases) are not versioned. The CSV files in [`data/`](data) and [`shock/results/`](shock/results) and the solver logs hold the published numbers.
+A TETRA4 modal run takes 3 to 5 min, a TETRA10 modal run about 25 min and 11 GB, a 30 ms impact run 15 to 65 min (TETRA4) or 50 to 80 min (TETRA10), a 60 ms TETRA10 run about 100 min, on 2 threads of a 4-core i7-6700HQ. Meshes and `.rmed` results (4 to 6.5 GB per impact run) are not versioned; the CSV time histories and solver logs are.
 
 ## Credits
 
-- Fan CAD: Polytechnia FreeCAD model. CAD preparation, meshing, Code_Aster models, post-processing and reports: Clément Dumeril.
+- Fan CAD: Polytechnia FreeCAD model. CAD preparation, meshing, Code_Aster models, post-processing and report: Clément Dumeril.
 - Tools: Code_Aster (EDF), SALOME-NETGEN, ParaView, FreeCAD.
 
 [clement.dumeril.net](https://clement.dumeril.net) · [github.com/clementdumeril](https://github.com/clementdumeril) · MIT licence

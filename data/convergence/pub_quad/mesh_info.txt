@@ -1,0 +1,1 @@
+mesh ventilateur_1_meshprep_socle_xy_z_netgen.med: 95358 nodes, 312777 TETRA4, volume 704189 mm3; G_MOTEUR: 23127 elems, 117901 mm3, rho 2.063354e-09; G_BASE_ELEC: 11616 elems, 87163 mm3, rho 2.160457e-09

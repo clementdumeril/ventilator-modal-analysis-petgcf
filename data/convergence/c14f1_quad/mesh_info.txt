@@ -1,0 +1,1 @@
+mesh mesh_c14f1.med: 92381 nodes, 288927 TETRA4, volume 703345 mm3; G_MOTEUR: 16991 elems, 118288 mm3, rho 2.060854e-09; G_BASE_ELEC: 6010 elems, 86901 mm3, rho 2.163055e-09

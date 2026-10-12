@@ -1,0 +1,843 @@
+setting '--memory' value to 29491.20 MB (keyword RESERVE_MEMOIRE)
+copying 'D:\\v2025\\carter_modal_v1_analysis\\ETUDE_CHOC_PROLONGEE_2026-10\\carter_socle_xy_z_netgen.med' to 'fort.20'...
+Ouverture en écriture du fichier ./vola.1
+
+<INFO> Démarrage de l'exécution.
+
+                                                                                   
+   ___         _         _       _            __      ___         _                
+  / __|___  __| |___    /_\   __| |_ ___ _ _  \ \    / (_)_ _  __| |_____ __ _____ 
+ | (__/ _ \/ _` / -_)  / _ \ (_-<  _/ -_) '_|  \ \/\/ /| | ' \/ _` / _ \ V  V (_-< 
+  \___\___/\__,_\___| /_/ \_\/__/\__\___|_|     \_/\_/ |_|_||_\__,_\___/\_/\_//__/ 
+                                                 https://code-aster-windows.com    
+                  -- CODE_ASTER -- VERSION : DÉVELOPPEMENT STABILISÉE (testing) --                  
+                               Version 17.4.0 modifiée le 22/01/2026                                
+                          révision 03b95c288047 - branche 'windows-draft'                           
+                                   Copyright EDF R&D 1991 - 2026                                    
+                                                                                                    
+                              Exécution du : Sun Oct 11 18:16:52 2026                               
+                                        Nom de la machine :                                         
+                                          DESKTOP-3F96U6B                                           
+                                        Architecture : 64bit                                        
+                                     Type de processeur : AMD64                                     
+                                      Système d'exploitation :                                      
+                                     Windows-10-10.0.19045-SP0                                      
+                                 Langue des messages : fr (cp1252)                                  
+                                     Version de Python : 3.11.9                                     
+                                     Version de NumPy : 1.26.4                                      
+                                     Parallélisme MPI : inactif                                     
+                                    Parallélisme OpenMP : actif                                     
+                              Nombre de processus OpenMP utilisés : 2                               
+                               Version de la librairie HDF5 : 1.10.9                                
+                                Version de la librairie MED : 4.2.0                                 
+                                 Librairie MFront : non disponible                                  
+                               Version de la librairie MUMPS : 5.6.2                                
+                                  Librairie PETSc : non disponible                                  
+                               Version de la librairie SCOTCH : 7.0.3                               
+
+starting the execution...
+Valeur initiale du temps CPU maximum =   172800 secondes
+  Valeur du temps CPU maximum passé aux
+commandes =   155520 secondes
+  Réserve CPU prévue = 17280 secondes
+
+Ouverture en écriture du fichier ./glob.1
+
+Ouverture en écriture du fichier ./vola.1
+
+Ouverture en lecture du fichier D:\Code_Aster\v2025\17.4\bin\..\lib\aster/elem.1
+
+Nom de la base                          :  ELEMBASE
+     Créée avec la version                   : 
+17.04.00
+     Nombre d'enregistrements utilisés       :  46
+     Nombre d'enregistrements maximum   
+    :  512
+     Nombre d'enregistrements par fichier    :  512
+     Longueur d'enregistrement
+(octets)      :  819200
+     Nombre d'identificateurs utilisés       :  123
+     Taille maximum du
+répertoire            :  300
+     Pourcentage d'utilisation du répertoire :  41 %
+
+Ouverture en lecture du fichier D:\Code_Aster\v2025\17.4\bin\..\lib\aster/elem.1
+
+Nom de la base                          :  ELEMBASE
+     Nombre d'enregistrements utilisés       : 
+46
+     Nombre d'enregistrements maximum        :  512
+     Nombre d'enregistrements par fichier   
+:  512
+     Longueur d'enregistrement (octets)      :  819200
+     Nombre total d'accès en lecture  
+      :  64
+     Volume des accès en lecture             :         50.00 Mo.
+     Nombre total
+d'accès en écriture        :  0
+     Volume des accès en écriture            :          0.00 Mo.
+   
+ Nombre d'identificateurs utilisés       :  123
+     Taille maximum du répertoire            :  300
+
+    Pourcentage d'utilisation du répertoire :  41 %
+
+Relecture des catalogues des éléments faite.
+
+Fin de lecture (durée  1.000000  s.) 
+
+                      Mémoire limite pour l'allocation dynamique : 30004.48 Mo                      
+                              ajouté à l'initialisation du processus :                              
+                                             290.11 Mo                                              
+                              Limite cible du processus : 30294.58 Mo                               
+                         Taille limite des fichiers d'échange : 2048.00 Go                          
+# Mémoire (Mo) :   290.11 /   283.08 /   207.61 /   183.67 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0001   user+syst:        0.03s (syst:        0.11s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt21
+# ----------------------------------------------------------------------------------------------
+# Commande #0002 de
+D:\v2025\carter_modal_v1_analysis\scratch_aster\run_aster_1u6bf6m1\cyl_ymin.comm.changed.py, ligne
+21
+MAIL = LIRE_MAILLAGE(FORMAT='MED',
+                     INFO=1,
+                     INFO_MED=0,
+                     PARTITIONNEUR='SANS',
+                     UNITE=20,
+                     VERI_MAIL=_F(APLAT=0.001,
+                                  VERIF='OUI'))
+
+Nom MED du maillage : carter_modal_v1_tetra
+
+
+------------ MAILLAGE 00000001 - IMPRESSIONS NIVEAU  1 ------------
+
+
+NOMBRE DE NOEUDS                       95358
+
+NOMBRE DE MAILLES                     549603
+                              SEG2                66508
+                              TRIA3              170318
+                              TETRA4             312777
+
+--------------------------------------------------------------------------------
+
+Vérification du maillage.
+
+# Résultat commande #0002 (LIRE_MAILLAGE): MAIL ('<00000001>') de type <Mesh>
+# Mémoire (Mo) :   384.28 /   362.98 /   255.10 /   224.16 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0002   user+syst:        4.50s (syst:        0.02s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt23
+# ----------------------------------------------------------------------------------------------
+# Commande #0003 de
+D:\v2025\carter_modal_v1_analysis\scratch_aster\run_aster_1u6bf6m1\cyl_ymin.comm.changed.py, ligne
+23
+MAIL = DEFI_GROUP(ALARME='OUI',
+                  CREA_GROUP_MA=(_F(NOM='G_TETRA',
+                                    TOUT='OUI',
+                                    TYPE_MAILLE='TETRA4'),
+                                 _F(CRIT_NOEUD='MAJORITE',
+                                    NOM='G_MOTEUR',
+                                    OPTION='SPHERE',
+                                    POINT=(23.093853, -45.158407, 163.598992),
+                                    RAYON=30.0,
+                                    TYPE_MAILLE='TETRA4'),
+                                 _F(CRIT_NOEUD='MAJORITE',
+                                    NOM='G_BASE_ELEC',
+                                    OPTION='SPHERE',
+                                    POINT=(24.323447, 9.996963, 52.04348),
+                                    RAYON=45.0,
+                                    TYPE_MAILLE='TETRA4'),
+                                 _F(NOM='G_MASSES_AJOUTEES',
+                                    TYPE_MAILLE='TETRA4',
+                                    UNION=('G_MOTEUR', 'G_BASE_ELEC')),
+                                 _F(DIFFE=('G_TETRA', 'G_MASSES_AJOUTEES'),
+                                    NOM='G_PETGCF',
+                                    TYPE_MAILLE='TETRA4')),
+                  CREA_GROUP_NO=_F(NOM='N_CONTACT',
+                                   OPTION='PLAN',
+                                   POINT=(0.0, -136.692359, 0.0),
+                                   PRECISION=3.0,
+                                   VECT_NORMALE=(0.0, 1.0, 0.0)),
+                  INFO=1,
+                  MAILLAGE=MAIL,
+                  reuse=MAIL)
+
+
+
+NOMBRE  DE GROUPES DE MAILLES CREES :      5
+=============================================
+
+               ------------------------------------------------------
+               !         NOM DU GROUPE         ! NBRE DE MAILLES DU !
+               !            MAILLES            !     GROUPE_MA      !
+               ------------------------------------------------------
+               !  G_TETRA                      !    312777          !
+               !  G_MOTEUR                     !     23127          !
+               !  G_BASE_ELEC                  !     11616          !
+               !  G_MASSES_AJOUTEES            !     34743          !
+               !  G_PETGCF                     !    278034          !
+               ------------------------------------------------------
+
+
+
+NOMBRE  DE GROUPES DE NOEUDS CREES :      1
+=======================================
+
+               ------------------------------------------------------
+               !         NOM DU GROUPE         ! NBRE DE NOEUDS DU  !
+               !            NOEUDS             !      GROUPE_NO     !
+               ------------------------------------------------------
+               !  N_CONTACT                    !        63          !
+               ------------------------------------------------------
+
+# Résultat commande #0003 (DEFI_GROUP): MAIL ('<00000001>') de type <Mesh>
+# Mémoire (Mo) :   384.28 /   368.41 /   255.10 /   224.16 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0003   user+syst:       19.50s (syst:        0.03s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt67
+# ----------------------------------------------------------------------------------------------
+# Commande #0004 de
+D:\v2025\carter_modal_v1_analysis\scratch_aster\run_aster_1u6bf6m1\cyl_ymin.comm.changed.py, ligne
+67
+MAILQ = CREA_MAILLAGE(INFO=1,
+                      LINE_QUAD=_F(TOUT='OUI'),
+                      MAILLAGE=MAIL)
+
+
+------------ MAILLAGE 00000002 - IMPRESSIONS NIVEAU  1 ------------
+
+ASTER 17.04.00 CONCEPT 00000002 CALCULE LE 11/10/2026 A 18:17:23 DE TYPE        
+MAILLAGE_SDASTER                                                                
+
+NOMBRE DE NOEUDS                      588656
+
+NOMBRE DE MAILLES                     549603
+                              SEG3                66508
+                              TRIA6              170318
+                              TETRA10            312777
+
+NOMBRE DE GROUPES DE NOEUDS                1
+
+NOMBRE DE GROUPES DE MAILLES               5
+
+--------------------------------------------------------------------------------
+
+# Résultat commande #0004 (CREA_MAILLAGE): MAILQ ('<00000002>') de type <Mesh>
+# Mémoire (Mo) :  2009.18 /   478.18 /   310.54 /   278.14 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0004   user+syst:        6.91s (syst:        0.53s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt68
+# ----------------------------------------------------------------------------------------------
+# Commande #0005 de
+D:\v2025\carter_modal_v1_analysis\scratch_aster\run_aster_1u6bf6m1\cyl_ymin.comm.changed.py, ligne
+68
+MAILQ = DEFI_GROUP(ALARME='OUI',
+                   CREA_GROUP_NO=_F(NOM='N_CONTACT',
+                                    OPTION='PLAN',
+                                    POINT=(0.0, -136.692359, 0.0),
+                                    PRECISION=3.0,
+                                    VECT_NORMALE=(0.0, 1.0, 0.0)),
+                   DETR_GROUP_NO=_F(NOM='N_CONTACT'),
+                   MAILLAGE=MAILQ,
+                   reuse=MAILQ)
+
+
+
+NOMBRE  DE GROUPES DE NOEUDS CREES :      1
+=======================================
+
+               ------------------------------------------------------
+               !         NOM DU GROUPE         ! NBRE DE NOEUDS DU  !
+               !            NOEUDS             !      GROUPE_NO     !
+               ------------------------------------------------------
+               !  N_CONTACT                    !       337          !
+               ------------------------------------------------------
+
+# Résultat commande #0005 (DEFI_GROUP): MAILQ ('<00000002>') de type <Mesh>
+# Mémoire (Mo) :  2009.18 /   478.20 /   310.84 /   278.14 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0005   user+syst:        0.02s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt83
+# ----------------------------------------------------------------------------------------------
+# Commande #0006 de
+D:\v2025\carter_modal_v1_analysis\scratch_aster\run_aster_1u6bf6m1\cyl_ymin.comm.changed.py, ligne
+83
+MODELE = AFFE_MODELE(AFFE=_F(GROUP_MA='G_TETRA',
+                             MODELISATION='3D',
+                             PHENOMENE='MECANIQUE'),
+                     DISTRIBUTION=_F(METHODE='SOUS_DOMAINE',
+                                     PARTITIONNEUR='METIS'),
+                     INFO=1,
+                     MAILLAGE=MAILQ,
+                     VERI_FORMULATION_IFS='OUI',
+                     VERI_JACOBIEN='OUI',
+                     VERI_NORM_IFS='OUI',
+                     VERI_PLAN='OUI')
+
+Sur les 549603 mailles du maillage 00000002, on a demandé l'affectation de 312777, on a pu en
+affecter 312777.
+Modélisation     Formulation      Type maille  Élément fini     Nombre
+3D               _                TETRA10      MECA_TETRA10     312777
+#2      Calculs elementaires et assemblages               CPU (USER+SYST/SYST/ELAPS):      0.40      0.00      0.00
+# Résultat commande #0006 (AFFE_MODELE): MODELE ('<00000003>') de type <Model>
+# Mémoire (Mo) :  2009.18 /   544.74 /   389.37 /   314.82 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0006   user+syst:        2.31s (syst:        0.03s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt92
+# ----------------------------------------------------------------------------------------------
+# Commande #0007 de
+D:\v2025\carter_modal_v1_analysis\scratch_aster\run_aster_1u6bf6m1\cyl_ymin.comm.changed.py, ligne
+92
+PETGCF = DEFI_MATERIAU(ELAS=_F(AMOR_ALPHA=5.052537875933186e-05,
+                               AMOR_BETA=8.975979010256552,
+                               B_ENDOGE=0.0,
+                               COEF_AMOR=1.0,
+                               E=6000.0,
+                               K_DESSIC=0.0,
+                               NU=0.35,
+                               RHO=1.3e-09),
+                       INFO=1)
+
+# Résultat commande #0007 (DEFI_MATERIAU): PETGCF ('<00000004>') de type <Material>
+# Mémoire (Mo) :  2009.18 /   545.21 /   389.37 /   314.82 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0007   user+syst:        0.03s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt102
+# ----------------------------------------------------------------------------------------------
+# Commande #0008 de
+D:\v2025\carter_modal_v1_analysis\scratch_aster\run_aster_1u6bf6m1\cyl_ymin.comm.changed.py, ligne
+102
+PETGCF_MOTEUR = DEFI_MATERIAU(ELAS=_F(AMOR_ALPHA=5.052537875933186e-05,
+                                      AMOR_BETA=8.975979010256552,
+                                      B_ENDOGE=0.0,
+                                      COEF_AMOR=1.0,
+                                      E=6000.0,
+                                      K_DESSIC=0.0,
+                                      NU=0.35,
+                                      RHO=2.063354290143e-09),
+                              INFO=1)
+
+# Résultat commande #0008 (DEFI_MATERIAU): PETGCF_MOTEUR ('<00000005>') de type <Material>
+# Mémoire (Mo) :  2009.18 /   545.24 /   389.37 /   314.82 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0008   user+syst:        0.03s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt112
+# ----------------------------------------------------------------------------------------------
+# Commande #0009 de
+D:\v2025\carter_modal_v1_analysis\scratch_aster\run_aster_1u6bf6m1\cyl_ymin.comm.changed.py, ligne
+112
+PETGCF_BASE_ELEC = DEFI_MATERIAU(ELAS=_F(AMOR_ALPHA=5.052537875933186e-05,
+                                         AMOR_BETA=8.975979010256552,
+                                         B_ENDOGE=0.0,
+                                         COEF_AMOR=1.0,
+                                         E=6000.0,
+                                         K_DESSIC=0.0,
+                                         NU=0.35,
+                                         RHO=2.160457338233e-09),
+                                 INFO=1)
+
+# Résultat commande #0009 (DEFI_MATERIAU): PETGCF_BASE_ELEC ('<00000006>') de type <Material>
+# Mémoire (Mo) :  2009.18 /   545.25 /   389.37 /   314.82 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0009   user+syst:        0.03s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt122
+# ----------------------------------------------------------------------------------------------
+# Commande #0010 de
+D:\v2025\carter_modal_v1_analysis\scratch_aster\run_aster_1u6bf6m1\cyl_ymin.comm.changed.py, ligne
+122
+CHMAT = AFFE_MATERIAU(AFFE=(_F(GROUP_MA='G_PETGCF',
+                               MATER=PETGCF),
+                            _F(GROUP_MA='G_MOTEUR',
+                               MATER=PETGCF_MOTEUR),
+                            _F(GROUP_MA='G_BASE_ELEC',
+                               MATER=PETGCF_BASE_ELEC)),
+                      INFO=1,
+                      MAILLAGE=MAILQ)
+
+# Résultat commande #0010 (AFFE_MATERIAU): CHMAT ('<00000007>') de type <MaterialField>
+# Mémoire (Mo) :  2009.18 /   549.77 /   389.37 /   314.82 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0010   user+syst:        0.03s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt133
+# ----------------------------------------------------------------------------------------------
+# Commande #0011 de
+D:\v2025\carter_modal_v1_analysis\scratch_aster\run_aster_1u6bf6m1\cyl_ymin.comm.changed.py, ligne
+133
+BC_CONTACT = AFFE_CHAR_MECA(DDL_IMPO=_F(DX=0.0,
+                                        DY=0.0,
+                                        DZ=0.0,
+                                        GROUP_NO='N_CONTACT'),
+                            DOUBLE_LAGRANGE='OUI',
+                            INFO=1,
+                            MODELE=MODELE,
+                            SYNTAXE='NON',
+                            VERI_AFFE='OUI',
+                            VERI_NORM='OUI')
+
+# Résultat commande #0011 (AFFE_CHAR_MECA): BC_CONTACT ('<00000008>') de type <MechanicalLoadReal>
+# Mémoire (Mo) :  2009.18 /   599.73 /   424.86 /   314.82 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0011   user+syst:        0.05s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt148
+# ----------------------------------------------------------------------------------------------
+# Commande #0012 de
+D:\v2025\carter_modal_v1_analysis\scratch_aster\run_aster_1u6bf6m1\cyl_ymin.comm.changed.py, ligne
+148
+CHOC_DYN = AFFE_CHAR_MECA(DOUBLE_LAGRANGE='OUI',
+                          INFO=1,
+                          MODELE=MODELE,
+                          PESANTEUR=_F(DIRECTION=(0.0, -1.0, 0.0),
+                                       GRAVITE=2465521.9,
+                                       GROUP_MA='G_TETRA'),
+                          SYNTAXE='NON',
+                          VERI_AFFE='OUI',
+                          VERI_NORM='OUI')
+
+# Résultat commande #0012 (AFFE_CHAR_MECA): CHOC_DYN ('<00000009>') de type <MechanicalLoadReal>
+# Mémoire (Mo) :  2009.18 /   602.16 /   442.22 /   314.82 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0012   user+syst:        0.11s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt157
+# ----------------------------------------------------------------------------------------------
+# Commande #0013 de
+D:\v2025\carter_modal_v1_analysis\scratch_aster\run_aster_1u6bf6m1\cyl_ymin.comm.changed.py, ligne
+157
+PULSE = DEFI_FONCTION(INFO=1,
+                      INTERPOL='LIN',
+                      NOM_PARA='INST',
+                      NOM_RESU='TOUTRESU',
+                      PROL_DROITE='CONSTANT',
+                      PROL_GAUCHE='CONSTANT',
+                      VALE=(0.0, 0.0, 0.000631, 0.5, 0.001262, 1.0, 0.001893, 0.5, 0.002524, 0.0, 0.006, 0.0),
+                      VERIF='CROISSANT')
+
+# Résultat commande #0013 (DEFI_FONCTION): PULSE ('<0000000a>') de type <Function>
+# Mémoire (Mo) :  2009.18 /   602.25 /   442.22 /   314.82 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0013   user+syst:        0.00s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt172
+# ----------------------------------------------------------------------------------------------
+# Commande #0014 de
+D:\v2025\carter_modal_v1_analysis\scratch_aster\run_aster_1u6bf6m1\cyl_ymin.comm.changed.py, ligne
+172
+L_INST = DEFI_LIST_REEL(DEBUT=0.0,
+                        INFO=1,
+                        INTERVALLE=_F(JUSQU_A=0.06,
+                                      PAS=0.0001))
+
+# Résultat commande #0014 (DEFI_LIST_REEL): L_INST ('<0000000b>') de type <ListOfFloats>
+# Mémoire (Mo) :  2009.18 /   602.27 /   442.22 /   314.82 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0014   user+syst:        0.00s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt174
+# ----------------------------------------------------------------------------------------------
+# Commande #0015 de
+D:\v2025\carter_modal_v1_analysis\scratch_aster\run_aster_1u6bf6m1\cyl_ymin.comm.changed.py, ligne
+174
+ASSEMBLAGE(CHAM_MATER=CHMAT,
+           CHARGE=BC_CONTACT,
+           INFO=1,
+           INST=0.0,
+           MATR_ASSE=(_F(MATRICE=CO('RIGI'),
+                         MODE_FOURIER=0,
+                         OPTION='RIGI_MECA'),
+                      _F(MATRICE=CO('MASS'),
+                         OPTION='MASS_MECA'),
+                      _F(AMOR_FLUI='OUI',
+                         MATRICE=CO('AMOR'),
+                         OPTION='AMOR_MECA',
+                         TYPE_AMOR='TOUT',
+                         VNOR=1.0)),
+           MODELE=MODELE,
+           NUME_DDL=CO('NUMEDDL'),
+           VECT_ASSE=_F(CHARGE=CHOC_DYN,
+                        MODE_FOURIER=0,
+                        OPTION='CHAR_MECA',
+                        VECTEUR=CO('F_CHOC')))
+
+Le système linéaire à résoudre a 1767990 degrés de liberté:
+   - 1765968 sont des degrés de liberté
+physiques
+     (ils sont portés par 588656 noeuds du maillage)
+   - 2022 sont les couples de
+paramètres de Lagrange associés
+     aux 1011 relations linéaires dualisées.
+La matrice est de taille 1767990 équations.
+  Elle contient 63683562 termes non nuls si elle est
+symétrique et 125599134 termes non nuls si elle n'est pas symétrique.
+  Soit un taux de remplissage
+de   0.004 %.
+# Résultat commande #0015 (ASSEMBLAGE): NUMEDDL ('<00000014>') de type <DOFNumbering>
+# Résultat commande #0015 (ASSEMBLAGE): RIGI ('<00000016>') de type <AssemblyMatrixDisplacementReal>
+# Résultat commande #0015 (ASSEMBLAGE): MASS ('<0000001c>') de type <AssemblyMatrixDisplacementReal>
+# Résultat commande #0015 (ASSEMBLAGE): AMOR ('<00000023>') de type <AssemblyMatrixDisplacementReal>
+# Résultat commande #0015 (ASSEMBLAGE): F_CHOC ('<0000002f>') de type <FieldOnNodesReal>
+# Mémoire (Mo) :  5874.58 /  2473.96 /  5681.65 /  1136.61 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0015   user+syst:       39.64s (syst:        1.94s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt181
+# ----------------------------------------------------------------------------------------------
+# Commande #0025 de
+D:\v2025\carter_modal_v1_analysis\scratch_aster\run_aster_1u6bf6m1\cyl_ymin.comm.changed.py, ligne
+181
+RESU = DYNA_VIBRA(ARCHIVAGE=_F(PAS_ARCH=2),
+                  BASE_CALCUL='PHYS',
+                  CHAM_MATER=CHMAT,
+                  EXCIT=_F(FONC_MULT=PULSE,
+                           MULT_APPUI='NON',
+                           VECT_ASSE=F_CHOC),
+                  INCREMENT=_F(LIST_INST=L_INST,
+                               VERI_PAS='OUI'),
+                  MATR_AMOR=AMOR,
+                  MATR_MASS=MASS,
+                  MATR_RIGI=RIGI,
+                  MODELE=MODELE,
+                  SCHEMA_TEMPS=_F(BETA=0.25,
+                                  GAMMA=0.5,
+                                  SCHEMA='NEWMARK'),
+                  SOLVEUR=_F(ACCELERATION='AUTO',
+                             ELIM_LAGR='LAGR2',
+                             FILTRAGE_MATRICE=-1.0,
+                             GESTION_MEMOIRE='AUTO',
+                             LOW_RANK_SEUIL=0.0,
+                             METHODE='MUMPS',
+                             MIXER_PRECISION='NON',
+                             NB_RHS=1,
+                             NPREC=8,
+                             PCENT_PIVOT=35,
+                             POSTTRAITEMENTS='AUTO',
+                             PRETRAITEMENTS='AUTO',
+                             REDUCTION_MPI=0,
+                             RENUM='AUTO',
+                             RESI_RELA=-1.0,
+                             STOP_SINGULIER='OUI',
+                             TYPE_RESOL='AUTO'),
+                  TYPE_CALCUL='TRAN')
+
+--------------------------------------------------------------------------------------
+
+D Y N A _ V
+I B R A
+=====================================================================================
+      
+              Calcul TRANsitoire sur base
+PHYSique
+=====================================================================================
+
+Modèle
+physique
+--------------------------------------------------------------------------------------
+   
+>> modèle mécanique : 00000003
+    >> nombre de DDL physiques : 1767990
+
+Matrices dynamiques pour la
+résolution
+--------------------------------------------------------------------------------------
+>> matrice de masse        : 0000001c
+    >> matrice de rigidité     : 00000016
+>> matrice d'amortissement : 00000023
+
+Schéma d'intégration NEWMARK à pas
+constant
+--------------------------------------------------------------------------------------
+   
+>> type de schéma         : implicite
+    >> pas d'intégration      : 1.00000e-04
+    >> nombre de
+pas calculés : 600
+État initial
+--------------------------------------------------------------------------------------
+
+   >> déplacement  : nul
+    >> vitesse      : nul
+>> accélération : calculee
+Durée de la
+simulation
+--------------------------------------------------------------------------------------
+  
+ >> instant initial : 0.00000e+00
+    >> instant final   : 6.00000e-02
+Archivage
+--------------------------------------------------------------------------------------
+   
+>> fréquence d'archivage : tous les 2 pas calculés
+>> champs archivés       : DEPL VITE
+ACCE
+
+======================================================================================
+
+Avance
+ment du
+calcul
+--------------------------------------------------------------------------------------
+
+[  0%] Instant calculé : 0.00000e+00, dernier instant archivé : 0.00000e+00, au numéro d'ordre :    
+0
+[  5%] Instant calculé : 3.00000e-03, dernier instant archivé : 3.00000e-03, au numéro d'ordre :   
+30
+[ 10%] Instant calculé : 6.00000e-03, dernier instant archivé : 6.00000e-03, au numéro d'ordre :   
+60
+[ 15%] Instant calculé : 9.00000e-03, dernier instant archivé : 9.00000e-03, au numéro d'ordre :   
+90
+[ 20%] Instant calculé : 1.20000e-02, dernier instant archivé : 1.20000e-02, au numéro d'ordre :  
+120
+[ 25%] Instant calculé : 1.50000e-02, dernier instant archivé : 1.50000e-02, au numéro d'ordre :  
+150
+[ 30%] Instant calculé : 1.80000e-02, dernier instant archivé : 1.80000e-02, au numéro d'ordre :  
+180
+[ 35%] Instant calculé : 2.10000e-02, dernier instant archivé : 2.10000e-02, au numéro d'ordre :  
+210
+[ 40%] Instant calculé : 2.40000e-02, dernier instant archivé : 2.40000e-02, au numéro d'ordre :  
+240
+[ 45%] Instant calculé : 2.70000e-02, dernier instant archivé : 2.70000e-02, au numéro d'ordre :  
+270
+[ 50%] Instant calculé : 3.00000e-02, dernier instant archivé : 3.00000e-02, au numéro d'ordre :  
+300
+[ 55%] Instant calculé : 3.30000e-02, dernier instant archivé : 3.30000e-02, au numéro d'ordre :  
+330
+[ 60%] Instant calculé : 3.60000e-02, dernier instant archivé : 3.60000e-02, au numéro d'ordre :  
+360
+[ 65%] Instant calculé : 3.90000e-02, dernier instant archivé : 3.90000e-02, au numéro d'ordre :  
+390
+[ 70%] Instant calculé : 4.20000e-02, dernier instant archivé : 4.20000e-02, au numéro d'ordre :  
+420
+[ 75%] Instant calculé : 4.50000e-02, dernier instant archivé : 4.50000e-02, au numéro d'ordre :  
+450
+La mémoire consommée actuellement hors JEVEUX est de 7424.16 Mo.
+La mémoire limite pour l'allocation
+dynamique est fixée à 22870.43 Mo (-7340.33 Mo).
+Cette valeur limite a été réactualisée lors de la
+mise en oeuvre d'un processus de libération.
+
+[ 80%] Instant calculé : 4.80000e-02, dernier instant archivé : 4.80000e-02, au numéro d'ordre :  
+480
+[ 85%] Instant calculé : 5.10000e-02, dernier instant archivé : 5.10000e-02, au numéro d'ordre :  
+510
+[ 90%] Instant calculé : 5.40000e-02, dernier instant archivé : 5.40000e-02, au numéro d'ordre :  
+540
+[ 95%] Instant calculé : 5.70000e-02, dernier instant archivé : 5.70000e-02, au numéro d'ordre :  
+570
+[100%] Instant calculé : 6.00000e-02, dernier instant archivé : 6.00000e-02, au numéro d'ordre :  
+600
+======================================================================================
+             
+                                                          Fin du calcul
+
+
+#1      Resolution des systemes lineaires                 CPU (USER+SYST/SYST/ELAPS):   2571.72      0.00   2573.00
+#3      Dechargement de la memoire sur disque             CPU (USER+SYST/SYST/ELAPS):     94.45      0.00     95.00
+# Résultat commande #0025 (DYNA_VIBRA): RESU ('<00000030>') de type <FullTransientResult>
+# Dépend de :
+# - MASS ('<0000001c>') de type <AssemblyMatrixDisplacementReal>
+# - RIGI ('<00000016>') de type <AssemblyMatrixDisplacementReal>
+# - AMOR ('<00000023>') de type <AssemblyMatrixDisplacementReal>
+# Mémoire (Mo) : 19505.46 / 13776.55 / 13798.83 /  1980.79 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0025   user+syst:     2606.69s (syst:      577.67s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt192
+# ----------------------------------------------------------------------------------------------
+# Commande #0026 de
+D:\v2025\carter_modal_v1_analysis\scratch_aster\run_aster_1u6bf6m1\cyl_ymin.comm.changed.py, ligne
+192
+L_SIG = DEFI_LIST_REEL(DEBUT=0.026,
+                       INFO=1,
+                       INTERVALLE=_F(JUSQU_A=0.06,
+                                     PAS=0.0002))
+
+La mémoire consommée actuellement hors JEVEUX est de -22.27 Mo.
+La mémoire limite pour l'allocation
+dynamique est fixée à 13776.55 Mo (+7446.43 Mo).
+Cette valeur limite a été réactualisée entre les
+appels aux différentes commandes.
+
+# Résultat commande #0026 (DEFI_LIST_REEL): L_SIG ('<00000031>') de type <ListOfFloats>
+# Mémoire (Mo) : 19505.46 / 13776.56 / 13798.86 /  1980.79 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0026   user+syst:        0.02s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt193
+# ----------------------------------------------------------------------------------------------
+# Commande #0027 de
+D:\v2025\carter_modal_v1_analysis\scratch_aster\run_aster_1u6bf6m1\cyl_ymin.comm.changed.py, ligne
+193
+RESU = CALC_CHAMP(CONTRAINTE='SIEF_ELGA',
+                  CRITERE='ABSOLU',
+                  CRITERES='SIEQ_ELGA',
+                  INFO=1,
+                  LIST_INST=L_SIG,
+                  PARALLELISME_TEMPS='NON',
+                  PRECISION=2.5e-05,
+                  RESULTAT=RESU,
+                  reuse=RESU)
+
+Ouverture en écriture du fichier ./vola.2
+
+Ouverture en écriture du fichier ./glob.2
+
+Ouverture en écriture du fichier ./glob.3
+
+Ouverture en écriture du fichier ./glob.4
+
+#2      Calculs elementaires et assemblages               CPU (USER+SYST/SYST/ELAPS):   1288.00      0.00   1288.00
+#3      Dechargement de la memoire sur disque             CPU (USER+SYST/SYST/ELAPS):    449.51      0.00    448.00
+# Résultat commande #0027 (CALC_CHAMP): RESU ('<00000030>') de type <FullTransientResult>
+# Dépend de :
+# - MASS ('<0000001c>') de type <AssemblyMatrixDisplacementReal>
+# - RIGI ('<00000016>') de type <AssemblyMatrixDisplacementReal>
+# - AMOR ('<00000023>') de type <AssemblyMatrixDisplacementReal>
+# - L_SIG ('<00000031>') de type <ListOfFloats>
+# Mémoire (Mo) : 22865.03 / 15864.09 / 30302.44 /  1980.79 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0027   user+syst:      910.50s (syst:      215.83s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt195
+# ----------------------------------------------------------------------------------------------
+# Commande #0028 de
+D:\v2025\carter_modal_v1_analysis\scratch_aster\run_aster_1u6bf6m1\cyl_ymin.comm.changed.py, ligne
+195
+IMPR_RESU(FICHIER_UNIQUE='NON',
+          FORMAT='MED',
+          INFO=1,
+          PROC0='OUI',
+          RESU=(_F(IMPR_NOM_VARI='OUI',
+                   INFO_MAILLAGE='NON',
+                   NOM_CHAM='DEPL',
+                   NOM_CHAM_MED='RESU____DEPL',
+                   RESULTAT=RESU),
+                _F(CRITERE='ABSOLU',
+                   IMPR_NOM_VARI='OUI',
+                   INFO_MAILLAGE='NON',
+                   LIST_INST=L_SIG,
+                   NOM_CHAM='SIEQ_ELGA',
+                   NOM_CHAM_MED='RESU____SIEQ_ELGA',
+                   NOM_CMP='VMIS',
+                   PRECISION=2.5e-05,
+                   RESULTAT=RESU)),
+          UNITE=80,
+          VERSION_MED='3.3.1')
+
+La mémoire consommée actuellement hors JEVEUX est de -11270.53 Mo.
+La mémoire limite pour
+l'allocation dynamique est fixée à 15868.09 Mo (+11248.26 Mo).
+Cette valeur limite a été
+réactualisée entre les appels aux différentes commandes.
+
+Création du fichier au format MED 3.3.1.
+
+# Mémoire (Mo) : 23403.29 / 21569.41 / 41051.22 /  1980.79 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0028   user+syst:      208.92s (syst:      107.70s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+
+.. _stg1_txt76
+# ----------------------------------------------------------------------------------------------
+# Commande #0029 de D:\Code_Aster\v2025\17.4\lib\aster\code_aster\CodeCommands\fin.py, ligne 76
+FIN(INFO_RESU='NON',
+    RETASSAGE='NON')
+
+No database in results, objects not saved on processor #0
+
+ ╔════════════════════════════════════════════════════════════════════════════════════════════════╗
+ ║ <I> <CATAMESS_89>                                                                              ║
+ ║                                                                                                ║
+ ║ Liste des alarmes émises lors de l'exécution du calcul.                                        ║
+ ║                                                                                                ║
+ ║     Les alarmes que vous avez                                                                  ║
+ ║ choisies d'ignorer sont précédées de (*).                                                      ║
+ ║     Nombre d'occurrences pour chacune des alarmes :                                            ║
+ ║                                                                                                ║
+ ║           aucune alarme                                                                        ║
+ ╚════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+<I> <FIN> ARRET NORMAL DANS "FIN" PAR APPEL A "JEFINI".
+  
+ <I> <FIN> MEMOIRE JEVEUX MINIMALE REQUISE POUR L'EXECUTION :                    1980.79 Mo
+ <I> <FIN> MEMOIRE JEVEUX OPTIMALE REQUISE POUR L'EXECUTION :                   41051.22 Mo
+ <I> <FIN> MAXIMUM DE MEMOIRE UTILISEE PAR LE PROCESSUS LORS DE L'EXECUTION :   23403.29 Mo
+  
+ <I>       FERMETURE DES BASES EFFECTUEE
+  
+   STATISTIQUES CONCERNANT L'ALLOCATION DYNAMIQUE :
+     TAILLE CUMULEE MAXIMUM            :                41051  Mo.
+     TAILLE CUMULEE LIBEREE            :                35145  Mo.
+     NOMBRE TOTAL D'ALLOCATIONS        :             28295256
+     NOMBRE TOTAL DE LIBERATIONS       :             28293449
+     APPELS AU MECANISME DE LIBERATION :                   12
+     TAILLE MEMOIRE CUMULEE RECUPEREE  :                99979  Mo.
+     VOLUME DES LECTURES               :                    0  Mo.
+     VOLUME DES ECRITURES              :                53652  Mo.
+  
+   MEMOIRE JEVEUX MINIMALE REQUISE POUR L'EXECUTION :    1980.79 Mo
+     - IMPOSE DE NOMBREUX ACCES DISQUE
+     - RALENTIT LA VITESSE D'EXECUTION
+   MEMOIRE JEVEUX OPTIMALE REQUISE POUR L'EXECUTION :   41051.22 Mo
+     - LIMITE LES ACCES DISQUE
+     - AMELIORE LA VITESSE D'EXECUTION
+   MAXIMUM DE MEMOIRE UTILISEE PAR LE PROCESSUS     :   23403.29 Mo
+     - COMPREND LA MEMOIRE CONSOMMEE PAR  JEVEUX, 
+       LE SUPERVISEUR PYTHON, LES LIBRAIRIES EXTERNES
+  
+ <I>       FIN D'EXECUTION LE : DI-11-OCTO-2026 19:53:19
+
+ ********************************************************************************
+ * COMMAND                  :       USER :     SYSTEM :   USER+SYS :    ELAPSED *
+ ********************************************************************************
+ * DEBUT                    :       0.03 :       0.11 :       0.14 :       0.00 *
+ * LIRE_MAILLAGE            :       4.50 :       0.02 :       4.52 :       0.00 *
+ * DEFI_GROUP               :      19.50 :       0.03 :      19.53 :       0.00 *
+ * CREA_MAILLAGE            :       6.91 :       0.53 :       7.44 :       0.00 *
+ * DEFI_GROUP               :       0.02 :       0.00 :       0.02 :       0.00 *
+ * AFFE_MODELE              :       2.31 :       0.03 :       2.34 :       0.00 *
+ * DEFI_MATERIAU            :       0.03 :       0.00 :       0.03 :       0.00 *
+ * DEFI_MATERIAU            :       0.03 :       0.00 :       0.03 :       0.00 *
+ * DEFI_MATERIAU            :       0.03 :       0.00 :       0.03 :       0.00 *
+ * AFFE_MATERIAU            :       0.03 :       0.00 :       0.03 :       0.00 *
+ * AFFE_CHAR_MECA           :       0.05 :       0.00 :       0.05 :       0.00 *
+ * AFFE_CHAR_MECA           :       0.11 :       0.00 :       0.11 :       0.00 *
+ * DEFI_FONCTION            :       0.00 :       0.00 :       0.00 :       0.00 *
+ * DEFI_LIST_REEL           :       0.00 :       0.00 :       0.00 :       0.00 *
+ * ASSEMBLAGE               :      39.64 :       1.94 :      41.58 :       0.00 *
+ * DYNA_VIBRA               :    2606.69 :     577.67 :    3184.36 :       0.00 *
+ * DEFI_LIST_REEL           :       0.02 :       0.00 :       0.02 :       0.00 *
+ * CALC_CHAMP               :     910.50 :     215.83 :    1126.33 :       0.00 *
+ * IMPR_RESU                :     208.92 :     107.70 :     316.62 :       0.00 *
+ * FIN                      :       0.05 :       0.00 :       0.05 :       0.00 *
+ *  . check syntax          :       0.02 :       0.03 :       0.05 :       0.00 *
+ *  . fortran               :    3753.27 :     882.67 :    4635.94 :       0.00 *
+ *  . cleanup               :       0.33 :       0.30 :       0.62 :       0.00 *
+ ********************************************************************************
+ * TOTAL_JOB                :    3799.47 :     904.06 :    4703.53 :       0.00 *
+ ********************************************************************************
+
+# Mémoire (Mo) : 23403.29 / 21618.10 / 41051.22 /  1980.79 (VmPeak / VmSize / Optimum / Minimum)
+# Fin commande #0029   user+syst:        0.05s (syst:        0.00s, elaps:        0.00s)
+# ----------------------------------------------------------------------------------------------
+End of the Code_Aster execution
+Exited
+
+EXECUTION_CODE_ASTER_EXIT_32248=0
+
+
+
+------------------------------------------------------------
+--- DIAGNOSTIC JOB : OK
+------------------------------------------------------------
+

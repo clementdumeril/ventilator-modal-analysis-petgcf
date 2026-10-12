@@ -1,0 +1,2 @@
+# wall times from the run queue (Idle priority, 2 threads, i7-6700HQ); code_aster 17.4
+run_oblique_base_edge.bat end 2026-10-11T21:18:21 wall_s=3886 --- DIAGNOSTIC JOB : OK

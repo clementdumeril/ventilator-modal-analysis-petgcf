@@ -247,7 +247,6 @@ P mpi_nbcpu 1
 P mpi_nbnoeud 1
 P ncpus 1
 P nomjob carter_choc_{case_id}
-P origine Codex
 P server localhost
 P time_limit 21600.0
 P tpsjob 360

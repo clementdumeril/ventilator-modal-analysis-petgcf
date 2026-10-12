@@ -1,0 +1,1 @@
+mesh mesh_f3.med: 123454 nodes, 453285 TETRA4, volume 704931 mm3; G_MOTEUR: 48826 elems, 115971 mm3, rho 2.076059e-09; G_BASE_ELEC: 31152 elems, 85427 mm3, rho 2.177938e-09

@@ -1,3 +1,4 @@
+# June 2026 report figures (linear-element values, superseded; see paper/scripts/ for the current figures).
 from pathlib import Path
 
 import matplotlib.pyplot as plt

@@ -6,6 +6,9 @@ and data/convergence/<case>/mesh_info.txt, copied from the run folders. Cases:
   c14f1_quad           V5 BREP remeshed, max 14 mm, fineness 1 (92,381 nodes), TETRA10
   h10_lin / h10_quad   V5 BREP remeshed, max 10 mm, fineness 2, TETRA4 / TETRA10
   f3_lin, f4_lin       V5 BREP remeshed, fineness 3 (max 10 mm) and 4 (max 6 mm), TETRA4
+  f3_quad              fineness-3 mesh (123,454 nodes), TETRA10
+Also: Richardson extrapolation of the two finest TETRA4 meshes with order p = 2 in the element size h ~ N^(-1/3)
+(modes 1-3 only; modes 4-5 are not in the asymptotic range).
 Writes paper/tables/convergence.tex and paper/figures/convergence.pdf.
 """
 import re
@@ -18,7 +21,8 @@ import matplotlib.pyplot as plt
 REPO = Path(__file__).resolve().parents[2]
 DATA = REPO / "data" / "convergence"
 CASES = [("pub_lin", "published, TETRA4"), ("h10_lin", "h10, TETRA4"), ("f3_lin", "fineness 3, TETRA4"),
-         ("f4_lin", "fineness 4, TETRA4"), ("c14f1_quad", "coarse (fineness 1), TETRA10"), ("pub_quad", "published, TETRA10"), ("h10_quad", "h10, TETRA10")]
+         ("f4_lin", "fineness 4, TETRA4"), ("c14f1_quad", "coarse (fineness 1), TETRA10"), ("pub_quad", "published, TETRA10"), ("h10_quad", "h10, TETRA10"),
+         ("f3_quad", "fineness 3, TETRA10")]
 
 
 def read(case):
@@ -55,6 +59,14 @@ for c, label in CASES:
     n_tex = f"{n:,}".replace(",", r"\,")
     lines.append(rf"{label} & {n_tex} & {kg:.4f} & {f[0]:.2f} & {f[1]:.2f} & {f[2]:.2f} \\")
     print(f"{label:22s} nodes {n:7d} mass {kg:.5f} kg f1-5 {['%.2f' % x for x in f]}")
+# Richardson extrapolation of TETRA4, fineness 3 and 4, p = 2
+rich = None
+if "f3_lin" in res and "f4_lin" in res:
+    r2 = (res["f4_lin"][0] / res["f3_lin"][0]) ** (2 / 3)          # (h3 / h4)^2 with h ~ N^(-1/3)
+    rich = [(r2 * a - b) / (r2 - 1) for a, b in zip(res["f4_lin"][2][:3], res["f3_lin"][2][:3])]
+    lines.append(r"\midrule")
+    lines.append(r"TETRA4, Richardson ($p=2$) & -- & -- & " + " & ".join(f"{x:.1f}" for x in rich) + r" \\")
+    print("Richardson TETRA4 (p = 2):", ["%.2f" % x for x in rich])
 lines += [r"\bottomrule", r"\end{tabular}"]
 (REPO / "paper" / "tables").mkdir(parents=True, exist_ok=True)
 (REPO / "paper" / "tables" / "convergence.tex").write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -66,9 +78,11 @@ for k, ax in enumerate(axs):
         ax.plot([a for a, _ in lin], [b for _, b in lin], "o-", label="V5 BREP, TETRA4")
     if "pub_lin" in res:
         ax.plot(res["pub_lin"][0], res["pub_lin"][2][k], "s", label="published, TETRA4")
-    quad = sorted((res[c][0], res[c][2][k]) for c in ("c14f1_quad", "pub_quad", "h10_quad") if c in res)
+    quad = sorted((res[c][0], res[c][2][k]) for c in ("c14f1_quad", "pub_quad", "h10_quad", "f3_quad") if c in res)
     if quad:
         ax.plot([a for a, _ in quad], [b for _, b in quad], "D-", label="TETRA10")
+    if rich:
+        ax.axhline(rich[k], color="0.4", lw=0.8, ls=":", label="TETRA4, Richardson")
     ax.set_title(f"mode {k+1}"); ax.set_xlabel("corner nodes"); ax.grid(alpha=0.3)
 axs[0].set_ylabel("frequency (Hz)"); axs[0].legend(fontsize=7)
 fig.tight_layout()

@@ -6,6 +6,7 @@ cd "$(dirname "$0")/.."
 python paper/scripts/fig_convergence.py
 python paper/scripts/fig_campbell.py
 python paper/scripts/fig_damping.py
+python paper/scripts/table_rayleigh.py
 python paper/scripts/fig_shock.py
 python paper/scripts/fig_hotspots.py
 cd paper

@@ -49,7 +49,10 @@ for k, f0 in enumerate(modes, 1):
     ax.text(2620, (lo + f0) / 2, f"mode {k}", va="center", fontsize=7.5, color="#185FA5")
     cross = [f"{n} at E = {E_MODEL * (v / f0) ** 2:.2f} GPa" for n, v in lines.items() if lo <= v <= f0]
     print(f"mode {k}: {lo:6.1f} - {f0:6.1f} Hz (TETRA4 published: {lin[k-1]:.1f} Hz); crosses: {cross or 'none'}")
-ax.plot([RPM] * len(lin), lin, "o", mfc="none", mec="0.4", ms=5, label="published TETRA4, E = 6 GPa")
+ax.plot([RPM] * 3, lin[:3], "o", mfc="none", mec="0.4", ms=5, label="June TETRA4, modes 1-3, E = 6 GPa")
+# June TETRA4 modes 4-5 (251, 290 Hz): no linear-element mode lies between 132 and 228 Hz even on the finest mesh,
+# and these two still fall fast with refinement; probably TETRA10 modes 4-5 overestimated (shapes not compared)
+ax.plot([RPM] * 2, lin[3:5], "x", color="0.55", ms=5, label="June TETRA4, modes 4-5 (see text)")
 for n in range(1, 7):
     if n == 5:
         continue

@@ -11,7 +11,7 @@
 - `shock/code_aster/`: the June impact inputs (code_aster 17.4, `DYNA_NON_LINE`), with `shock/results/` and
   `shock/logs/`.
 - `shock/extended_2026-10/`: the October impact generators (`make_cases_vibra.py`, `make_cases_modes_bc.py`),
-  post-processing (`postprocess_extended.py`) and, per run series, the generated inputs, solver messages and wall times.
+  post-processing (`postprocess_extended.py`), the check of the contact planes (`check_contact_planes.py` and its output) and, per run series, the generated inputs, solver messages and wall times.
 - `shock/results_extended/`: the time histories extracted from the October runs (CSV).
 - `paper/`: the report source (`main.tex`, `references.bib`), the scripts that regenerate its tables and figures
   (`paper/scripts/`), and `paper/build_paper.sh`.

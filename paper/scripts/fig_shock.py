@@ -41,7 +41,7 @@ def load(*fnames):
 quad = load("time_history_quad_zeta05.csv", "time_history_quad_base_edge_zeta05.csv", "time_history_quad_zeta05_60ms.csv",
             "time_history_quad_base_edge_zeta05_60ms.csv")
 lin = load("time_history_zeta05.csv", "time_history_base_edge_zeta05.csv")
-fig, axs = plt.subplots(2, 1, figsize=(7.2, 5.6), sharex=True)
+fig, axs = plt.subplots(2, 1, figsize=(7.2, 6.2), sharex=True)
 for c, lab in LABEL.items():
     if c in quad:
         t, s, u, _ = quad[c]
@@ -59,8 +59,10 @@ axs[0].text(0.2, 0.92, "pulse", transform=axs[0].get_xaxis_transform(), fontsize
 axs[1].text(30.5, 0.04, "end of the 30 ms runs", transform=axs[1].get_xaxis_transform(), fontsize=7, color="0.4")
 axs[0].set_ylabel("max von Mises,\n$>$8 mm from contact (MPa)")
 axs[1].set_ylabel("max displacement (mm)"); axs[1].set_xlabel("time (ms)")
-axs[0].legend(fontsize=7, ncol=2, loc="upper right")
-fig.tight_layout()
+# legend below the axes, so that it hides no peak
+h, l = axs[0].get_legend_handles_labels()
+fig.legend(h, l, fontsize=7, ncol=3, loc="lower center", frameon=False)
+fig.tight_layout(rect=(0, 0.09, 1, 1))
 fig.savefig(REPO / "paper" / "figures" / "shock_history.pdf")
 fig.savefig(REPO / "assets" / "figures" / "shock_history.png", dpi=150)   # README copy
 for name, src in (("TETRA10, 5 %", quad), ("TETRA4, 5 %", lin)):

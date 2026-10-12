@@ -1,4 +1,5 @@
-"""Impact peaks over 0-30 ms against Rayleigh damping, for linear (TETRA4) and quadratic (TETRA10) elements.
+"""Impact peaks over 0-30 ms against the nominal Rayleigh damping ratio zeta_n (reached at 15 and 300 Hz, lower in
+between), for linear (TETRA4) and quadratic (TETRA10) elements.
 
 Inputs in shock/results_extended/ (postprocess_extended.py on the October 2026 DYNA_VIBRA runs):
   time_history_30ms.csv, time_history_zeta02/05/10.csv     TETRA4, lateral cases, 0 / 2 / 5 / 10 % damping
@@ -46,7 +47,7 @@ if __name__ == "__main__":
     p10 = {z: peaks(f) for z, f in T10.items()}
     # summary table: one row per (element, damping), one column group per impact case:
     # peak (MPa), time of the peak (ms) and height z of the peak element (mm)
-    head = r"Element & $\zeta$ & " + " & ".join([r"$\sigma$ & $t$ & $z$"] * len(CASES)) + r" \\"
+    head = r"Element & $\zeta_n$ & " + " & ".join([r"$\sigma$ & $t$ & $z$"] * len(CASES)) + r" \\"
     groups = r"& & " + " & ".join(r"\multicolumn{3}{c}{" + lab + "}" for lab in CASES.values()) + r" \\"
     lines = [r"\begin{tabular}{ll" + "rrr" * len(CASES) + "}", r"\toprule", groups, head, r"\midrule"]
     for elem, src, zs in (("TETRA4", p4, T4), ("TETRA10", p10, T10)):

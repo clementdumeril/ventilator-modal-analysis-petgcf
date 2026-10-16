@@ -1,16 +1,14 @@
 # Model assumptions
 
-These are the main modeling assumptions behind the PETG-CF fan housing modal analysis.
+Main modeling assumptions behind the modal analysis.
 
 ## Geometry
 
-I simplified the original CAD geometry before meshing: small non-structural faces removed, fewer short edges, and the highly detailed arms replaced with plain prismatic ribs. This made the tetrahedral meshing much more reliable while keeping the main load-bearing structure of the housing.
+I simplified the CAD before meshing: small faces and short edges removed, and the detailed arms replaced with plain prismatic ribs.
 
-The final V5 orientation places the real base on the `XY` plane and the housing height along `+Z`. This is a rigid transformation, so it does not change the computed modes.
+The V5 orientation puts the base on the `XY` plane and the height along `+Z`. This rigid transformation does not change the modes.
 
 ## Mesh
-
-The model uses a tetrahedral finite-element mesh:
 
 | Quantity | Value |
 |---|---:|
@@ -30,11 +28,11 @@ The housing is modeled as equivalent isotropic PETG-CF:
 | Poisson ratio | 0.35 |
 | Density | 1.30e-9 tonne/mm3 |
 
-This is an engineering approximation. Real printed PETG-CF is expected to be anisotropic, with stiffness depending on print orientation, wall count, infill, temperature, and layer bonding quality.
+Real printed PETG-CF is anisotropic, with stiffness depending on print orientation, infill and layer bonding.
 
 ## Embedded masses
 
-The motor and electronic base are not modeled as detailed CAD components. Their masses are represented by increasing the equivalent density in two local mesh regions:
+The motor and electronics are added as extra density in two mesh regions:
 
 | Region | Elements | Volume (mm3) | Mass (kg) |
 |---|---:|---:|---:|
@@ -45,7 +43,7 @@ The motor and electronic base are not modeled as detailed CAD components. Their 
 
 ## Boundary conditions
 
-The published modal model is free-free. That is fine for finding the intrinsic structural modes, but it does not represent a fan resting on a table or gasket. Evaluating the effect of mounting stiffness would need a supported modal model.
+The modal model is free-free. It gives the intrinsic modes but does not represent a fan resting on a table; mounting stiffness would need a supported model.
 
 ## Excitation lines
 

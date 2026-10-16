@@ -1,12 +1,12 @@
-# Model Assumptions
+# Model assumptions
 
-This document summarizes the main modeling assumptions used in the PETG-CF fan housing modal analysis.
+These are the main modeling assumptions behind the PETG-CF fan housing modal analysis.
 
 ## Geometry
 
-The original CAD geometry was simplified before meshing. The preparation focused on removing small non-structural faces, reducing short-edge density, and replacing highly detailed arms with cleaner prismatic ribs. This step improved tetrahedral mesh robustness while preserving the main load-bearing architecture of the housing.
+I simplified the original CAD geometry before meshing: small non-structural faces removed, fewer short edges, and the highly detailed arms replaced with plain prismatic ribs. This made the tetrahedral meshing much more reliable while keeping the main load-bearing structure of the housing.
 
-The final V5 orientation places the real base on the `XY` plane and the housing height along `+Z`. This is a rigid transformation and therefore does not alter the computed modal physics.
+The final V5 orientation places the real base on the `XY` plane and the housing height along `+Z`. This is a rigid transformation, so it does not change the computed modes.
 
 ## Mesh
 
@@ -32,7 +32,7 @@ The housing is modeled as equivalent isotropic PETG-CF:
 
 This is an engineering approximation. Real printed PETG-CF is expected to be anisotropic, with stiffness depending on print orientation, wall count, infill, temperature, and layer bonding quality.
 
-## Embedded Masses
+## Embedded masses
 
 The motor and electronic base are not modeled as detailed CAD components. Their masses are represented by increasing the equivalent density in two local mesh regions:
 
@@ -43,11 +43,11 @@ The motor and electronic base are not modeled as detailed CAD components. Their 
 | Electronics base region | 11,616 | 87,162.950 | 0.188312 |
 | Total | 312,777 | 704,189.190 | 1.080446 |
 
-## Boundary Conditions
+## Boundary conditions
 
-The published modal model is free-free. This is appropriate for identifying intrinsic structural modes but does not represent the supported response of a fan resting on a table or gasket. A supported modal model should be used to evaluate the effect of mounting stiffness.
+The published modal model is free-free. That is fine for finding the intrinsic structural modes, but it does not represent a fan resting on a table or gasket. Evaluating the effect of mounting stiffness would need a supported modal model.
 
-## Excitation Lines
+## Excitation lines
 
 For a nominal operating speed of 2000 rpm:
 
@@ -58,6 +58,6 @@ For a nominal operating speed of 2000 rpm:
 | Five-blade passing frequency | 166.667 Hz |
 
 In the June 2026 model (linear tetrahedra) the third elastic mode, at 131.946 Hz, was the closest computed mode to a
-rotational harmonic. Superseded: linear tetrahedra overestimate the first modes by 12 to 20 %; with quadratic
+rotational harmonic. That result is superseded: linear tetrahedra overestimate the first modes by 12 to 20 %; with quadratic
 elements (element-order checked), modes 3, 4 and 5 cross the 3X, 4X and blade-passing lines inside the modulus range 3.8 to 6.0 GPa
 (see `paper/main.pdf`).

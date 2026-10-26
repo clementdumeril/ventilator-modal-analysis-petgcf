@@ -1,0 +1,7 @@
+# Python >= 3.10. Figures were made with matplotlib 3.10.6.
+# External tools: Code_Aster 17.4 (16.9 for the June reference modal run), SALOME 9.13 with NETGEN,
+# pdflatex/bibtex for the report. paper/scripts and paper/build_paper.sh need only numpy and matplotlib.
+numpy
+matplotlib>=3.10
+h5py   # reads .rmed results (shock/ post-processing, export_rmed_to_vtm.py)
+vtk    # export_rmed_to_vtm.py, render_scientific_views.py, compute_robust_metrics.py

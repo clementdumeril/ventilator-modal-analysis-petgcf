@@ -11,7 +11,7 @@ This was an internal study at Polytechnia, the engineering consultancy I co-foun
 
 ## Results
 
-With quadratic elements, the first mode is at 35 to 44 Hz over E = 3.8 to 6 GPa, where 3.8 GPa is the published value for printed PETG with 30 % carbon fiber. At 2000 rpm the rotor lines are at 33.3, 66.7, 100 and 133.3 Hz, with the BPF at 166.7 Hz. Within that modulus range modes 3, 4 and 5 cross the 3X, 4X and BPF lines, so I can't rule out a resonance without measuring the printed part.
+With quadratic elements, the first mode is at 35 to 44 Hz over E = 3.8 to 6 GPa, where 3.8 GPa is the published value for printed PETG with 30 % carbon fiber. At 2000 rpm the rotor lines are at 33.3, 66.7, 100 and 133.3 Hz, with the BPF at 166.7 Hz. Within that modulus range modes 3, 4 and 5 cross the 3X, 4X and BPF lines (at E ≈ 5.0, 4.6 and 4.5 GPa), so I can't rule out a resonance without measuring the printed part.
 
 <p align="center">
   <img src="assets/figures/campbell.png" width="75%"><br>
@@ -35,7 +35,7 @@ The peaks are local (95th percentile below 23 MPa) and sit at junctions where I 
 
 ## Corrections
 
-When I reran the June 2026 study in October 2026, the June frequencies were 12 to 20 % too high (linear elements), the impact runs stopped too early, and one impact case fixed a slice of the housing instead of a contact patch. The numbers above are from the October runs.
+When I reran the June 2026 study in October 2026, the June frequencies of modes 1 to 3 were 12 to 20 % too high (linear elements; June modes 4 and 5 do not match the quadratic ones at all, so those two crossings rest on the quadratic runs only), the impact runs stopped too early, and one impact case fixed a slice of the housing instead of a contact patch. The numbers above are from the October runs.
 
 ## Limitations
 
@@ -45,15 +45,15 @@ When I reran the June 2026 study in October 2026, the June frequencies were 12 t
 
 ## Running it
 
-Requires Code_Aster 17.4 (16.9 for the June reference modal run), SALOME 9.13, Python 3 with numpy, matplotlib and h5py, and LaTeX.
+Requires Code_Aster 17.4 (16.9 for the June reference modal run), SALOME 9.13, Python >= 3.10 (`pip install -r requirements.txt`), and LaTeX.
 
 ```bash
 CARTER_BREP_PATH=cad/fan_housing_meshprep_v5_xy_z.brep salome -t src/mesh/mesh_carter_netgen.py   # mesh
-run_aster src/code_aster/carter_modal_petgcf_composants_v5_socle_xy_z.export                      # modes (edit the paths first)
+run_aster src/code_aster/carter_modal_petgcf_composants_v5_socle_xy_z.export                      # June linear-element reference (Code_Aster 16.9, superseded; edit the paths first)
 bash paper/build_paper.sh                                                                          # figures and report
 ```
 
-Impact runs: [`docs/reproducibility.md`](docs/reproducibility.md). Model assumptions: [`docs/model_assumptions.md`](docs/model_assumptions.md). Meshes and `.rmed` results are not versioned.
+The quadratic modes reported above come from [`data/convergence/pub_quad/case.comm`](data/convergence/pub_quad/case.comm) (Code_Aster 17.4, mesh on UNITE 20). Impact runs: [`docs/reproducibility.md`](docs/reproducibility.md). Model assumptions: [`docs/model_assumptions.md`](docs/model_assumptions.md). Meshes and `.rmed` results are not versioned.
 
 ## Credits
 

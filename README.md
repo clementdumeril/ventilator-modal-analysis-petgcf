@@ -1,63 +1,70 @@
-# Natural frequencies and impact response of a 3D-printed PETG-CF fan housing
+# PETG-CF fan housing: modal and impact analysis
 
-I used Code_Aster to study a desk-fan housing printed in carbon-fiber PETG: free-free modes compared against the rotor harmonics at 2000 rpm, and three damped impact cases followed to 30 ms.
+[Report (PDF)](paper/main.pdf) · [Details](docs/details.md) · [Model assumptions](docs/model_assumptions.md) · [Reproducibility](docs/reproducibility.md) · [Airflow and noise of the same fan](https://github.com/clementdumeril/ducted-fan-aeroacoustics) · [Cite](CITATION.cff)
 
-<p align="center">
-  <img src="assets/animations/mode_001_vibration.gif" width="640"><br>
-  <em>First elastic mode (shape from the June linear-element run; deformation amplified).</em>
-</p>
+![Overview: mesh, Code_Aster modal and impact models, results and checks](docs/figures/overview.png)
 
-This was an internal study at Polytechnia, the engineering consultancy I co-founded in 2026, not a client deliverable. The airflow and noise of the same fan are in [ducted-fan-aeroacoustics](https://github.com/clementdumeril/ducted-fan-aeroacoustics). The full report is [`paper/main.pdf`](paper/main.pdf).
+Code_Aster models of a 3D-printed desk-fan housing. With quadratic tetrahedra, the first free-free mode lies at 35 to 44 Hz over the plausible modulus range (E = 3.8 to 6.0 GPa), and modes 3 to 5 cross rotor lines at 2000 rpm inside that range, so a resonance cannot be ruled out without measuring the part. Three damped impact cases (251 g, 2.5 ms pulse) give local von Mises peaks of 114 to 174 MPa at the arm and stand junctions.
+
+## Method
+
+The FreeCAD model was defeatured and meshed with NETGEN (95,358 nodes, 312,777 tetrahedra), run with linear (TETRA4) and quadratic (TETRA10) elements. PETG-CF is isotropic linear elastic; motor and electronics are estimated masses added as extra density. The modal problem is free-free, solved with `CALC_MODES` in 1 to 1500 Hz; since K is proportional to E, f scales exactly as √E. The impact model fixes a small contact patch and applies a triangular acceleration pulse (about a 0.5 m fall, no rebound), solved with `DYNA_VIBRA` (Newmark, Δt = 0.1 ms, 30 ms, Rayleigh damping ζ = 5 %). Stress is read more than 8 mm from the contact patch. Full formulation and checks: [docs/details.md](docs/details.md).
+
+This was an internal study at Polytechnia, the engineering consultancy I co-founded in 2026. Mine: CAD preparation, meshes, Code_Aster models, verification runs, post-processing and report. Reused: the fan CAD (Polytechnia FreeCAD model), Code_Aster (EDF), SALOME-NETGEN, ParaView.
 
 ## Results
 
-With quadratic elements, the first mode is at 35 to 44 Hz over E = 3.8 to 6 GPa, where 3.8 GPa is the published value for printed PETG with 30 % carbon fiber. At 2000 rpm the rotor lines are at 33.3, 66.7, 100 and 133.3 Hz, with the BPF at 166.7 Hz. Within that modulus range modes 3, 4 and 5 cross the 3X, 4X and BPF lines (at E ≈ 5.0, 4.6 and 4.5 GPa), so I can't rule out a resonance without measuring the printed part.
+| Quantity (TETRA10) | Value | Source |
+|---|---|---|
+| Mode 1, E = 3.8 to 6.0 GPa | 35.0 to 44.0 Hz | `data/convergence/pub_quad/tables.txt` |
+| Rotor-line crossings at 2000 rpm | mode 3 / 3X at 4.97 GPa, mode 4 / 4X at 4.63 GPa, mode 5 / BPF at 4.52 GPa | `paper/scripts/fig_campbell.py` |
+| Impact, lateral −y | 174 MPa at 27.4 ms, upper arm to shroud | `shock/results_extended/time_history_quad_zeta05.csv` |
+| Impact, lateral +y | 114 MPa at 3.0 ms, upper arm to motor hub | same |
+| Impact, oblique on the base edge | 139 MPa at 8.2 ms, stand to shroud | `shock/results_extended/time_history_quad_base_edge_zeta05.csv` |
+| 95th percentile of von Mises, all cases | below 23 MPa | same |
+
+TETRA10 frequencies agree within 1 % on four meshes; the impact peaks are not mesh-converged (+3 to +26 % from TETRA4 to TETRA10). The peaks are local, at junctions where the arms were simplified to plain ribs.
 
 <p align="center">
-  <img src="assets/figures/campbell.png" width="75%"><br>
-  <em>Each band spans a mode for E = 3.8 GPa (bottom) to 6.0 GPa (top).</em>
+  <img src="assets/animations/mode_001_vibration.gif" width="560" alt="First elastic mode of the fan housing"><br>
+  <em>First elastic mode (June linear-element run, deformation amplified).</em>
 </p>
 
-Impact, 0 to 30 ms, quadratic elements, nominal 5 % Rayleigh damping:
+## Install and quick start
 
-| Impact case | Peak von Mises > 8 mm from contact | Time | Location |
-|---|---:|---:|---|
-| Lateral, Y- (shroud touches the floor) | 174 MPa | 27.4 ms | upper arm to shroud |
-| Lateral, Y+ (stand touches the floor) | 114 MPa | 3.0 ms | upper arm to motor hub |
-| Oblique 45°, base edge touches the floor | 139 MPa | 8.2 ms | stand to shroud |
+The paper scripts need only NumPy and Matplotlib and read the committed tables and CSV files (tested on Windows 10, Python 3.11.9). Meshing used SALOME 9.13; solver runs used Code_Aster 16.9 and 17.4.
 
-The peaks are local (95th percentile below 23 MPa) and sit at junctions where I simplified the arms to plain ribs. A linear model does not predict cracking, but these junctions have no margin for a fall this severe.
+```bash
+pip install -r requirements.txt
+python paper/scripts/fig_campbell.py      # mode bands and crossing moduli
+python paper/scripts/fig_convergence.py   # convergence table and Richardson estimate
+python paper/scripts/fig_shock.py         # impact peaks, times, p95
+bash paper/build_paper.sh                 # all figures and tables, then the report
+```
 
-<p align="center">
-  <img src="assets/figures/hotspots.png" width="80%"><br>
-  <em>Fixed nodes per case and the three peak locations.</em>
-</p>
+Meshing and solver commands: [docs/details.md](docs/details.md#all-run-commands) and [docs/reproducibility.md](docs/reproducibility.md).
 
-## Corrections
+## Code structure
 
-When I reran the June 2026 study in October 2026, the June frequencies of modes 1 to 3 were 12 to 20 % too high (linear elements; June modes 4 and 5 do not match the quadratic ones at all, so those two crossings rest on the quadratic runs only), the impact runs stopped too early, and one impact case fixed a slice of the housing instead of a contact patch. The numbers above are from the October runs.
+| Path | Content |
+|---|---|
+| `cad/` | defeatured housing (STEP, BREP) |
+| `src/` | meshing script, June reference modal input, post-processing |
+| `data/convergence/` | October modal runs: input, mesh statistics, frequency table per mesh |
+| `shock/` | June and October impact inputs, solver messages, time histories |
+| `paper/` | report source, figure and table scripts, PDF |
+| `docs/` | details, assumptions, reproducibility, June reports in `docs/archive/` |
 
 ## Limitations
 
-- No material property was measured. The model is isotropic and linear elastic, while a printed part is anisotropic.
-- The modes are free-free, and the impact model has no contact law or rebound (the patch stays clamped).
-- There is no tap test, accelerometer measurement or drop test yet.
+- No material property was measured; a printed part is anisotropic and the component masses are estimates.
+- Free-free modes, with no mounting stiffness.
+- The impact patch stays clamped after the pulse and there is no contact law or rebound, so the late −y peak may be an artifact.
+- The impact peaks are local and not mesh-converged.
+- No tap test, accelerometer measurement or drop test yet. The June 2026 numbers were corrected in October ([details](docs/details.md#corrections)).
 
-## Running it
+## Citation and license
 
-Requires Code_Aster 17.4 (16.9 for the June reference modal run), SALOME 9.13, Python >= 3.10 (`pip install -r requirements.txt`), and LaTeX.
+Cite with [`CITATION.cff`](CITATION.cff) or the report. MIT license, see [LICENSE](LICENSE). The 3.8 GPa modulus is from Prabhakaran et al. 2025, cited in [`paper/references.bib`](paper/references.bib).
 
-```bash
-CARTER_BREP_PATH=cad/fan_housing_meshprep_v5_xy_z.brep salome -t src/mesh/mesh_carter_netgen.py   # mesh
-run_aster src/code_aster/carter_modal_petgcf_composants_v5_socle_xy_z.export                      # June linear-element reference (Code_Aster 16.9, superseded; edit the paths first)
-bash paper/build_paper.sh                                                                          # figures and report
-```
-
-The quadratic modes reported above come from [`data/convergence/pub_quad/case.comm`](data/convergence/pub_quad/case.comm) (Code_Aster 17.4, mesh on UNITE 20). Impact runs: [`docs/reproducibility.md`](docs/reproducibility.md). Model assumptions: [`docs/model_assumptions.md`](docs/model_assumptions.md). Meshes and `.rmed` results are not versioned.
-
-## Credits
-
-- Fan CAD: Polytechnia FreeCAD model. CAD preparation, meshing, Code_Aster models, post-processing and report: Clément Dumeril.
-- Tools: Code_Aster (EDF), SALOME-NETGEN, ParaView, FreeCAD.
-
-[clement.dumeril.net](https://clement.dumeril.net) · [github.com/clementdumeril](https://github.com/clementdumeril) · MIT license
+Clément Dumeril · [clement.dumeril.net](https://clement.dumeril.net)
